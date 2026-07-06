@@ -1,0 +1,21 @@
+---
+pid: 3996
+cwd: "C:\Veridian.Cap\veridian.cap2"
+command: "Set-Location \"C:\\Veridian.Cap\\veridian.cap2\"; pnpm run dev"
+started_at: 2026-06-25T00:14:34.311Z
+running_for_ms: 675011   
+---
+
+> my-v0-project@0.1.0 dev C:\Veridian.Cap\veridian.cap2
+> next dev
+
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://172.16.0.2:3000
+
+ ✓ Starting...
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+ ✓ Ready in 1302ms
+ ○ Compiling / ...
+ GET / 200 in 5.1s (compile: 4.4s, render: 656ms)
+ GET / 200 in 225ms (compile: 7ms, render: 218ms)

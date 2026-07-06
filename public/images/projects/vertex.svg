@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" fill="none">
+  <rect width="800" height="640" fill="#E8E4DE"/>
+  <rect x="64" y="64" width="672" height="512" rx="4" fill="#F0EDE8"/>
+  <rect x="96" y="120" width="180" height="100" rx="2" fill="#4A584E" fill-opacity="0.08" stroke="#4A584E" stroke-opacity="0.1"/>
+  <rect x="96" y="240" width="180" height="100" rx="2" fill="#4A584E" fill-opacity="0.06" stroke="#4A584E" stroke-opacity="0.08"/>
+  <rect x="96" y="360" width="180" height="100" rx="2" fill="#4A584E" fill-opacity="0.1" stroke="#4A584E" stroke-opacity="0.1"/>
+  <rect x="300" y="120" width="404" height="340" rx="2" fill="#4A584E" fill-opacity="0.04" stroke="#4A584E" stroke-opacity="0.1"/>
+  <polyline points="340,400 400,320 460,360 520,280 580,340 640,300" stroke="#4A584E" stroke-opacity="0.25" stroke-width="2" fill="none"/>
+  <circle cx="400" cy="320" r="4" fill="#4A584E" fill-opacity="0.3"/>
+  <circle cx="520" cy="280" r="4" fill="#4A584E" fill-opacity="0.3"/>
+  <circle cx="640" cy="300" r="4" fill="#4A584E" fill-opacity="0.3"/>
+  <rect x="340" y="160" width="120" height="8" rx="2" fill="#4A584E" fill-opacity="0.15"/>
+  <rect x="340" y="188" width="80" height="6" rx="2" fill="#4A584E" fill-opacity="0.1"/>
+</svg>

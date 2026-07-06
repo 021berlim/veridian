@@ -1,0 +1,45 @@
+# Veridian Capital
+
+> A Veridian Capital é uma agência premium que integra marketing digital, desenvolvimento de software, design e consultoria para construir marcas, sistemas e experiências digitais de alto valor.
+
+## Páginas principais
+
+- [Início](https://veridiancapital.com/)
+- [Hero — proposta de valor](https://veridiancapital.com/#hero)
+- [Clientes](https://veridiancapital.com/#clientes)
+- [Capacidades](https://veridiancapital.com/#capacidades)
+- [Processo](https://veridiancapital.com/#processo)
+- [Serviços](https://veridiancapital.com/#servicos)
+- [Trabalhos selecionados](https://veridiancapital.com/#trabalhos)
+- [Depoimentos](https://veridiancapital.com/#depoimentos)
+- [FAQ](https://veridiancapital.com/#faq)
+- [Contato](https://veridiancapital.com/#contato)
+
+## Serviços
+
+- [Marketing Digital](https://veridiancapital.com/#servicos): posicionamento, campanhas, funis e crescimento orientado por dados.
+- [Desenvolvimento de Software](https://veridiancapital.com/#servicos): sistemas web, plataformas, automações e integrações escaláveis.
+- [Design & Experiência](https://veridiancapital.com/#servicos): identidade visual, UI/UX e interfaces sofisticadas.
+- [Consultoria Digital](https://veridiancapital.com/#servicos): análise estratégica e direcionamento para crescimento sustentável.
+
+## Projetos em destaque
+
+- [Projeto Alpha — Software Empresarial](https://veridiancapital.com/#trabalhos)
+- [Projeto Nova — Identidade Digital](https://veridiancapital.com/#trabalhos)
+- [Projeto Vertex — Plataforma SaaS](https://veridiancapital.com/#trabalhos)
+- [Projeto Lumina — Estratégia Digital](https://veridiancapital.com/#trabalhos)
+
+## Contato e presença
+
+- [Formulário de contato](https://veridiancapital.com/#contato)
+- [E-mail](mailto:contato@veridiancapital.com)
+- [Instagram](https://www.instagram.com/veridiancapital)
+- [LinkedIn](https://www.linkedin.com/company/veridian-capital)
+
+## Recursos técnicos
+
+- [Sitemap](https://veridiancapital.com/sitemap.xml)
+- [Robots](https://veridiancapital.com/robots.txt)
+- [Banner oficial](https://veridiancapital.com/images/brand/banner.svg)
+- [Open Graph image](https://veridiancapital.com/og-image.png)
+- [Logo oficial](https://veridiancapital.com/images/brand/logotipo.svg)
