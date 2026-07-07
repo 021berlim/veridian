@@ -7,7 +7,10 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "generate:brand": "node scripts/generate-brand-assets.mjs"
+    "generate:brand": "node scripts/generate-brand-assets.mjs",
+    "setup:whatsapp": "node scripts/setup-evolution-typebot.mjs",
+    "test:vera": "node scripts/test-vera-api.mjs",
+    "sync:vercel-env": "node scripts/sync-vercel-env.mjs"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

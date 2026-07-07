@@ -130,4 +130,34 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
+  .vera-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  .vera-scrollbar::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+  }
+
+  .vera-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .vera-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+  }
+
+  .vera-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  .vera-chat-scroll {
+    overscroll-behavior: contain;
+  }
+
+  body.vera-chat-open {
+    overflow: hidden;
+  }
 }

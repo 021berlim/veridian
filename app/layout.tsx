@@ -2,6 +2,7 @@ import type React from "react"
 import { GFS_Didot, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SmoothScroll } from "@/components/layout/smooth-scroll"
+import { VeraChat } from "@/components/vera/vera-chat"
 import { getPageMetadata } from "@/lib/seo"
 import "./globals.css"
 
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${didot.variable} font-sans antialiased`}>
         <SmoothScroll>
           {children}
+          <VeraChat />
           <Analytics />
         </SmoothScroll>
       </body>
