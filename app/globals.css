@@ -5,6 +5,7 @@
 
 html {
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -157,7 +158,10 @@ body {
     overscroll-behavior: contain;
   }
 
-  body.vera-chat-open {
-    overflow: hidden;
+  .mobile-menu-backdrop {
+    background-color: color-mix(in srgb, var(--background) 50%, transparent);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    transform: translateZ(0);
   }
 }

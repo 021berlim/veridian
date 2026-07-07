@@ -11,6 +11,10 @@ export function registerLenis(instance: Lenis | null) {
   lenisInstance = instance
 }
 
+function ensureLenisRunning() {
+  lenisInstance?.start()
+}
+
 function smoothScrollFallback(target: number) {
   const start = window.scrollY
   const distance = target - start
@@ -35,6 +39,8 @@ export function scrollToSection(targetId: string) {
   const element = document.getElementById(targetId.replace("#", ""))
   if (!element) return
 
+  ensureLenisRunning()
+
   if (lenisInstance) {
     lenisInstance.scrollTo(element, {
       offset: -HEADER_OFFSET,
@@ -49,6 +55,8 @@ export function scrollToSection(targetId: string) {
 }
 
 export function scrollToTop() {
+  ensureLenisRunning()
+
   if (lenisInstance) {
     lenisInstance.scrollTo(0, {
       duration: SCROLL_DURATION,

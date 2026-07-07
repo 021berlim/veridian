@@ -21,8 +21,8 @@ export function Navbar() {
   }, [])
 
   const handleNavClick = (href: string) => {
-    scrollToSection(href)
     setMobileOpen(false)
+    requestAnimationFrame(() => scrollToSection(href))
   }
 
   return (

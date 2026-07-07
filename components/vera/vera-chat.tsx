@@ -81,32 +81,20 @@ export function VeraChat() {
   }, [isOpen, hasGreeted])
 
   useEffect(() => {
-    if (isOpen) {
-      lenis?.stop()
-      document.body.classList.add("vera-chat-open")
+    if (!isOpen) return
+
+    lenis?.stop()
+
+    const frame = window.setTimeout(() => {
       scrollToBottom()
-
-      const frame = requestAnimationFrame(() => {
-        scrollRef.current?.focus({ preventScroll: true })
-        inputRef.current?.focus({ preventScroll: true })
-      })
-
-      return () => {
-        cancelAnimationFrame(frame)
-        lenis?.start()
-        document.body.classList.remove("vera-chat-open")
-      }
-    }
-
-    lenis?.start()
-    document.body.classList.remove("vera-chat-open")
-  }, [isOpen, lenis, scrollToBottom])
-
-  useEffect(() => {
-    if (isOpen && !isLoading) {
       inputRef.current?.focus({ preventScroll: true })
+    }, 280)
+
+    return () => {
+      window.clearTimeout(frame)
+      lenis?.start()
     }
-  }, [isOpen, isLoading])
+  }, [isOpen, lenis, scrollToBottom])
 
   const appendMessage = useCallback((role: ChatMessage["role"], content: string) => {
     setMessages((prev) => [...prev, createMessage(role, content)])
@@ -279,53 +267,18 @@ export function VeraChat() {
   }
 
   return (
-    <>
-      <AnimatePresence>
-        {!isOpen && (
+    <div className="fixed bottom-5 right-5 z-50">
+      <AnimatePresence initial={false}>
+        {isOpen ? (
           <motion.div
-            className="fixed bottom-5 right-5 z-50"
+            key="vera-chat"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <motion.div
-              animate={{ y: [0, -3, 0] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5,
-              }}
-            >
-              <motion.button
-                type="button"
-                whileHover={{
-                  scale: 1.04,
-                  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => setIsOpen(true)}
-                aria-label="Abrir V.E.R.A. — Assistente Veridian"
-                className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-background/75 text-foreground shadow-sm backdrop-blur-xl transition-colors duration-300 hover:border-border hover:bg-background/90"
-              >
-                <span className="font-serif text-base tracking-wide">V</span>
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             onWheel={trapWheelEvent}
             onTouchMove={(event) => event.stopPropagation()}
-            className="fixed bottom-5 right-5 z-50 flex h-[min(560px,calc(100vh-2.5rem))] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/95 shadow-sm backdrop-blur-xl"
+            className="flex h-[min(560px,calc(100vh-2.5rem))] w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm"
             role="dialog"
             aria-label="V.E.R.A. Chat"
             aria-modal="true"
@@ -351,9 +304,8 @@ export function VeraChat() {
 
             <div
               ref={scrollRef}
-              tabIndex={-1}
               onWheel={trapWheelEvent}
-              className="vera-scrollbar vera-chat-scroll flex-1 space-y-3 overflow-y-auto bg-background/50 px-5 py-4 outline-none"
+              className="vera-scrollbar vera-chat-scroll flex-1 space-y-3 overflow-y-auto bg-background/50 px-5 py-4"
             >
               {messages.map((message) => (
                 <div
@@ -424,8 +376,40 @@ export function VeraChat() {
               </p>
             </div>
           </motion.div>
+        ) : (
+          <motion.div
+            key="vera-trigger"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.div
+              animate={{ y: [0, -3, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
+            >
+              <motion.button
+                type="button"
+                whileHover={{
+                  scale: 1.04,
+                  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+                }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setIsOpen(true)}
+                aria-label="Abrir V.E.R.A. — Assistente Veridian"
+                className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-background/75 text-foreground shadow-sm backdrop-blur-xl transition-colors duration-300 hover:border-border hover:bg-background/90"
+              >
+                <span className="font-serif text-base tracking-wide">V</span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   )
 }
