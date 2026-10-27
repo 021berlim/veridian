@@ -13,7 +13,6 @@ export function Hero() {
   const pinSectionRef = useRef<HTMLDivElement>(null)
   const pinTriggerRef = useRef<HTMLDivElement>(null)
   const logoStageRef = useRef<HTMLDivElement>(null)
-  const monogramRef = useRef<HTMLDivElement>(null)
   const logotypeWrapperRef = useRef<HTMLDivElement>(null)
   const heroContentRef = useRef<HTMLDivElement>(null)
   const titleLine1Ref = useRef<HTMLSpanElement>(null)
@@ -30,7 +29,6 @@ export function Hero() {
 
     const pinSection = pinSectionRef.current
     const pinTrigger = pinTriggerRef.current
-    const monogram = monogramRef.current
     const logotypeWrapper = logotypeWrapperRef.current
     const logoStage = logoStageRef.current
     const heroContent = heroContentRef.current
@@ -40,9 +38,8 @@ export function Hero() {
     const ctas = ctasRef.current
     const phoneContainer = phoneContainerRef.current
 
-    if (!monogram || !logotypeWrapper || !logoStage || !heroContent) return
+    if (!logotypeWrapper || !logoStage || !heroContent) return
 
-    // Contexto isolado do GSAP com limpeza garantida
     const ctx = gsap.context(() => {
       // Estado Inicial (sem flash): Conteúdo oculto até 50%
       gsap.set(heroContent, { autoAlpha: 0 })
@@ -50,17 +47,17 @@ export function Hero() {
       gsap.set([subtitle, ctas], { y: 24, autoAlpha: 0 })
       gsap.set(phoneContainer, { y: 60, autoAlpha: 0 })
 
-      // Monograma centralizado inicialmente
-      // O container de logo tem monograma à esquerda e logotipo à direita com gap
-      // No início, o container está centralizado, mas o monograma está deslocado para o centro visual
-      // e o logotipo está totalmente mascarado (clipPath inset)
-      gsap.set(monogram, { xPercent: 55 })
+      // Monograma Z e Logotipo em container flex com gap fixo (nunca se sobrepõem)
+      // Inicialmente, deslocamos o container para a direita para que o Z fique centralizado na tela
+      const isMobile = window.innerWidth < 768
+      const centerOffset = isMobile ? 65 : 85
+
+      gsap.set(logoStage, { x: centerOffset })
       gsap.set(logotypeWrapper, {
         clipPath: "inset(0 100% 0 0)",
         autoAlpha: 0,
       })
 
-      const isMobile = window.innerWidth < 768
       const scrollDistance = isMobile ? window.innerHeight * 2 : window.innerHeight * 3
 
       const tl = gsap.timeline({
@@ -75,23 +72,22 @@ export function Hero() {
         },
       })
 
-      // 0% a 12%: Monograma Z isolado centralizado (pausa)
-      // (progresso 0 a 0.12)
+      // 0% a 12%: Monograma Z centralizado sozinho (pausa inicial)
       tl.to({}, { duration: 0.12 })
 
-      // 12% a 24%: Z desliza para a sua posição natural à esquerda no container
+      // 12% a 24%: Z desliza para a esquerda (recentrando o container completo)
       tl.to(
-        monogram,
+        logoStage,
         {
-          xPercent: 0,
+          x: 0,
           duration: 0.12,
           ease: "power2.inOut",
         },
         0.12,
       )
 
-      // 24% a 35%: SOMENTE após o Z terminar o deslocamento, o logotipo é revelado por máscara
-      // A máscara abre da esquerda para a direita a partir da borda do Z
+      // 24% a 35%: SOMENTE após o Z terminar de deslizar, o logotipo é revelado por máscara
+      // Abertura da esquerda para a direita a partir da borda do Z
       tl.to(
         logotypeWrapper,
         {
@@ -103,12 +99,12 @@ export function Hero() {
         0.24,
       )
 
-      // 35% a 50%: A logo completa sobe até o slot compacto acima do texto
-      // Permanece nenhum texto visível
+      // 35% a 50%: Logo completa sobe até o slot compacto acima do texto
+      // Nenhum texto visível ainda
       tl.to(
         logoStage,
         {
-          yPercent: isMobile ? -140 : -165,
+          yPercent: isMobile ? -145 : -170,
           scale: isMobile ? 0.65 : 0.72,
           duration: 0.15,
           ease: "power3.inOut",
@@ -116,10 +112,9 @@ export function Hero() {
         0.35,
       )
 
-      // 50% a 70%: Com a logo PARADA no slot, revelar título, subtítulo, CTAs e celular
+      // 50% a 70%: Com a logo PARADA no slot, revelar o conteúdo
       tl.set(heroContent, { autoAlpha: 1 }, 0.5)
 
-      // Título linha a linha com máscara
       tl.to(
         [titleLine1, titleLine2],
         {
@@ -132,7 +127,6 @@ export function Hero() {
         0.52,
       )
 
-      // Subtítulo e CTAs
       tl.to(
         subtitle,
         {
@@ -155,7 +149,6 @@ export function Hero() {
         0.6,
       )
 
-      // Celular (stagger translateY)
       tl.to(
         phoneContainer,
         {
@@ -167,7 +160,7 @@ export function Hero() {
         0.62,
       )
 
-      // 70% a 100%: A logo faz transição fluida até a posição da navbar
+      // 70% a 100%: Transição da logo para o header / navbar
       tl.to(
         logoStage,
         {
@@ -184,7 +177,7 @@ export function Hero() {
     }
   }, [reducedMotion])
 
-  // Fallback estático para prefers-reduced-motion ou renderização sem JS
+  // Fallback para prefers-reduced-motion
   if (reducedMotion) {
     return (
       <section
@@ -194,7 +187,7 @@ export function Hero() {
       >
         <Container className="relative z-10 mx-auto max-w-5xl text-center">
           <div className="mb-8 flex justify-center">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <ZuseMonogram className="h-8 w-8" />
               <ZuseLogotype className="h-6 w-auto" />
             </div>
@@ -247,12 +240,13 @@ export function Hero() {
           style={{ top: "45%", transform: "translateY(-50%)" }}
         >
           <div className="flex items-center gap-4">
-            <div ref={monogramRef} className="h-16 w-16 sm:h-20 sm:w-20">
+            <div id="hero-monogram-box" className="h-16 w-16 sm:h-20 sm:w-20 shrink-0">
               <ZuseMonogram className="h-full w-full" />
             </div>
             <div
               ref={logotypeWrapperRef}
-              className="h-10 w-auto overflow-hidden sm:h-12"
+              id="hero-logotype-box"
+              className="h-10 w-auto overflow-hidden sm:h-12 shrink-0"
               style={{ clipPath: "inset(0 100% 0 0)" }}
             >
               <ZuseLogotype className="h-full w-auto" />
@@ -263,7 +257,7 @@ export function Hero() {
         {/* Slot reservado no layout acima do bloco de texto */}
         <div id="hero-logo-slot" className="pointer-events-none absolute top-24 h-12 w-full" />
 
-        {/* CONTEÚDO PRINCIPAL DO HERO (TÍTULO, SUBTÍTULO, CTAS, CELULAR) */}
+        {/* CONTEÚDO PRINCIPAL DO HERO */}
         <Container
           ref={heroContentRef}
           id="hero-content"
