@@ -1,11 +1,11 @@
 {
-  "name": "Veridian Capital",
-  "short_name": "Veridian",
-  "description": "Estratégia, design e tecnologia para marcas de alto valor.",
+  "name": "Zuse Labs",
+  "short_name": "Zuse",
+  "description": "Engenharia de software com precisão cinematográfica. Software sob medida, suporte e segurança de TI e inteligência artificial.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f3ef",
-  "theme_color": "#4a584e",
+  "background_color": "#0b0b0d",
+  "theme_color": "#c72c3b",
   "lang": "pt-BR",
   "icons": [
     {

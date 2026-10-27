@@ -1,56 +1,84 @@
 import Link from "next/link"
-import { Instagram, Linkedin, Mail } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { Logo } from "@/components/layout/logo"
 import { siteConfig } from "@/data/site"
 
-const socialIconMap = {
-  Instagram,
-  LinkedIn: Linkedin,
-  Email: Mail,
-} as const
-
-const socialLinks = [
-  ...siteConfig.socialLinks.map((link) => ({
-    href: link.url,
-    label: link.label,
-    icon: socialIconMap[link.label as keyof typeof socialIconMap],
-  })),
+const footerSections = [
   {
-    href: `mailto:${siteConfig.contact.email}`,
-    label: "Email",
-    icon: Mail,
+    title: "Navegação",
+    links: [
+      { label: "Início", href: "#hero" },
+      { label: "Tecnologias", href: "#tecnologias" },
+      { label: "Capacidades", href: "#capacidades" },
+      { label: "Método", href: "#processo" },
+      { label: "Serviços", href: "#servicos" },
+      { label: "FAQ", href: "#faq" },
+    ],
+  },
+  {
+    title: "Serviços",
+    links: [
+      { label: "Software sob medida", href: "#servicos" },
+      { label: "Suporte e Manutenção", href: "#servicos" },
+      { label: "Cibersegurança", href: "#servicos" },
+      { label: "Inteligência Artificial", href: "#servicos" },
+    ],
+  },
+  {
+    title: "Presença",
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/zuse-labs" },
+      { label: "GitHub", href: "https://github.com/zuselabs" },
+      { label: "Contato", href: "#contato" },
+    ],
   },
 ] as const
 
 export function Footer() {
   return (
-    <footer className="bg-background py-8 md:py-6">
+    <footer className="bg-[#0b0b0d] py-16 text-white sm:py-20">
       <Container>
-        <div className="flex flex-col items-center gap-5 md:flex-row md:items-center md:gap-4">
-          <Link
-            href="/"
-            className="flex shrink-0 justify-center transition-opacity hover:opacity-70 md:w-1/3 md:justify-start"
-          >
-            <Logo />
-          </Link>
+        <div className="grid gap-12 border-b border-[#2b2d31] pb-16 lg:grid-cols-12 lg:gap-16">
+          {/* Coluna Principal da Marca */}
+          <div className="lg:col-span-5">
+            <Link href="/" className="inline-block transition-opacity hover:opacity-80">
+              <Logo />
+            </Link>
+            <p className="mt-6 max-w-sm text-sm font-normal leading-relaxed text-[#8a8f98]">
+              {siteConfig.description}
+            </p>
+          </div>
 
-          <p className="text-center text-xs text-muted-foreground md:w-1/3">
-            Copyright © 2020-2026, Veridian Capital. Todos os direitos reservados.
-          </p>
-
-          <div className="flex items-center justify-center gap-5 md:w-1/3 md:justify-end">
-            {socialLinks.map(({ href, label, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                <Icon className="h-4 w-4" strokeWidth={1.5} />
-              </a>
+          {/* Colunas de Links Textuais Limpos */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+            {footerSections.map((section) => (
+              <div key={section.title}>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                  {section.title}
+                </span>
+                <ul className="mt-4 space-y-3">
+                  {section.links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        className="text-sm font-light text-[#8a8f98] transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
+        </div>
+
+        {/* Linha Inferior com Copyright Limpo */}
+        <div className="flex flex-col items-start justify-between gap-4 pt-8 text-xs font-mono text-[#8a8f98] sm:flex-row sm:items-center">
+          <p>© 2026 Zuse Labs. Todos os direitos reservados.</p>
+          <p className="text-[10px] uppercase tracking-wider text-[#4b5563]">
+            Engenharia de software com precisão cinematográfica
+          </p>
         </div>
       </Container>
     </footer>

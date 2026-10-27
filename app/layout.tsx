@@ -1,21 +1,16 @@
 import type React from "react"
-import { GFS_Didot, Inter } from "next/font/google"
+import { Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SmoothScroll } from "@/components/layout/smooth-scroll"
+import { Preloader } from "@/components/ui/preloader"
 import { VeraChat } from "@/components/vera/vera-chat"
 import { getPageMetadata } from "@/lib/seo"
 import "./globals.css"
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-})
-
-const didot = GFS_Didot({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-didot",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 })
 
@@ -27,8 +22,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.variable} ${didot.variable} font-sans antialiased`}>
+    <html lang="pt-BR" className="dark">
+      <body className={`${spaceGrotesk.variable} font-sans antialiased bg-[#0b0b0d] text-white selection:bg-[#c72c3b] selection:text-white`}>
+        <Preloader />
         <SmoothScroll>
           {children}
           <VeraChat />

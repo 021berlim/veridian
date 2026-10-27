@@ -82,7 +82,7 @@ if (placeholders.length) {
   console.error("\nPreencha com seus dados reais antes de rodar setup:whatsapp:\n")
   console.error("   EVOLUTION_API_URL  → URL onde sua Evolution API está hospedada")
   console.error("   EVOLUTION_API_KEY  → API key gerada no painel da Evolution")
-  console.error("   EVOLUTION_INSTANCE → Nome da instância WhatsApp (ex: veridian)")
+  console.error("   EVOLUTION_INSTANCE → Nome da instância WhatsApp (ex: zuse)")
   console.error("   TYPEBOT_URL        → URL do Typebot (cloud: https://typebot.io)")
   console.error("   TYPEBOT_PUBLIC_ID  → Public ID do fluxo no Typebot\n")
   console.error("Você já tem a Evolution API rodando em algum servidor (VPS, Railway, etc.)?")
@@ -98,7 +98,7 @@ const headers = {
 
 const createPayload = {
   enabled: true,
-  description: "V.E.R.A. - WhatsApp Veridian Capital",
+  description: "V.E.R.A. - WhatsApp Zuse Labs",
   url: env.TYPEBOT_URL.replace(/\/$/, ""),
   typebot: env.TYPEBOT_PUBLIC_ID,
   triggerType: "all",
@@ -158,7 +158,7 @@ async function post(path, body) {
   return data
 }
 
-const siteUrl = env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://veridian-pi.vercel.app"
+const siteUrl = env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://zuselabs.com"
 const whatsappApiUrl = `${siteUrl}/api/vera/whatsapp`
 
 console.log("\n=== Configurando Evolution API ===")

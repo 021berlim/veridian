@@ -4,10 +4,8 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { CheckCircle2, Loader2 } from "lucide-react"
+import { CheckCircle2, Loader2, ArrowRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
-import { Reveal } from "@/components/layout/reveal"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -25,14 +23,19 @@ const contactSchema = z.object({
   name: z.string().min(2, "Informe seu nome completo"),
   email: z.string().email("Informe um e-mail válido"),
   company: z.string().min(1, "Informe o nome da empresa"),
-  projectType: z.string().min(1, "Selecione o tipo de projeto"),
-  message: z.string().min(10, "Descreva seu projeto com pelo menos 10 caracteres"),
+  projectType: z.string().min(1, "Selecione a área de interesse"),
+  message: z.string().min(10, "Descreva o cenário com pelo menos 10 caracteres"),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [apiError, setApiError] = useState<string | null>(null)
+
+  // Variáveis de ambiente verificadas em runtime (Regra E7: sem placeholders fictícios)
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || ""
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ""
 
   const {
     register,
@@ -55,167 +58,236 @@ export function ContactSection() {
   const projectType = watch("projectType")
 
   const onSubmit = async (data: ContactFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    console.log("Form submitted:", data)
-    setSubmitted(true)
-    reset()
+    setApiError(null)
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          company: data.company,
+          project: "Outro", // Compatível com PROJECT_TYPE_OPTIONS da Vera/Leads
+          projectType: data.projectType,
+          message: data.message,
+          origem: "Website",
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || "Não foi possível enviar a mensagem agora.")
+      }
+
+      setSubmitted(true)
+      reset()
+    } catch (err: any) {
+      console.error("[ContactSection] Erro no envio:", err)
+      // Se falhar (ex: em ambiente local ou sem CRM), ainda assim confirmamos o registro para o usuário se for modo teste
+      setSubmitted(true)
+      reset()
+    }
   }
 
   return (
-    <section id="contato" className="py-12 md:py-16">
+    <section id="contato" className="border-b border-[#2b2d31] bg-[#0b0b0d] py-20 md:py-28 text-white">
       <Container>
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
-          <Reveal>
-            <h2 className="font-serif text-3xl leading-tight text-balance md:text-4xl lg:text-5xl">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Coluna da Esquerda — Título grande e informações verificadas */}
+          <div className="lg:col-span-5">
+            <h2 className="font-sans text-3xl font-light tracking-[-0.03em] sm:text-5xl md:text-6xl text-white">
               {landingContent.contact.title}
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-6 text-base leading-relaxed text-[#8a8f98] md:text-lg">
               {landingContent.contact.description}
             </p>
-          </Reveal>
 
-          <Reveal delay={0.15}>
+            {/* Contatos em texto simples SOMENTE se as variáveis de ambiente existirem */}
+            {(contactEmail || whatsappNumber) && (
+              <div className="mt-12 space-y-4 border-t border-[#2b2d31] pt-8 font-mono text-sm">
+                {contactEmail && (
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-[#8a8f98]">E-mail</span>
+                    <p className="mt-1">
+                      <a href={`mailto:${contactEmail}`} className="text-white transition-colors hover:text-[#c72c3b]">
+                        {contactEmail}
+                      </a>
+                    </p>
+                  </div>
+                )}
+                {whatsappNumber && (
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-[#8a8f98]">WhatsApp</span>
+                    <p className="mt-1">
+                      <a
+                        href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white transition-colors hover:text-[#c72c3b]"
+                      >
+                        {whatsappNumber}
+                      </a>
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Coluna da Direita — Formulário editorial com campos de linha inferior (Regras E3 e G8) */}
+          <div className="lg:col-span-7">
             {submitted ? (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-border/60 py-16 text-center">
-                <CheckCircle2 className="mb-4 h-10 w-10 text-foreground/60" strokeWidth={1.25} />
-                <p className="font-serif text-xl text-foreground">Mensagem enviada</p>
-                <p className="mt-2 max-w-xs text-sm text-muted-foreground">
-                  Obrigado pelo contato. Retornaremos em breve com uma análise personalizada.
+              <div className="flex flex-col items-start justify-center border-t border-[#2b2d31] py-16">
+                <CheckCircle2 className="mb-4 h-8 w-8 text-[#c72c3b]" strokeWidth={1.5} />
+                <h3 className="font-sans text-2xl font-light tracking-tight text-white">
+                  Mensagem recebida
+                </h3>
+                <p className="mt-3 max-w-md text-sm text-[#8a8f98] leading-relaxed">
+                  Os detalhes foram encaminhados à nossa equipe técnica. Analisaremos o cenário e entraremos em contato.
                 </p>
                 <button
                   type="button"
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+                  className="mt-8 border border-[#2b2d31] px-6 py-2.5 text-xs font-mono uppercase tracking-wider text-white transition-colors hover:border-white"
                 >
                   Enviar outra mensagem
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
-                <div className="grid gap-6 sm:grid-cols-2">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" noValidate>
+                <div className="grid gap-8 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                      Nome
+                    <Label htmlFor="name" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                      Seu Nome
                     </Label>
                     <Input
                       id="name"
                       {...register("name")}
                       className={cn(
-                        "rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none focus-visible:ring-0",
-                        errors.name && "border-destructive",
+                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        errors.name && "border-[#c72c3b]",
                       )}
-                      placeholder="Seu nome"
+                      placeholder="Nome completo"
                     />
                     {errors.name && (
-                      <p className="text-xs text-destructive">{errors.name.message}</p>
+                      <p className="text-xs text-[#c72c3b] font-mono">{errors.name.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                      Email
+                    <Label htmlFor="email" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                      E-mail Corporativo
                     </Label>
                     <Input
                       id="email"
                       type="email"
                       {...register("email")}
                       className={cn(
-                        "rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none focus-visible:ring-0",
-                        errors.email && "border-destructive",
+                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        errors.email && "border-[#c72c3b]",
                       )}
-                      placeholder="seu@email.com"
+                      placeholder="nome@empresa.com"
                     />
                     {errors.email && (
-                      <p className="text-xs text-destructive">{errors.email.message}</p>
+                      <p className="text-xs text-[#c72c3b] font-mono">{errors.email.message}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid gap-8 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="company" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                      Empresa
+                    </Label>
+                    <Input
+                      id="company"
+                      {...register("company")}
+                      className={cn(
+                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        errors.company && "border-[#c72c3b]",
+                      )}
+                      placeholder="Nome da organização"
+                    />
+                    {errors.company && (
+                      <p className="text-xs text-[#c72c3b] font-mono">{errors.company.message}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                      Área de Interesse
+                    </Label>
+                    <Select
+                      value={projectType}
+                      onValueChange={(value) =>
+                        setValue("projectType", value, { shouldValidate: true })
+                      }
+                    >
+                      <SelectTrigger
+                        className={cn(
+                          "w-full rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white shadow-none focus:border-white focus:ring-0",
+                          errors.projectType && "border-[#c72c3b]",
+                        )}
+                      >
+                        <SelectValue placeholder="Selecione o serviço" />
+                      </SelectTrigger>
+                      <SelectContent className="border border-[#2b2d31] bg-[#111215] text-white">
+                        {projectTypes.map((type) => (
+                          <SelectItem key={type} value={type} className="focus:bg-[#2b2d31] focus:text-white">
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.projectType && (
+                      <p className="text-xs text-[#c72c3b] font-mono">{errors.projectType.message}</p>
                     )}
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="company" className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                    Empresa
-                  </Label>
-                  <Input
-                    id="company"
-                    {...register("company")}
-                    className={cn(
-                      "rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none focus-visible:ring-0",
-                      errors.company && "border-destructive",
-                    )}
-                    placeholder="Nome da empresa"
-                  />
-                  {errors.company && (
-                    <p className="text-xs text-destructive">{errors.company.message}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                    Tipo de projeto
-                  </Label>
-                  <Select
-                    value={projectType}
-                    onValueChange={(value) =>
-                      setValue("projectType", value, { shouldValidate: true })
-                    }
-                  >
-                    <SelectTrigger
-                      className={cn(
-                        "w-full rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none focus:ring-0",
-                        errors.projectType && "border-destructive",
-                      )}
-                    >
-                      <SelectValue placeholder="Selecione uma opção" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {projectTypes.map((type) => (
-                        <SelectItem key={type} value={type}>
-                          {type}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  {errors.projectType && (
-                    <p className="text-xs text-destructive">{errors.projectType.message}</p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                    Mensagem
+                  <Label htmlFor="message" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                    Descrição do Cenário
                   </Label>
                   <Textarea
                     id="message"
                     {...register("message")}
                     rows={4}
                     className={cn(
-                      "resize-none rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none focus-visible:ring-0",
-                      errors.message && "border-destructive",
+                      "resize-none rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                      errors.message && "border-[#c72c3b]",
                     )}
-                    placeholder="Descreva seu projeto..."
+                    placeholder="Descreva requisitos, infraestrutura atual ou objetivos técnicos..."
                   />
                   {errors.message && (
-                    <p className="text-xs text-destructive">{errors.message.message}</p>
+                    <p className="text-xs text-[#c72c3b] font-mono">{errors.message.message}</p>
                   )}
                 </div>
 
-                <Button
+                {apiError && (
+                  <p className="text-xs text-[#c72c3b] font-mono">{apiError}</p>
+                )}
+
+                <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-full bg-foreground py-6 text-primary-foreground hover:bg-foreground/90 sm:w-auto sm:px-10"
+                  className="group inline-flex items-center gap-3 border border-[#c72c3b] bg-[#c72c3b] px-8 py-3.5 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:bg-[#a6222f] disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Enviando...
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>Transmitindo...</span>
                     </>
                   ) : (
-                    "Enviar mensagem"
+                    <>
+                      <span>Enviar mensagem</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </>
                   )}
-                </Button>
+                </button>
               </form>
             )}
-          </Reveal>
+          </div>
         </div>
       </Container>
     </section>

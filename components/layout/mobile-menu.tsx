@@ -57,7 +57,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="font-serif text-[1.65rem] leading-none text-foreground transition-opacity hover:opacity-70"
+          className="text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -73,7 +73,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="justify-self-center font-serif text-[1.65rem] leading-none text-foreground transition-opacity hover:opacity-70"
+          className="justify-self-center text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -83,7 +83,7 @@ function MobileNavItem({
           aria-expanded={expanded}
           aria-label={`${expanded ? "Recolher" : "Expandir"} ${item.label}`}
           onClick={onToggle}
-          className="justify-self-end flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border/70 text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
+          className="justify-self-end flex h-8 w-8 shrink-0 items-center justify-center border border-[#2b2d31] text-muted-foreground transition-colors hover:text-white"
         >
           <ChevronDown
             className={cn("h-4 w-4 transition-transform duration-300", expanded && "rotate-180")}
@@ -100,13 +100,13 @@ function MobileNavItem({
             transition={{ duration: 0.22, ease: menuEase }}
             className="w-full overflow-hidden"
           >
-            <div className="mt-3 w-full rounded-xl border border-border/50 bg-secondary/50 px-4 py-3">
+            <div className="mt-3 w-full border-t border-[#2b2d31] pt-2">
               {item.items.map((subItem) => (
                 <button
                   key={subItem.href}
                   type="button"
                   onClick={() => onNavigate(subItem.href)}
-                  className="flex w-full items-center justify-center gap-2 border-t border-border/40 py-2.5 text-sm text-muted-foreground transition-colors first:border-t-0 hover:text-foreground"
+                  className="flex w-full items-center justify-center gap-2 py-2.5 text-sm tracking-wide text-muted-foreground transition-colors hover:text-white"
                 >
                   {subItem.label}
                   <ArrowRight className="h-3.5 w-3.5 opacity-40" strokeWidth={1.5} />
@@ -160,23 +160,17 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
           aria-label="Menu de navegação"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18, ease: menuEase }}
-          className="fixed inset-0 z-[100] md:hidden"
+          className="fixed inset-0 z-[100] bg-[#0b0b0d] md:hidden"
         >
-          <div className="mobile-menu-backdrop absolute inset-0" aria-hidden="true" />
-
           <div className="relative z-10 flex h-full flex-col px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))]">
-            <motion.button
+            <button
               type="button"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.22, ease: menuEase }}
               onClick={() => onOpenChange(false)}
               aria-label="Fechar menu"
-              className="absolute top-[max(1.25rem,env(safe-area-inset-top))] right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-border/80 text-foreground transition-colors hover:bg-accent/60"
+              className="absolute top-[max(1.25rem,env(safe-area-inset-top))] right-6 z-10 flex h-10 w-10 items-center justify-center border border-[#2b2d31] text-white transition-colors hover:border-white"
             >
               <X className="h-5 w-5" strokeWidth={1.25} />
-            </motion.button>
+            </button>
 
             <div className="flex min-h-0 flex-1 items-center justify-center">
               <motion.div
@@ -193,7 +187,7 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
                   className="mb-10 py-1"
                   aria-label="Voltar ao início"
                 >
-                  <Logo className="text-[18px] tracking-[0.24em] [&>span:last-child]:mt-1.5 [&>span:last-child]:text-[14px] [&>span:last-child]:tracking-[0.2em]" />
+                  <Logo />
                 </motion.button>
 
                 <motion.nav
@@ -237,15 +231,10 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
               <button
                 type="button"
                 onClick={() => onNavigate("#contato")}
-                className="group relative flex w-full max-w-xs items-center gap-0 overflow-hidden rounded-full border border-border py-1.5 pr-1.5 pl-6 transition-all duration-300"
+                className="flex w-full max-w-xs items-center justify-center gap-2 border border-[#2b2d31] bg-[#c72c3b] py-3 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:bg-[#a6222f]"
               >
-                <span className="absolute inset-0 origin-right scale-x-0 rounded-full bg-foreground transition-transform duration-300 group-hover:scale-x-100" />
-                <span className="relative z-10 flex-1 pr-3 text-left text-sm transition-colors duration-300 group-hover:text-primary-foreground">
-                  Iniciar projeto
-                </span>
-                <span className="relative z-10 flex h-9 w-9 items-center justify-center">
-                  <ArrowRight className="h-4 w-4 text-foreground transition-colors duration-300 group-hover:text-primary-foreground" />
-                </span>
+                <span>Iniciar conversa</span>
+                <ArrowRight className="h-4 w-4" />
               </button>
             </motion.div>
           </div>

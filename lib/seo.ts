@@ -7,7 +7,7 @@ const defaultOgImage = {
   url: "/og-image.png",
   width: 1200,
   height: 630,
-  alt: "Banner Veridian Capital — estratégia, design e tecnologia para marcas de alto valor",
+  alt: "Banner Zuse Labs — Engenharia de software com precisão cinematográfica",
 }
 
 export function getPageMetadata(page: PageKey = "home"): Metadata {
@@ -69,21 +69,20 @@ export function getOrganizationSchema() {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/images/brand/logotipo.svg`,
-    image: `${siteConfig.url}/images/brand/banner.svg`,
+    logo: `${siteConfig.url}/LOGOS-ZUSELABS/zuse-logotipo-negativo.svg`,
     description: siteConfig.description,
-    email: siteConfig.contact.email,
+    ...(siteConfig.contact.email ? { email: siteConfig.contact.email } : {}),
     sameAs: siteConfig.socialLinks.map((link) => link.url),
     areaServed: {
       "@type": "Country",
       name: "Brasil",
     },
     knowsAbout: [
-      "Marketing digital",
-      "Desenvolvimento de software",
-      "Design de experiência",
-      "Consultoria digital",
-      "Branding premium",
+      "Desenvolvimento de software sob medida",
+      "Sistemas empresariais",
+      "Suporte e manutenção de TI",
+      "Cibersegurança",
+      "Automação e Inteligência Artificial",
     ],
   }
 }

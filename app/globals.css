@@ -4,57 +4,61 @@
 @custom-variant dark (&:is(.dark *));
 
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
   scrollbar-gutter: stable;
+  background-color: #0b0b0d;
+  color: #ffffff;
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
+  background-color: #0b0b0d;
+  color: #ffffff;
 }
 
 :root {
-  --background: #f5f3ef;
-  --foreground: #4a584e;
-  --card: #faf9f7;
-  --card-foreground: #4a584e;
-  --popover: #faf9f7;
-  --popover-foreground: #4a584e;
-  --primary: #4a584e;
-  --primary-foreground: #f5f3ef;
-  --secondary: #ebe8e2;
-  --secondary-foreground: #4a584e;
-  --muted: #e8e5df;
-  --muted-foreground: #6b7a6e;
-  --accent: #e5e2dc;
-  --accent-foreground: #4a584e;
-  --destructive: #b44a4a;
-  --destructive-foreground: #f5f3ef;
-  --border: #d8d4cc;
-  --input: #d8d4cc;
-  --ring: #4a584e;
-  --chart-1: #4a584e;
-  --chart-2: #6b7a6e;
-  --chart-3: #8a9a8e;
-  --chart-4: #3d4a42;
-  --chart-5: #5c6b60;
-  --radius: 0.75rem;
-  --sidebar: #faf9f7;
-  --sidebar-foreground: #4a584e;
-  --sidebar-primary: #4a584e;
-  --sidebar-primary-foreground: #f5f3ef;
-  --sidebar-accent: #ebe8e2;
-  --sidebar-accent-foreground: #4a584e;
-  --sidebar-border: #d8d4cc;
-  --sidebar-ring: #4a584e;
+  --background: #0b0b0d;
+  --foreground: #ffffff;
+  --card: #111215;
+  --card-foreground: #ffffff;
+  --popover: #111215;
+  --popover-foreground: #ffffff;
+  --primary: #c72c3b;
+  --primary-foreground: #ffffff;
+  --secondary: #2b2d31;
+  --secondary-foreground: #ffffff;
+  --muted: #1c1d21;
+  --muted-foreground: #9ca3af;
+  --accent: #2b2d31;
+  --accent-foreground: #ffffff;
+  --destructive: #c72c3b;
+  --destructive-foreground: #ffffff;
+  --border: #2b2d31;
+  --input: #2b2d31;
+  --ring: #c72c3b;
+  --chart-1: #c72c3b;
+  --chart-2: #2b2d31;
+  --chart-3: #ffffff;
+  --chart-4: #4b5563;
+  --chart-5: #9ca3af;
+  --radius: 0rem;
+  --sidebar: #111215;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #c72c3b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2b2d31;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #2b2d31;
+  --sidebar-ring: #c72c3b;
   --scrollbar-size: 6px;
-  --scrollbar-thumb: #8a9a8e80;
-  --scrollbar-thumb-hover: #4a584ebf;
+  --scrollbar-thumb: #2b2d31;
+  --scrollbar-thumb-hover: #c72c3b;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
-  --font-serif: var(--font-didot), "GFS Didot", Georgia, serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-serif: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-mono: monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -79,10 +83,10 @@ body {
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: var(--radius);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -158,10 +162,15 @@ body {
     overscroll-behavior: contain;
   }
 
+  /* Vera só surge após conclusão do preloader (Regras V1 e G5) */
+  html:not([data-preloader-done="true"]) .fixed.bottom-5.right-5 {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
   .mobile-menu-backdrop {
-    background-color: color-mix(in srgb, var(--background) 50%, transparent);
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
+    background-color: #0b0b0df2;
     transform: translateZ(0);
   }
 }

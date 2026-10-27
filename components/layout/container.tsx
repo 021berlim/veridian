@@ -1,11 +1,20 @@
+import React from "react"
 import { cn } from "@/lib/utils"
 
-interface ContainerProps {
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   className?: string
   as?: "div" | "section"
 }
 
-export function Container({ children, className, as: Tag = "div" }: ContainerProps) {
-  return <Tag className={cn("mx-auto w-full max-w-7xl px-6", className)}>{children}</Tag>
-}
+export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
+  ({ children, className, as: Tag = "div", ...props }, ref) => {
+    return (
+      <Tag ref={ref} className={cn("mx-auto w-full max-w-7xl px-6", className)} {...props}>
+        {children}
+      </Tag>
+    )
+  },
+)
+
+Container.displayName = "Container"

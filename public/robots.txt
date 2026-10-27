@@ -1,4 +1,4 @@
-# Veridian Capital — https://veridiancapital.com
+# Zuse Labs — https://zuselabs.com
 User-agent: *
 Allow: /
 
@@ -30,5 +30,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://veridiancapital.com/sitemap.xml
-Host: veridiancapital.com
+Sitemap: https://zuselabs.com/sitemap.xml
+Host: zuselabs.com

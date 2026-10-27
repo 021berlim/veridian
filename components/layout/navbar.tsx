@@ -14,7 +14,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20)
+    const onScroll = () => setIsScrolled(window.scrollY > 30)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
@@ -27,54 +27,50 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 right-0 left-0 z-50 px-4 pt-4 sm:px-6">
-        <div
-          className={cn(
-            "mx-auto max-w-7xl rounded-2xl border px-8 py-4 transition-all duration-300 sm:px-10 sm:py-5",
-            isScrolled
-              ? "border-border/80 bg-background/75 shadow-sm backdrop-blur-xl"
-              : "border-transparent bg-transparent",
-          )}
-        >
-          <div className="flex items-center justify-between gap-4">
+      <header
+        className={cn(
+          "fixed top-0 right-0 left-0 z-40 w-full transition-colors duration-300",
+          isScrolled
+            ? "border-b border-[#2b2d31] bg-[#0b0b0d]"
+            : "border-b border-transparent bg-transparent",
+        )}
+      >
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+          <div id="navbar-logo-slot" className="flex shrink-0 items-center">
             <button
               type="button"
               onClick={scrollToTop}
-              className="group flex shrink-0 items-center py-0.5 pl-0.5 pr-2 sm:pr-3"
+              className="flex items-center text-left transition-opacity hover:opacity-80"
+              aria-label="Voltar ao início"
             >
               <Logo />
             </button>
+          </div>
 
-            <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 md:flex lg:gap-8">
-              {navItems.map((item) => (
-                <NavLink key={item.href} item={item} onNavigate={handleNavClick} />
-              ))}
-            </nav>
+          <nav className="hidden items-center gap-8 md:flex">
+            {navItems.map((item) => (
+              <NavLink key={item.href} item={item} onNavigate={handleNavClick} />
+            ))}
+          </nav>
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => handleNavClick("#contato")}
-                className="group relative hidden items-center gap-0 overflow-hidden rounded-full border border-border py-1 pr-1 pl-5 transition-all duration-300 md:flex"
-              >
-                <span className="absolute inset-0 origin-right scale-x-0 rounded-full bg-foreground transition-transform duration-300 group-hover:scale-x-100" />
-                <span className="relative z-10 pr-3 text-sm transition-colors duration-300 group-hover:text-primary-foreground">
-                  Iniciar projeto
-                </span>
-                <span className="relative z-10 flex h-8 w-8 items-center justify-center">
-                  <ArrowRight className="h-4 w-4 text-foreground transition-colors duration-300 group-hover:text-primary-foreground" />
-                </span>
-              </button>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => handleNavClick("#contato")}
+              className="group hidden items-center gap-2 border border-[#2b2d31] bg-transparent px-5 py-2.5 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:border-[#c72c3b] hover:bg-[#c72c3b] md:inline-flex"
+            >
+              <span>Iniciar conversa</span>
+              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </button>
 
-              <button
-                type="button"
-                onClick={() => setMobileOpen(true)}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-accent md:hidden"
-                aria-label="Abrir menu"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="flex h-10 w-10 items-center justify-center border border-[#2b2d31] text-white transition-colors hover:border-white md:hidden"
+              aria-label="Abrir menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </header>

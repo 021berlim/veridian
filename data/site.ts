@@ -1,57 +1,74 @@
+export const siteFlags = {
+  showWork: false,
+  showTestimonials: false,
+} as const
+
 export const siteConfig = {
-  name: "Veridian Capital",
-  tagline: "Estratégia, design e tecnologia para marcas de alto valor.",
+  name: "Zuse Labs",
+  tagline: "Engenharia de software com precisão cinematográfica.",
   description:
-    "Agência premium de marketing digital, desenvolvimento de software, design e consultoria para marcas que buscam presença digital sofisticada e crescimento sustentável.",
-  url: "https://veridiancapital.com",
+    "Software sob medida, suporte e segurança de TI e inteligência artificial para empresas que exigem excelência técnica e confiabilidade operacional.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://zuselabs.com",
   contact: {
-    email: "contato@veridiancapital.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
+    whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
   },
   socialLinks: [
     {
-      label: "Instagram",
-      url: "https://www.instagram.com/veridiancapital",
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/company/zuse-labs",
     },
     {
-      label: "LinkedIn",
-      url: "https://www.linkedin.com/company/veridian-capital",
+      label: "GitHub",
+      url: "https://github.com/zuselabs",
     },
   ],
   pages: {
     home: {
-      title: "Veridian Capital | Marcas, Sistemas e Experiências Digitais",
+      title: "Zuse Labs | Engenharia de Software, TI e Inteligência Artificial",
       description:
-        "Construímos marcas, sistemas e experiências digitais de alto valor com marketing, software, design e consultoria integrados para empresas que exigem excelência.",
+        "Software sob medida, suporte e segurança de TI e inteligência artificial para empresas. Engenharia com rigor e sofisticação.",
     },
   },
 } as const
 
 export const landingContent = {
   hero: {
-    headline: "Construindo marcas, sistemas e experiências digitais de alto valor.",
+    headline: "Engenharia de software com precisão cinematográfica.",
+    subtitle:
+      "Software sob medida, suporte e segurança de TI e inteligência artificial para empresas.",
+    primaryCta: "Iniciar conversa",
+    secondaryCta: "Conhecer serviços",
   },
   capabilities: {
-    title: "Tudo que sua marca precisa para crescer com consistência.",
+    title: "Engenharia pensada para estabilidade, escala e longevidade.",
+    description:
+      "Combinamos visão arquitetural sólida e execução refinada para construir sistemas confiáveis.",
   },
   process: {
-    title: "Projetos digitais pensados para escala, clareza e resultado.",
+    title: "Método de engenharia transparente e orientado a resultados.",
+    subtitle:
+      "Da concepção técnica à sustentação em produção, cada etapa é executada com critério e transparência.",
   },
   services: {
     title: "Serviços",
+    subtitle: "Atuação especializada nas camadas críticas da tecnologia empresarial.",
   },
   portfolio: {
-    title: "Trabalhos selecionados",
-    subtitle: "Estética, tecnologia e estratégia em cada entrega.",
+    title: "Projetos e Sistemas",
+    subtitle: "Arquitetura e desenvolvimento para operações contemporâneas.",
   },
   testimonials: {
-    title: "O que dizem sobre a Veridian",
+    title: "Relatos de Engenharia",
   },
   faq: {
-    title: "Perguntas frequentes",
+    title: "Perguntas Frequentes",
+    subtitle: "Esclarecimentos diretos sobre nossa atuação e formato de trabalho.",
   },
   contact: {
-    title: "Vamos construir algo de alto valor?",
-    description: "Conte sobre seu projeto. Retornamos com uma análise personalizada.",
+    title: "Vamos projetar o próximo capítulo da sua tecnologia?",
+    description:
+      "Envie os detalhes do seu projeto ou infraestrutura. Nosso time de engenharia analisará o cenário com atenção técnica.",
   },
 } as const
 
@@ -71,7 +88,7 @@ export const navItems: readonly NavItem[] = [
     label: "Sobre",
     href: "#capacidades",
     items: [
-      { label: "Clientes", href: "#clientes" },
+      { label: "Tecnologias", href: "#tecnologias" },
       { label: "Capacidades", href: "#capacidades" },
     ],
   },
@@ -79,20 +96,10 @@ export const navItems: readonly NavItem[] = [
     type: "group",
     label: "Serviços",
     href: "#servicos",
-    items: [{ label: "Processo", href: "#processo" }],
+    items: [{ label: "Método", href: "#processo" }],
   },
-  {
-    type: "group",
-    label: "Trabalhos",
-    href: "#trabalhos",
-    items: [{ label: "Depoimentos", href: "#depoimentos" }],
-  },
-  {
-    type: "group",
-    label: "Contato",
-    href: "#contato",
-    items: [{ label: "FAQ", href: "#faq" }],
-  },
+  { type: "link", label: "FAQ", href: "#faq" },
+  { type: "link", label: "Contato", href: "#contato" },
 ]
 
 export const navLinks: readonly NavLink[] = navItems.flatMap((item) =>
@@ -101,186 +108,131 @@ export const navLinks: readonly NavLink[] = navItems.flatMap((item) =>
     : [{ label: item.label, href: item.href }, ...item.items],
 )
 
+export const techStack = [
+  { name: "Next.js", category: "Frontend" },
+  { name: "React", category: "Frontend" },
+  { name: "TypeScript", category: "Language" },
+  { name: "Node.js", category: "Backend" },
+  { name: "Python", category: "Data & AI" },
+  { name: "PostgreSQL", category: "Database" },
+  { name: "Docker", category: "DevOps" },
+  { name: "Amazon Web Services", category: "Cloud" },
+  { name: "Tailwind CSS", category: "Styling" },
+  { name: "Redis", category: "Cache" },
+  { name: "GraphQL", category: "API" },
+  { name: "Go", category: "Backend" },
+] as const
+
 export const clientLogos = [
-  { slug: "grupo-atlas", name: "Grupo Atlas", src: "/images/clients/grupo-atlas.svg" },
-  { slug: "nexus-labs", name: "Nexus Labs", src: "/images/clients/nexus-labs.svg" },
-  { slug: "elan-studio", name: "Élan Studio", src: "/images/clients/elan-studio.svg" },
-  { slug: "vertex-capital", name: "Vertex Capital", src: "/images/clients/vertex-capital.svg" },
-  { slug: "lumina-group", name: "Lumina Group", src: "/images/clients/lumina-group.svg" },
-  { slug: "meridian-co", name: "Meridian & Co", src: "/images/clients/meridian-co.svg" },
-  { slug: "forma-digital", name: "Forma Digital", src: "/images/clients/forma-digital.svg" },
-  { slug: "orbita-tech", name: "Órbita Tech", src: "/images/clients/orbita-tech.svg" },
+  { slug: "grupo-atlas", name: "Next.js", src: "/images/clients/grupo-atlas.svg" },
+  { slug: "nexus-labs", name: "React", src: "/images/clients/nexus-labs.svg" },
+  { slug: "elan-studio", name: "TypeScript", src: "/images/clients/elan-studio.svg" },
+  { slug: "vertex-capital", name: "Python", src: "/images/clients/vertex-capital.svg" },
+  { slug: "lumina-group", name: "Node.js", src: "/images/clients/lumina-group.svg" },
+  { slug: "meridian-co", name: "PostgreSQL", src: "/images/clients/meridian-co.svg" },
+  { slug: "forma-digital", name: "Docker", src: "/images/clients/forma-digital.svg" },
+  { slug: "orbita-tech", name: "AWS", src: "/images/clients/orbita-tech.svg" },
 ] as const
 
 export const processFeatures = [
-  "Estratégia antes da execução",
-  "Interfaces sofisticadas",
-  "Desenvolvimento escalável",
-  "Performance e mensuração",
-  "Automação de processos",
-  "Experiência premium",
+  "Diagnóstico e arquitetura antes de qualquer linha de código",
+  "Design system e interfaces com foco em usabilidade e precisão",
+  "Engenharia orientada a testes e código sustentável",
+  "Observabilidade, segurança e métricas reais em produção",
+  "Automação contínua de deploys e pipelines confiáveis",
+  "Documentação técnica clara para autonomia da equipe",
 ] as const
 
 export const services = [
   {
     number: "01",
-    icon: "Target",
-    title: "Marketing Digital",
-    summary: "Posicionamento, campanhas, funis e crescimento.",
+    icon: "Code2",
+    title: "Desenvolvimento de Software sob medida",
+    summary: "Sistemas web de alto desempenho e plataformas escaláveis.",
     description:
-      "Estratégias digitais, posicionamento de marca, campanhas online, funis de venda e crescimento orientado por dados.",
+      "Arquiteturas modernas projetadas com foco em longevidade técnica, interfaces responsivas e código sustentável para o ciclo de vida da empresa.",
     capability: true,
   },
   {
     number: "02",
-    icon: "Code2",
-    title: "Desenvolvimento de Software",
-    summary: "Sistemas web, plataformas digitais, automações e integrações.",
+    icon: "Cpu",
+    title: "Suporte e Manutenção de TI",
+    summary: "Monitoramento ativo, sustentação e resolução ágil.",
     description:
-      "Sistemas personalizados, aplicações web, plataformas digitais, automações, integrações e produtos digitais escaláveis.",
+      "Acompanhamento preventivo de servidores, resolução técnica de incidentes e sustentação contínua da infraestrutura para operações sem atrito.",
     capability: true,
   },
   {
     number: "03",
-    icon: "Palette",
-    title: "Design & Experiência",
-    summary: "Identidade visual, UI/UX e interfaces sofisticadas.",
+    icon: "ShieldCheck",
+    title: "Cibersegurança",
+    summary: "Proteção ativa de dados, auditorias e blindagem operacional.",
     description:
-      "Identidade visual, UI/UX, interfaces digitais e experiências sofisticadas para marcas de alto valor.",
+      "Diagnósticos de segurança, implementação de políticas de proteção da informação e defesa em camadas para proteger os ativos críticos da organização.",
     capability: true,
   },
   {
     number: "04",
-    icon: "LineChart",
-    title: "Consultoria Digital",
-    summary: "Análise estratégica e direcionamento para crescimento sustentável.",
+    icon: "Sparkles",
+    title: "Automação e Inteligência Artificial",
+    summary: "Agentes inteligentes e fluxos automatizados de processos.",
     description:
-      "Análise estratégica, melhoria de processos, presença digital e direcionamento para crescimento sustentável.",
-    capability: false,
+      "Integração de modelos de linguagem e automações inteligentes orientadas aos processos internos para reduzir retrabalho e ampliar produtividade.",
+    capability: true,
   },
 ] as const
 
-export const capabilities = services.filter((service) => service.capability)
-
-export const projects = [
-  {
-    slug: "alpha",
-    label: "Software Empresarial",
-    title: "Projeto Alpha",
-    description:
-      "Sistema empresarial desenvolvido para otimização de processos, automação e clareza operacional em escala.",
-    category: "Software",
-    tags: ["Automação", "Dashboard", "API", "Escalável"],
-    image: "/images/projects/alpha.svg",
-    imageAlt: "Interface do Projeto Alpha — sistema empresarial",
-  },
-  {
-    slug: "nova",
-    label: "Identidade Digital",
-    title: "Projeto Nova",
-    description:
-      "Identidade digital e plataforma web criadas para posicionamento premium e presença online sofisticada.",
-    category: "Branding",
-    tags: ["Branding", "UI/UX", "Web", "Posicionamento"],
-    image: "/images/projects/nova.svg",
-    imageAlt: "Interface do Projeto Nova — identidade digital",
-  },
-  {
-    slug: "vertex",
-    label: "Plataforma SaaS",
-    title: "Projeto Vertex",
-    description:
-      "Solução SaaS personalizada com foco em escala, performance e experiência do usuário de alto padrão.",
-    category: "SaaS",
-    tags: ["SaaS", "Cloud", "Performance", "Integrações"],
-    image: "/images/projects/vertex.svg",
-    imageAlt: "Interface do Projeto Vertex — plataforma SaaS",
-  },
-  {
-    slug: "lumina",
-    label: "Estratégia Digital",
-    title: "Projeto Lumina",
-    description:
-      "Estratégia digital e presença online para marca de alto valor, unindo campanhas, funis e mensuração.",
-    category: "Marketing",
-    tags: ["Campanhas", "Funis", "Analytics", "Crescimento"],
-    image: "/images/projects/lumina.svg",
-    imageAlt: "Interface do Projeto Lumina — estratégia digital",
-  },
-] as const
-
-export const testimonialsRow1 = [
-  {
-    quote:
-      "A Veridian traduziu nossa visão em uma presença digital muito mais sofisticada e estratégica.",
-    author: "Carolina Mendes",
-    role: "Diretora de Marca",
-    initials: "CM",
-  },
-  {
-    quote:
-      "O projeto elevou a percepção da nossa marca e trouxe clareza para nossa comunicação.",
-    author: "Rafael Torres",
-    role: "CEO, Grupo Atlas",
-    initials: "RT",
-  },
-  {
-    quote:
-      "Uniram design, tecnologia e estratégia com um nível de cuidado difícil de encontrar.",
-    author: "Isabela Costa",
-    role: "Head de Operações",
-    initials: "IC",
-  },
-] as const
-
-export const testimonialsRow2 = [
-  {
-    quote:
-      "A entrega do sistema superou expectativas — escalável, elegante e alinhado ao nosso posicionamento.",
-    author: "Lucas Ferreira",
-    role: "CTO, Nexus Labs",
-    initials: "LF",
-  },
-  {
-    quote:
-      "Finalmente uma agência que pensa estratégia antes de executar. O resultado foi imediato.",
-    author: "Marina Alves",
-    role: "Fundadora, Élan Studio",
-    initials: "MA",
-  },
-  {
-    quote:
-      "Profissionalismo, estética refinada e tecnologia de ponta. Parceria que recomendo sem hesitar.",
-    author: "Pedro Santana",
-    role: "Diretor Comercial",
-    initials: "PS",
-  },
-] as const
+export const capabilities = services
 
 export const faqs = [
   {
-    question: "Como funciona o início de um projeto?",
+    question: "Como funciona o início de um projeto com a Zuse Labs?",
     answer:
-      "A primeira etapa é uma análise estratégica para entender o negócio, os objetivos, o público e as oportunidades digitais.",
+      "Iniciamos com um alinhamento técnico e de negócios para compreender os desafios, requisitos e arquitetura necessária. A partir disso, estruturamos uma proposta com escopo claro e cronograma realista.",
   },
   {
-    question: "A Veridian trabalha apenas com marketing?",
-    answer: "Não. Atuamos de forma integrada em toda a operação digital.",
-  },
-  {
-    question: "Vocês desenvolvem sistemas personalizados?",
-    answer: "Sim. Criamos sistemas web, plataformas e aplicações sob medida.",
-  },
-  {
-    question: "A Veridian atende empresas iniciantes?",
+    question: "Qual perfil de empresa a Zuse Labs atende?",
     answer:
-      "Sim, desde que o projeto tenha clareza de objetivo e potencial de crescimento.",
+      "Atendemos desde empresas consolidadas que necessitam de modernização ou sustentação de infraestrutura até operações em crescimento que demandam sistemas sob medida com padrões rigorosos de engenharia.",
   },
   {
-    question: "Como solicitar uma proposta?",
+    question: "Vocês desenvolvem sistemas do zero ou também modernizam sistemas legados?",
     answer:
-      'Basta entrar em contato pelo formulário ou pelo botão "Iniciar projeto".',
+      "Atuamos nas duas frentes. Criamos novas plataformas desde a concepção arquitetural e também executamos refatoração, migração e reforço de segurança em sistemas já em operação.",
+  },
+  {
+    question: "Qual é a diferença entre suporte recorrente e projeto pontual?",
+    answer:
+      "Projetos pontuais concentram-se na construção e entrega de uma solução com início, meio e fim. O suporte recorrente foca em sustentação preventiva, atualizações de segurança e monitoramento contínuo.",
+  },
+  {
+    question: "Como solicitar uma proposta ou conversar com o time de engenharia?",
+    answer:
+      "Basta preencher o formulário ao final da página ou acionar nossa atendente digital no canto inferior para um direcionamento ágil e contextualizado.",
   },
 ] as const
 
 export const projectTypes = [...services.map((service) => service.title), "Outro"] as const
+
+export type Project = {
+  readonly slug: string
+  readonly label: string
+  readonly title: string
+  readonly description: string
+  readonly category: string
+  readonly tags: readonly string[]
+  readonly image: string
+  readonly imageAlt: string
+}
+
+export type Testimonial = {
+  readonly quote: string
+  readonly author: string
+  readonly role: string
+  readonly initials: string
+}
+
+// Flags de exibição controlam a visibilidade (Regra E9: oculto por padrão até haver conteúdo real)
+export const projects: readonly Project[] = []
+export const testimonialsRow1: readonly Testimonial[] = []
+export const testimonialsRow2: readonly Testimonial[] = []

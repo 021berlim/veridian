@@ -3,14 +3,35 @@
 import { useEffect } from "react"
 import { ReactLenis, useLenis } from "lenis/react"
 import { registerLenis } from "@/lib/scroll"
+import { gsap, ScrollTrigger } from "@/lib/motion"
 import "lenis/dist/lenis.css"
 
-function LenisRegister() {
+function LenisSync() {
   const lenis = useLenis()
 
   useEffect(() => {
-    registerLenis(lenis ?? null)
-    return () => registerLenis(null)
+    if (!lenis) return
+
+    registerLenis(lenis)
+
+    // Atualiza ScrollTrigger a cada scroll do Lenis
+    const handleScroll = () => {
+      ScrollTrigger.update()
+    }
+    lenis.on("scroll", handleScroll)
+
+    // Ticker do GSAP aciona o loop do Lenis em milissegundos
+    const tickerCallback = (time: number) => {
+      lenis.raf(time * 1000)
+    }
+    gsap.ticker.add(tickerCallback)
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      lenis.off("scroll", handleScroll)
+      gsap.ticker.remove(tickerCallback)
+      registerLenis(null)
+    }
   }, [lenis])
 
   return null
@@ -20,6 +41,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   return (
     <ReactLenis
       root
+      autoRaf={false}
       options={{
         lerp: 0.08,
         duration: 1.05,
@@ -30,7 +52,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
         syncTouch: true,
       }}
     >
-      <LenisRegister />
+      <LenisSync />
       {children}
     </ReactLenis>
   )
