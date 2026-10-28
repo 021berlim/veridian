@@ -35,29 +35,20 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
   const currentApp = APPS[activeScreenIndex]
 
   return (
-    <div className={`flex flex-col items-center ${className}`}>
-      {/* Legenda dinâmica em texto simples (12px, cinza, sem pílula) centralizada acima do aparelho */}
-      <p
-        className="mb-3 text-center font-sans text-xs tracking-wide text-[#a1a1a6] select-none"
-        aria-live="off"
-      >
-        Exemplo ilustrativo · {currentApp.name}
-      </p>
-
-      <div
-        className="relative w-full"
-        role="img"
-        aria-hidden="true"
-      >
-        <div className="relative w-full">
-          {/* Moldura original do iPhone (inalterada) */}
-          <img
-            src="/images/iphone-frame.png"
-            alt=""
-            aria-hidden="true"
-            className="relative z-10 block h-auto w-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]"
-            draggable={false}
-          />
+    <div
+      className={`relative ${className}`}
+      role="img"
+      aria-hidden="true"
+    >
+      <div className="relative w-full">
+        {/* Moldura original do iPhone (inalterada) */}
+        <img
+          src="/images/iphone-frame.png"
+          alt=""
+          aria-hidden="true"
+          className="relative z-10 block h-auto w-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]"
+          draggable={false}
+        />
 
           {/* Tela interna com inset exato e container query para escala em cqw */}
           <div
@@ -105,6 +96,5 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
 }
