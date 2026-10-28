@@ -10,6 +10,8 @@ export const INTRO = {
   reveal: 0.9,
 } as const
 
+export const PROCESS_SNAP = true
+
 // Registrar plugins apenas no client
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)

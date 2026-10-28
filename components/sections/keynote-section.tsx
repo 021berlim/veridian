@@ -79,7 +79,7 @@ export function KeynoteSection() {
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {WORDS.map((item) => (
               <div key={item.title} className="border-t border-[#2b2d31] pt-6">
-                <span className="font-sans text-5xl font-light tracking-[-0.03em] text-white">
+                <span className="font-sans text-5xl font-light tracking-[-0.03em] text-[#c72c3b]">
                   {item.title}
                 </span>
                 <p className="mt-4 text-sm text-[#8a8f98]">{item.desc}</p>
@@ -109,7 +109,7 @@ export function KeynoteSection() {
                 index === 0 ? "opacity-100" : "opacity-0"
               }`}
             >
-              <span className="font-sans text-6xl font-light tracking-[-0.04em] text-white sm:text-8xl md:text-9xl">
+              <span className="font-sans text-6xl font-light tracking-[-0.04em] text-[#c72c3b] sm:text-8xl md:text-9xl">
                 {item.title}
               </span>
               <p className="mt-6 max-w-xl text-sm font-normal text-[#8a8f98] sm:text-base md:text-lg">
