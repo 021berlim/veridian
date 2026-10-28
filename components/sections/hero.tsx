@@ -10,7 +10,6 @@ import { gsap, usePrefersReducedMotion } from "@/lib/motion"
 
 export function Hero() {
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [isPhoneVisible, setIsPhoneVisible] = useState(false)
   const heroContentRef = useRef<HTMLDivElement>(null)
   const reducedMotion = usePrefersReducedMotion()
 
@@ -51,18 +50,14 @@ export function Hero() {
   // Listener para evento de revelação do hero após o término da intro
   useEffect(() => {
     const triggerReveal = () => {
-      setIsPhoneVisible(true)
-
-      if (heroContentRef.current) {
-        const reveals = heroContentRef.current.querySelectorAll("[data-intro-reveal]")
-        gsap.to(reveals, {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          stagger: 0.08,
-          ease: "power3.out",
-        })
-      }
+      const reveals = document.querySelectorAll("#hero [data-intro-reveal]")
+      gsap.to(reveals, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.08,
+        ease: "power3.out",
+      })
     }
 
     const introState = document.documentElement.dataset.introState
@@ -125,7 +120,7 @@ export function Hero() {
             className="translate-y-6 opacity-0 will-change-transform"
           >
             <h1 className="font-sans text-4xl font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl md:text-6xl lg:text-7xl">
-              {landingContent.hero.headline}
+              Você sonha, a gente <span className="text-[#c72c3b]">compila.</span>
             </h1>
           </div>
 
@@ -160,14 +155,12 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Celular — proporções e transição idênticas ao Veridian */}
+        {/* Celular — posicionado diretamente e animado em conjunto com o hero */}
         <div className="flex flex-col items-center justify-center gap-8">
           <div className="relative">
             <div
               data-intro-reveal
-              className={`relative w-[234px] will-change-transform transition-all duration-[1500ms] ease-out delay-200 md:w-[281px] lg:w-[351px] ${
-                isPhoneVisible ? "translate-y-0 opacity-100" : "translate-y-[400px] opacity-0"
-              }`}
+              className="relative w-[234px] will-change-transform translate-y-6 opacity-0 md:w-[281px] lg:w-[351px]"
             >
               <PhoneMockup className="w-full" />
             </div>
