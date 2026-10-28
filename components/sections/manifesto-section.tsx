@@ -5,44 +5,39 @@ import { Container } from "@/components/layout/container"
 import { gsap, ScrollTrigger, usePrefersReducedMotion } from "@/lib/motion"
 
 const MANIFESTO_WORDS: { text: string; highlight?: boolean }[] = [
+  // Slogan e essência Zuse Labs
   { text: "VOCÊ", highlight: false },
   { text: "SONHA,", highlight: true },
   { text: "A", highlight: false },
   { text: "GENTE", highlight: false },
   { text: "COMPILA.", highlight: true },
+
+  // Posicionamento real e técnico
   { text: "TRANSFORMAMOS", highlight: false },
-  { text: "A", highlight: false },
-  { text: "VISÃO", highlight: false },
-  { text: "DO", highlight: false },
-  { text: "SEU", highlight: false },
-  { text: "NEGÓCIO", highlight: false },
+  { text: "DESAFIOS", highlight: false },
+  { text: "OPERACIONAIS", highlight: false },
   { text: "EM", highlight: false },
-  { text: "SOFTWARE", highlight: true },
+  { text: "SISTEMAS", highlight: true },
   { text: "SOB", highlight: true },
   { text: "MEDIDA.", highlight: true },
-  { text: "CRIAMOS", highlight: false },
-  { text: "ECOSSISTEMAS", highlight: false },
-  { text: "DIGITAIS", highlight: false },
-  { text: "E", highlight: false },
+
+  // Abordagem direta (da retaguarda à eficiência)
+  { text: "DA", highlight: false },
+  { text: "DIGITALIZAÇÃO", highlight: false },
+  { text: "À", highlight: false },
+  { text: "RETAGUARDA", highlight: true },
+  { text: "CRÍTICA,", highlight: false },
+
+  // Impacto final comprovado
+  { text: "CONSTRUÍMOS", highlight: false },
   { text: "PLATAFORMAS", highlight: false },
-  { text: "INTELIGENTES", highlight: false },
   { text: "QUE", highlight: false },
-  { text: "CENTRALIZAM", highlight: false },
-  { text: "OPERAÇÕES", highlight: false },
-  { text: "COMPLEXAS,", highlight: false },
   { text: "ELIMINAM", highlight: false },
   { text: "RETRABALHO", highlight: true },
   { text: "E", highlight: false },
-  { text: "CONSTROEM", highlight: false },
-  { text: "A", highlight: false },
-  { text: "RETAGUARDA", highlight: true },
-  { text: "DIGITAL", highlight: true },
-  { text: "QUE", highlight: false },
-  { text: "SUA", highlight: false },
-  { text: "EMPRESA", highlight: false },
-  { text: "PRECISA", highlight: false },
-  { text: "PARA", highlight: false },
-  { text: "AVANÇAR", highlight: false },
+  { text: "LEVAM", highlight: false },
+  { text: "SEU", highlight: false },
+  { text: "NEGÓCIO", highlight: false },
   { text: "AO", highlight: false },
   { text: "PRÓXIMO", highlight: true },
   { text: "NÍVEL.", highlight: true },
@@ -63,14 +58,14 @@ export function ManifestoSection() {
     const words = wordsContainerRef.current.querySelectorAll(".manifesto-word")
 
     const ctx = gsap.context(() => {
-      // Pin do Manifesto em 100vh com efeito das palavras saltando para frente ao acender
+      // Pin do Manifesto em 100vh com efeito de palavras saltando para frente no scroll estilo Lando Norris
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: `+=${window.innerHeight * 1.6}`,
+          end: `+=${window.innerHeight * 1.5}`,
           pin: pin,
-          scrub: 0.6,
+          scrub: 0.5,
           anticipatePin: 1,
         },
       })
@@ -81,12 +76,13 @@ export function ManifestoSection() {
           word,
           {
             opacity: 1,
-            scale: 1.05,
+            scale: 1.09,
+            y: -3,
             color: isHighlight ? "#c72c3b" : "#ffffff",
-            duration: 0.25,
-            ease: "back.out(1.4)",
+            duration: 0.22,
+            ease: "back.out(2)",
           },
-          ">+=0.03",
+          ">+=0.025",
         )
       })
     }, containerRef)
@@ -99,11 +95,11 @@ export function ManifestoSection() {
       <section
         id="manifesto"
         className="flex min-h-[100svh] flex-col justify-center items-center border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
-        style={{ paddingTop: "var(--header-h, 96px)" }}
+        style={{ paddingTop: "var(--header-h, 92px)" }}
         aria-label="Manifesto Zuse Labs"
       >
-        <Container className="max-w-4xl text-center">
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2.5 font-sans text-2xl font-medium uppercase tracking-tight leading-[1.3] sm:text-3xl md:text-4xl lg:text-[2.6rem]">
+        <Container className="max-w-5xl text-center">
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.15] sm:text-3xl md:text-4xl lg:text-[3rem]">
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
@@ -125,23 +121,24 @@ export function ManifestoSection() {
         id="manifesto"
         className="relative flex h-screen w-full flex-col justify-center items-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
         style={{
-          // Compensa com precisão ótica a presença do header no topo para simetria perfeita
-          paddingTop: "calc(var(--header-h, 92px) * 0.08)",
+          // Centralização ótica exata: desconta a altura do header para que a distância
+          // do topo do texto até o header seja RIGOROSAMENTE IGUAL à distância da base do texto até o fim da tela
+          paddingTop: "var(--header-h, 92px)",
         }}
         aria-label="Manifesto Zuse Labs"
       >
-        <Container className="max-w-4xl text-center">
-          {/* Tipografia com peso font-medium, escala proporcional e efeito de salto tridimensional */}
+        <Container className="max-w-5xl text-center">
+          {/* Tipografia robusta inspirada no Lando Norris: bold, tracking tenso, escala ampla e palavras que saltam na tela */}
           <div
             ref={wordsContainerRef}
-            className="flex flex-wrap justify-center gap-x-3 gap-y-2.5 font-sans text-2xl font-medium uppercase tracking-tight leading-[1.3] sm:text-3xl md:text-4xl lg:text-[2.6rem] select-none"
+            className="flex flex-wrap justify-center gap-x-3 gap-y-2.5 sm:gap-x-4 sm:gap-y-3.5 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.18] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem] select-none"
           >
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
                 data-highlight={w.highlight ? "true" : "false"}
-                className={`manifesto-word inline-block will-change-transform transition-all duration-200 origin-center scale-[0.96] ${
-                  w.highlight ? "text-[#c72c3b]/30" : "text-white/20"
+                className={`manifesto-word inline-block will-change-transform origin-center scale-[0.94] opacity-25 ${
+                  w.highlight ? "text-[#c72c3b]" : "text-white"
                 }`}
               >
                 {w.text}

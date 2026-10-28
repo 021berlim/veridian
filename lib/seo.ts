@@ -50,6 +50,7 @@ export function getPageMetadata(page: PageKey = "home"): Metadata {
     manifest: "/site.webmanifest",
     icons: {
       icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
         { url: "/favicon.ico", sizes: "48x48" },
         { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
         { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
