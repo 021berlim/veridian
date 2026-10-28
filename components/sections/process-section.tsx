@@ -158,19 +158,6 @@ export function ProcessSection() {
           duration: 1,
         })
 
-        // Parallax horizontal nos numerais (~15% mais devagar que o texto)
-        if (numeralElements.length > 0) {
-          tl.to(
-            numeralElements,
-            {
-              x: () => getDistance() * 0.15,
-              ease: "none",
-              duration: 1,
-            },
-            0,
-          )
-        }
-
         // Respiro de ~0.3 viewport segurando o final antes de liberar o pin
         tl.to({}, { duration: 0.25 })
 
