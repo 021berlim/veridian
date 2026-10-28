@@ -16,7 +16,7 @@ export function Intro() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const hasHash = window.location.hash.length > 1
 
-    // Se usuário prefere movimento reduzido ou veio com âncora direta, pula intro
+    // Se o usuário prefere movimento reduzido ou acessou via âncora direta (#contato etc.), pula intro
     if (prefersReduced || hasHash) {
       document.documentElement.dataset.introState = "done"
       document.documentElement.setAttribute("data-preloader-done", "true")
@@ -42,22 +42,22 @@ export function Intro() {
     if (!overlay || !comp || !mono || !typo) return
 
     const ctx = gsap.context(() => {
-      // Estado Inicial
+      // Estado Inicial garantido: Z centralizado em scale 0.94, Typo oculto
       gsap.set(overlay, { opacity: 1 })
-      gsap.set(mono, { scale: 0.94, opacity: 1, transformOrigin: "center center" })
-
-      // Mede proporções para centralizar o Z perfeitamente no frame inicial
-      const monoW = mono.offsetWidth || 180
-      const typoW = typo.offsetWidth || 280
-      const gap = 20
-      // Deslocamento para que o Z fique exatamente no centro da viewport
-      const centerOffsetX = (monoW + gap + typoW) / 2 - monoW / 2
-
-      gsap.set(comp, { x: centerOffsetX, y: 0, scale: 1 })
+      gsap.set(mono, { scale: 0.94, transformOrigin: "center center" })
+      gsap.set(comp, { x: 0, y: 0, scale: 1 })
       gsap.set(typo, {
         opacity: 0,
+        visibility: "hidden",
         clipPath: "inset(0 100% 0 0)",
       })
+
+      // Mede dimensões reais para o cálculo da centralização composta
+      const monoW = mono.offsetWidth || 180
+      const typoW = typo.offsetWidth || 200
+      const gap = 16
+      // Para centralizar a dupla (Z + typo), o container desloca para a esquerda
+      const shiftX = (gap + typoW) / 2
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -78,12 +78,15 @@ export function Intro() {
         ease: "power2.out",
       })
 
-      // 0.7s – 2.5s: Z desliza para a esquerda (comp x vai a 0) e logotipo desmascara à direita
-      // Sem sobreposição pois estão em flex row com gap fixo (monoBox.right <= typoBox.left)
+      // 0.7s: Torna o container do logotipo visível antes do reveal por clip-path
+      tl.set(typo, { visibility: "visible" }, 0.7)
+
+      // 0.7s – 2.5s: Z desliza suavemente para a esquerda enquanto o logotipo desmascara à direita
+      // Sem sobreposição porque o logotipo fica posicionado à direita do Z com gap fixo
       tl.to(
         comp,
         {
-          x: 0,
+          x: -shiftX,
           duration: 1.8,
           ease: "power3.inOut",
         },
@@ -101,33 +104,37 @@ export function Intro() {
         0.9,
       )
 
-      // 2.5s – 3.3s: FLIP até o slot do header (#zuse-header-logo-slot)
+      // 2.5s – 3.3s: FLIP suave até o slot do header (#zuse-header-logo-slot)
       tl.add(() => {
         const slot = document.getElementById("zuse-header-logo-slot")
-        if (!slot || !comp) return
+        if (!slot || !comp || !mono) return
 
         const slotRect = slot.getBoundingClientRect()
         const compRect = comp.getBoundingClientRect()
 
-        // Altura alvo da logo no header (~26px)
-        const targetHeight = Math.min(Math.max(slotRect.height * 0.75, 24), 32)
-        const scaleFactor = targetHeight / (compRect.height || 180)
+        // Altura alvo da logo no header (28px no desktop, 24px no mobile)
+        const isDesktop = window.innerWidth >= 640
+        const targetH = isDesktop ? 28 : 24
+        const scaleFactor = targetH / compRect.height
 
-        // Centro do slot vs centro da comp
-        const slotCenterX = slotRect.left + (slotRect.width * 0.4)
-        const slotCenterY = slotRect.top + slotRect.height / 2
-        const compCenterX = compRect.left + compRect.width / 2
-        const compCenterY = compRect.top + compRect.height / 2
+        // Coordenadas exatas onde a logo pousa no slot (alinhada à esquerda do slot e centralizada verticalmente)
+        const targetX = slotRect.left
+        const targetY = slotRect.top + (slotRect.height - targetH) / 2
 
-        const deltaX = slotCenterX - compCenterX
-        const deltaY = slotCenterY - compCenterY
+        // Posição atual do topo-esquerdo do logo na intro
+        const currentX = compRect.left
+        const currentY = compRect.top
 
-        // Disparar início da transição
-        window.dispatchEvent(new Event("intro-travel-start"))
+        const deltaX = targetX - currentX
+        const deltaY = targetY - currentY
 
+        // Ponto de origem no topo-esquerdo para sincronia perfeita com as coordenadas
+        gsap.set(comp, { transformOrigin: "0 0" })
+
+        // FLIP cinematográfico em direção ao header
         gsap.to(comp, {
-          x: deltaX,
-          y: deltaY,
+          x: `+=${deltaX}`,
+          y: `+=${deltaY}`,
           scale: scaleFactor,
           duration: INTRO.travel,
           ease: "power3.inOut",
@@ -140,7 +147,7 @@ export function Intro() {
           ease: "power2.out",
         })
 
-        // Overlay fade out
+        // Overlay dissolve suavemente revelando o site
         gsap.to(overlay, {
           opacity: 0,
           duration: INTRO.travel,
@@ -148,12 +155,14 @@ export function Intro() {
         })
       }, 2.5)
 
-      // 3.3s: Notificar término da animação do logo para disparar o Hero
+      // 3.3s: Logo pousou no slot. Disparar evento para o navbar ativar o logo permanente
       tl.add(() => {
         window.dispatchEvent(new Event("intro-complete"))
+        // Oculta a logo da intro após o pouso no header
+        if (comp) gsap.set(comp, { opacity: 0 })
       }, 2.5 + INTRO.travel) // 3.3s
 
-      // Tempo de espera para o reveal do hero concluir (~0.9s)
+      // 3.3s – 4.2s: Tempo para revelação dos elementos do Hero
       tl.to({}, { duration: INTRO.reveal }, 2.5 + INTRO.travel)
     })
 
@@ -175,26 +184,32 @@ export function Intro() {
       className="fixed inset-0 z-[999] flex items-center justify-center bg-[#0b0b0d] pointer-events-none select-none"
       aria-hidden="true"
     >
-      {/* Container de Composição Total (Z + Logotipo) */}
+      {/* Container de Composição: Z no centro nativo, logotipo à direita fora do fluxo inicial */}
       <div
         ref={compositionRef}
-        className="relative flex items-center justify-center gap-4 will-change-transform max-w-[min(560px,72vw)]"
+        className="relative flex items-center will-change-transform"
       >
-        {/* Monograma Z Grande */}
+        {/* Monograma Z: elemento único em fluxo, centralizado desde o primeiro frame */}
         <div
           ref={monoWrapperRef}
-          className="relative flex shrink-0 items-center justify-center w-[clamp(140px,22vh,240px)] h-[clamp(140px,22vh,240px)]"
+          className="relative flex shrink-0 items-center justify-center w-[clamp(140px,22vh,240px)] h-[clamp(140px,22vh,240px)] will-change-transform"
+          style={{ transform: "scale(0.94)" }}
         >
           <ZuseMonogram className="h-full w-full drop-shadow-2xl" />
-        </div>
 
-        {/* Logotipo que desmascara da esquerda para a direita */}
-        <div
-          ref={typoWrapperRef}
-          className="relative flex shrink-0 items-center justify-center h-[clamp(140px,22vh,240px)] overflow-hidden"
-          style={{ width: "clamp(180px, 30vh, 320px)" }}
-        >
-          <ZuseLogotype className="h-full w-full object-contain" />
+          {/* Logotipo: ancorado à direita do Z, 100% oculto no SSR/HTML inicial (0 FOUC/flash) */}
+          <div
+            ref={typoWrapperRef}
+            className="absolute left-[calc(100%+16px)] top-0 flex shrink-0 items-center justify-center h-full overflow-hidden will-change-transform"
+            style={{
+              width: "clamp(155px, 24vh, 260px)",
+              opacity: 0,
+              visibility: "hidden",
+              clipPath: "inset(0 100% 0 0)",
+            }}
+          >
+            <ZuseLogotype className="h-full w-full object-contain" />
+          </div>
         </div>
       </div>
     </div>

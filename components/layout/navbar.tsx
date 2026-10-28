@@ -80,8 +80,8 @@ export function Navbar() {
           className={cn(
             "mx-auto max-w-7xl rounded-2xl border px-6 py-3.5 transition-all duration-300 sm:px-10 sm:py-4",
             isScrolled
-              ? "border-white/[0.12] bg-[#141416] shadow-2xl"
-              : "border-white/[0.08] bg-[#141416]/95 shadow-lg",
+              ? "border-white/[0.08] bg-[#141416] shadow-2xl"
+              : "border-transparent bg-transparent shadow-none",
           )}
         >
           <div className="flex items-center justify-between gap-4">
