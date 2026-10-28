@@ -111,8 +111,9 @@ export function Hero() {
             opacity: Math.max(0, 1 - scrollProgress * 0.8),
           }}
         >
-          <span className="block translate-y-[10%] whitespace-nowrap font-sans font-light text-[22vw] leading-none tracking-tighter text-white/[0.05] select-none sm:text-[20vw] md:text-[18vw] lg:text-[16vw]">
-            ZUSE LABS
+          <span className="block translate-y-[10%] whitespace-nowrap font-sans font-light text-[22vw] leading-none tracking-tighter select-none sm:text-[20vw] md:text-[18vw] lg:text-[16vw]">
+            <span className="text-white/[0.06]">ZUSE </span>
+            <span className="text-[#c72c3b] opacity-40">LABS</span>
           </span>
         </div>
       </div>

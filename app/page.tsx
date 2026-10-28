@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero"
 import { ClientsCarousel } from "@/components/sections/clients-carousel"
 import { CapabilitiesSection } from "@/components/sections/capabilities-section"
 import { KeynoteSection } from "@/components/sections/keynote-section"
+import { ManifestoSection } from "@/components/sections/manifesto-section"
 import { ProcessSection } from "@/components/sections/process-section"
 import { ServicesSection } from "@/components/sections/services-section"
 import { PortfolioSection } from "@/components/sections/portfolio-section"
@@ -24,6 +25,7 @@ export default function Home() {
         <ClientsCarousel />
         <CapabilitiesSection />
         <KeynoteSection />
+        <ManifestoSection />
         <ProcessSection />
         <ServicesSection />
         {siteFlags.showWork && <PortfolioSection />}

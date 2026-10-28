@@ -90,9 +90,12 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contato" className="border-b border-[#2b2d31] bg-[#0b0b0d] py-20 md:py-28 text-white">
+    <section
+      id="contato"
+      className="flex min-h-[100svh] flex-col justify-center border-b border-[#2b2d31] bg-[#0b0b0d] py-10 md:py-14 text-white"
+    >
       <Container>
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           {/* Coluna da Esquerda — Título grande e informações verificadas */}
           <div className="lg:col-span-5">
             <h2 className="font-sans text-3xl font-light tracking-[-0.03em] sm:text-5xl md:text-6xl text-white">

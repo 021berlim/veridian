@@ -90,6 +90,7 @@ export const navItems: readonly NavItem[] = [
     items: [
       { label: "Tecnologias", href: "#tecnologias" },
       { label: "Capacidades", href: "#capacidades" },
+      { label: "Manifesto", href: "#manifesto" },
     ],
   },
   {
