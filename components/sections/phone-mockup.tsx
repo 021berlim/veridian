@@ -10,11 +10,11 @@ import { WorkshopView } from "@/components/phone/workshop"
 import { AssistantView } from "@/components/phone/assistant"
 
 const SCREEN_INSET = {
-  top: "1.72%",
-  left: "4.35%",
-  right: "4.35%",
-  bottom: "1.72%",
-  radius: "10.2%",
+  top: "1.52%",
+  left: "3.47%",
+  right: "3.47%",
+  bottom: "1.52%",
+  radius: "9.35%",
 }
 
 interface PhoneMockupProps {
@@ -41,38 +41,45 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
       aria-hidden="true"
     >
       <div className="relative w-full">
-        {/* Moldura original do iPhone (inalterada) */}
+        {/* Moldura de Titânio do iPhone 17 Pro Max com botões e Camera Control */}
         <img
-          src="/images/iphone-frame.png"
-          alt=""
+          src="/images/iphone-17-pro-max-frame.svg"
+          alt="iPhone 17 Pro Max Mockup"
           aria-hidden="true"
-          className="relative z-10 block h-auto w-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]"
+          className="relative z-10 block h-auto w-full select-none"
           draggable={false}
         />
 
-          {/* Tela interna com inset exato e container query para escala em cqw */}
+        {/* Tela interna com inset exato e container query para escala em cqw */}
+        <div
+          id="phone-screen-container"
+          className="absolute z-20 overflow-hidden"
+          style={{
+            top: SCREEN_INSET.top,
+            left: SCREEN_INSET.left,
+            right: SCREEN_INSET.right,
+            bottom: SCREEN_INSET.bottom,
+            borderRadius: SCREEN_INSET.radius,
+            backgroundColor: "#0e0e10",
+            border: "1px solid #1a1a1e",
+            containerType: "inline-size",
+          }}
+        >
+          {/* Dynamic Island compacta do iPhone 17 Pro Max (19% de largura com sensores ópticos) */}
           <div
-            id="phone-screen-container"
-            className="absolute z-20 overflow-hidden"
+            className="pointer-events-none absolute top-[2.1%] left-1/2 z-30 flex h-[2.5%] min-h-[10px] max-h-[16px] w-[19%] -translate-x-1/2 items-center justify-between px-[1.8cqw] rounded-full"
             style={{
-              top: SCREEN_INSET.top,
-              left: SCREEN_INSET.left,
-              right: SCREEN_INSET.right,
-              bottom: SCREEN_INSET.bottom,
-              borderRadius: SCREEN_INSET.radius,
-              backgroundColor: "#0e0e10",
-              border: "1px solid #2b2d31",
-              containerType: "inline-size",
+              backgroundColor: "#000000",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
             }}
           >
-            {/* Dynamic Island original */}
-            <div
-              className="pointer-events-none absolute top-[2.4%] left-1/2 z-30 h-[2.8%] min-h-[10px] max-h-[15px] w-[27%] -translate-x-1/2 rounded-full"
-              style={{
-                backgroundColor: "#000000",
-                border: "1px solid #1a1a1e",
-              }}
-            />
+            {/* Lente da câmera frontal com glint antirreflexo */}
+            <div className="flex h-[1.8cqw] w-[1.8cqw] items-center justify-center rounded-full bg-[#0a0a14]">
+              <div className="h-[0.8cqw] w-[0.8cqw] rounded-full bg-[#20223d]" />
+            </div>
+            {/* Sensor FaceID / TrueDepth */}
+            <div className="h-[1.4cqw] w-[1.4cqw] rounded-full bg-[#07070a]" />
+          </div>
 
             {/* Conteúdo da Tela com AnimatePresence e transição de translateY 12px */}
             <div className="relative h-full w-full overflow-hidden">
