@@ -1,48 +1,107 @@
 "use client"
 
-import { useEffect, useState, type ReactNode } from "react"
+import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { CheckCircle2, Shield, Terminal, MessageSquare, ArrowUpRight } from "lucide-react"
 import { useIsMobile } from "@/components/ui/use-mobile"
 
 const SCREENS = ["software", "suporte", "seguranca", "ia"] as const
 type Screen = (typeof SCREENS)[number]
 
-const SCREEN_META: Record<
+type MetricCardData = { tag: string; title: string; value: string }
+type JourneyData = { label: string; pct: string; width: string; status: string }
+type StatCardData = { label: string; value: string; sub: string }
+
+const SCREEN_DATA: Record<
   Screen,
-  { title: string; subtitle: string; tag: string }
+  {
+    title: string
+    subtitle: string
+    metrics: MetricCardData[]
+    chartBars: number[]
+    journeys: JourneyData[]
+    stats: StatCardData[]
+  }
 > = {
   software: {
-    tag: "01 · ENGENHARIA",
-    title: "Software sob medida",
-    subtitle: "Aplicações de alto desempenho e arquitetura resiliente.",
+    title: "Engenharia de Software",
+    subtitle: "Aplicações escaláveis com arquitetura limpa e testes contínuos.",
+    metrics: [
+      { tag: "STACK", title: "Arquitetura", value: "Distribuída" },
+      { tag: "DEPLOY", title: "Ambiente", value: "Produção" },
+      { tag: "TESTES", title: "Qualidade", value: "Aprovado" },
+    ],
+    chartBars: [42, 58, 48, 72, 64, 88, 76, 94, 68, 96, 82, 90],
+    journeys: [
+      { label: "CI/CD Pipeline", pct: "95%", width: "95%", status: "Ativo" },
+      { label: "Otimização de Render", pct: "98%", width: "98%", status: "Estável" },
+      { label: "Integridade de Build", pct: "100%", width: "100%", status: "Conforme" },
+    ],
+    stats: [
+      { label: "Runtime", value: "Next / React", sub: "Isolado" },
+      { label: "Métricas", value: "Tempo Real", sub: "Ativo" },
+      { label: "Entrega", value: "Contínua", sub: "Sem atrito" },
+    ],
   },
   suporte: {
-    tag: "02 · OPERAÇÃO",
     title: "Sustentação de TI",
-    subtitle: "Monitoramento ativo e resolução técnica sem atrito.",
+    subtitle: "Monitoramento contínuo de infraestrutura e resposta especializada.",
+    metrics: [
+      { tag: "STATUS", title: "Infraestrutura", value: "Operacional" },
+      { tag: "FLUXO", title: "Chamados", value: "Prioritário" },
+      { tag: "ROTINA", title: "Sustentação", value: "Preventiva" },
+    ],
+    chartBars: [50, 45, 65, 60, 75, 70, 85, 80, 78, 88, 82, 92],
+    journeys: [
+      { label: "Monitoramento de Servidores", pct: "99%", width: "99%", status: "Ativo" },
+      { label: "Rotina de Backups", pct: "100%", width: "100%", status: "Auditado" },
+      { label: "Latência de Banco de Dados", pct: "96%", width: "96%", status: "Otimizado" },
+    ],
+    stats: [
+      { label: "Sistemas", value: "Monitorados", sub: "Tempo real" },
+      { label: "Atendimento", value: "Direto", sub: "Engenharia" },
+      { label: "Ambiente", value: "Resiliente", sub: "Estável" },
+    ],
   },
   seguranca: {
-    tag: "03 · DEFESA",
     title: "Cibersegurança",
-    subtitle: "Defesa em camadas e integridade contínua de dados.",
+    subtitle: "Blindagem de perímetro, conformidade e defesa em camadas.",
+    metrics: [
+      { tag: "DEFESA", title: "Perímetro", value: "Blindado" },
+      { tag: "DADOS", title: "Criptografia", value: "Em repouso" },
+      { tag: "CONTROLE", title: "Políticas", value: "Aplicadas" },
+    ],
+    chartBars: [60, 70, 65, 80, 75, 90, 85, 95, 88, 92, 86, 94],
+    journeys: [
+      { label: "Políticas de Acesso Mínimo", pct: "100%", width: "100%", status: "Aplicado" },
+      { label: "Inspeção de Dependências", pct: "97%", width: "97%", status: "Conforme" },
+      { label: "Proteção de Endpoints", pct: "98%", width: "98%", status: "Seguro" },
+    ],
+    stats: [
+      { label: "Perímetro", value: "WAF Ativo", sub: "Filtragem" },
+      { label: "Auditoria", value: "Rigorosa", sub: "Conforme" },
+      { label: "Acessos", value: "Segregados", sub: "Protegidos" },
+    ],
   },
   ia: {
-    tag: "04 · AUTOMAÇÃO",
     title: "Inteligência Artificial",
-    subtitle: "Agentes autônomos integrados aos fluxos operacionais.",
+    subtitle: "Agentes autônomos integrados aos fluxos operacionais e de dados.",
+    metrics: [
+      { tag: "AGENTES", title: "Operação", value: "Autônoma" },
+      { tag: "PIPELINE", title: "Sincronia", value: "Ativa" },
+      { tag: "PRECISÃO", title: "Validação", value: "Auditada" },
+    ],
+    chartBars: [35, 55, 68, 62, 80, 74, 90, 82, 94, 88, 92, 96],
+    journeys: [
+      { label: "Agentes de Triagem", pct: "96%", width: "96%", status: "Online" },
+      { label: "Extração de Dados", pct: "94%", width: "94%", status: "Concluído" },
+      { label: "Validação Semântica", pct: "99%", width: "99%", status: "Aprovado" },
+    ],
+    stats: [
+      { label: "Assistente", value: "Vera Ativa", sub: "Atendimento" },
+      { label: "Fluxos", value: "Automatizados", sub: "Eficiência" },
+      { label: "Governança", value: "Estruturada", sub: "Controle" },
+    ],
   },
-}
-
-const BRAND = {
-  bg: "#0b0b0d",
-  surface: "#141518",
-  surfaceMuted: "#18191d",
-  text: "#ffffff",
-  muted: "#8a8f98",
-  accent: "#c72c3b",
-  border: "#2b2d31",
-  island: "#000000",
 }
 
 const SCREEN_INSET = {
@@ -57,204 +116,162 @@ interface PhoneMockupProps {
   className?: string
 }
 
-function PhoneHeader({ screen }: { screen: Screen }) {
-  const meta = SCREEN_META[screen]
+function AppHeader({
+  screen,
+  title,
+  subtitle,
+}: {
+  screen: Screen
+  title: string
+  subtitle: string
+}) {
   return (
-    <div className="shrink-0 border-b border-[#2b2d31] pb-2">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[8px] uppercase tracking-wider text-[#c72c3b]">
-          {meta.tag}
-        </span>
-        <div className="flex items-center gap-1">
+    <header className="shrink-0 space-y-[0.14em]">
+      <p className="text-[0.44em] font-semibold uppercase tracking-[0.16em] text-[#8a8f98]">
+        Zuse Labs
+      </p>
+      <div className="flex items-center justify-between gap-[0.3em]">
+        <p className="truncate text-[0.74em] font-semibold uppercase leading-none tracking-wide text-white">
+          {title}
+        </p>
+        <div className="flex shrink-0 gap-[0.16em]">
           {SCREENS.map((s) => (
             <span
               key={s}
-              className={`h-1 transition-all duration-300 ${
-                s === screen ? "w-3 bg-[#c72c3b]" : "w-1 bg-[#2b2d31]"
+              className={`h-[0.3em] rounded-full transition-all duration-300 ${
+                s === screen ? "w-[0.9em] bg-[#c72c3b]" : "w-[0.3em] bg-white/20"
               }`}
             />
           ))}
         </div>
       </div>
-      <h4 className="mt-1 font-sans text-xs font-medium tracking-tight text-white">
-        {meta.title}
-      </h4>
-      <p className="line-clamp-1 text-[9px] text-[#8a8f98]">{meta.subtitle}</p>
+      <p className="line-clamp-2 text-[0.42em] leading-snug text-[#8a8f98]">
+        {subtitle}
+      </p>
+    </header>
+  )
+}
+
+function ActivityChart({ bars }: { bars: number[] }) {
+  return (
+    <div className="flex h-[3.8em] items-end gap-[0.14em] rounded-[0.34em] border border-white/[0.08] bg-[#141518] px-[0.36em] py-[0.3em]">
+      {bars.map((height, index) => (
+        <div
+          key={index}
+          className="flex-1 rounded-[0.1em] transition-all duration-500"
+          style={{
+            height: `${height}%`,
+            backgroundColor: index === 9 || index === 11 ? "#c72c3b" : "rgba(255, 255, 255, 0.16)",
+          }}
+        />
+      ))}
     </div>
   )
 }
 
-function SoftwareScreen() {
+function JourneyRow({
+  label,
+  pct,
+  width,
+  status,
+  delay = 0,
+}: JourneyData & { delay?: number }) {
   return (
-    <div className="flex h-full flex-col justify-between p-3 font-mono text-[9px]">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between text-[#8a8f98]">
-          <span className="flex items-center gap-1">
-            <Terminal className="h-3 w-3 text-[#c72c3b]" /> main · release-v2.6
-          </span>
-          <span className="text-[#c72c3b]">DEPLOY ATIVO</span>
+    <motion.div
+      initial={{ opacity: 0, x: -4 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3, delay }}
+      className="flex items-center justify-between gap-[0.3em] rounded-[0.24em] border border-white/[0.04] bg-[#141518]/70 px-[0.32em] py-[0.22em]"
+    >
+      <span className="truncate text-[0.42em] text-[#8a8f98]">{label}</span>
+      <div className="flex items-center gap-[0.3em]">
+        <div className="h-[0.22em] w-[4.5em] overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full bg-[#c72c3b] transition-all duration-500"
+            style={{ width }}
+          />
         </div>
-        <div className="border border-[#2b2d31] bg-[#141518] p-2 text-[#8a8f98]">
-          <p className="text-white">
-            <span className="text-[#c72c3b]">const</span> system = createPipeline(&#123;
-          </p>
-          <p className="pl-2">arch: <span className="text-white">"distributed"</span>,</p>
-          <p className="pl-2">runtime: <span className="text-white">"next-engine"</span>,</p>
-          <p className="pl-2">observability: <span className="text-[#c72c3b]">true</span></p>
-          <p>&#125;)</p>
-        </div>
-        <div className="space-y-1 text-[8px]">
-          <div className="flex items-center justify-between border-b border-[#2b2d31] py-1">
-            <span className="text-[#8a8f98]">Compilação</span>
-            <span className="text-white">Concluída</span>
-          </div>
-          <div className="flex items-center justify-between border-b border-[#2b2d31] py-1">
-            <span className="text-[#8a8f98]">Testes E2E</span>
-            <span className="text-white">Aprovados</span>
-          </div>
-          <div className="flex items-center justify-between py-1">
-            <span className="text-[#8a8f98]">Status</span>
-            <span className="text-[#c72c3b]">Operacional</span>
-          </div>
-        </div>
+        <span className="font-mono text-[0.38em] text-white/90">{pct}</span>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
-function SuporteScreen() {
-  const tickets = [
-    { id: "T-804", desc: "Balanceamento de cluster web", status: "Resolvido" },
-    { id: "T-803", desc: "Otimização de consulta PostgreSQL", status: "Resolvido" },
-    { id: "T-802", desc: "Renovação automática de certificados", status: "Resolvido" },
-    { id: "T-801", desc: "Patch de sustentação de kernel", status: "Resolvido" },
-  ]
+function MetricCard({
+  tag,
+  title,
+  value,
+  delay = 0,
+}: MetricCardData & { delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay }}
+      className="flex flex-col justify-between rounded-[0.34em] border border-white/[0.08] bg-[#141518] p-[0.3em]"
+    >
+      <span className="text-[0.36em] font-semibold uppercase tracking-wider text-[#c72c3b]">
+        {tag}
+      </span>
+      <span className="mt-[0.15em] truncate text-[0.44em] text-[#8a8f98]">{title}</span>
+      <span className="mt-[0.1em] truncate text-[0.52em] font-medium text-white">{value}</span>
+    </motion.div>
+  )
+}
+
+function StatCard({
+  label,
+  value,
+  sub,
+  delay = 0,
+}: StatCardData & { delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay }}
+      className="flex flex-col justify-between rounded-[0.34em] border border-white/[0.08] bg-[#141518] p-[0.3em]"
+    >
+      <span className="text-[0.36em] font-semibold uppercase tracking-wider text-[#8a8f98]">
+        {label}
+      </span>
+      <span className="mt-[0.12em] truncate text-[0.54em] font-medium text-white">{value}</span>
+      <span className="mt-[0.08em] truncate text-[0.36em] text-white/40">{sub}</span>
+    </motion.div>
+  )
+}
+
+function AppShell({ screen }: { screen: Screen }) {
+  const data = SCREEN_DATA[screen]
 
   return (
-    <div className="flex h-full flex-col justify-between p-3 text-[9px]">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-[#2b2d31] pb-1 text-[#8a8f98]">
-          <span className="uppercase tracking-wider">Chamados de Infraestrutura</span>
-          <span className="text-white">Sustentação Ativa</span>
-        </div>
-        <div className="space-y-1.5">
-          {tickets.map((t) => (
-            <div
-              key={t.id}
-              className="flex items-center justify-between border-b border-[#2b2d31] py-1"
-            >
-              <div>
-                <span className="font-mono text-[8px] text-[#c72c3b]">{t.id}</span>
-                <p className="line-clamp-1 text-[9px] text-white">{t.desc}</p>
-              </div>
-              <span className="flex items-center gap-1 font-mono text-[8px] text-white">
-                <CheckCircle2 className="h-2.5 w-2.5 text-[#c72c3b]" />
-                {t.status}
-              </span>
-            </div>
+    <div className="flex h-full w-full flex-col justify-between overflow-hidden px-[0.62em] pt-[3.4em] pb-[0.62em] text-[clamp(6.5px,1.95vw,9px)] select-none">
+      {/* Zona 1: Topo (AppHeader + 3 Mini Cards) */}
+      <div className="shrink-0 space-y-[0.42em]">
+        <AppHeader screen={screen} title={data.title} subtitle={data.subtitle} />
+
+        <div className="grid grid-cols-3 gap-[0.18em]">
+          {data.metrics.map((m, i) => (
+            <MetricCard key={m.title} {...m} delay={i * 0.04} />
           ))}
         </div>
       </div>
-      <div className="border border-[#2b2d31] bg-[#141518] p-1.5 text-center font-mono text-[8px] text-[#8a8f98]">
-        Ambiente monitorado em tempo real
-      </div>
-    </div>
-  )
-}
 
-function SegurancaScreen() {
-  const checks = [
-    { name: "Criptografia em trânsito e repouso", status: "Ativo" },
-    { name: "Auditoria de dependências e CVEs", status: "Conforme" },
-    { name: "Políticas de privilégio mínimo", status: "Aplicado" },
-    { name: "Defesa em camadas e WAF", status: "Blindado" },
-  ]
-
-  return (
-    <div className="flex h-full flex-col justify-between p-3 text-[9px]">
-      <div className="space-y-2">
-        <div className="flex items-center gap-1.5 border-b border-[#2b2d31] pb-1 text-white">
-          <Shield className="h-3.5 w-3.5 text-[#c72c3b]" />
-          <span className="font-mono text-[8px] uppercase tracking-wider">
-            Painel de Cibersegurança
-          </span>
-        </div>
-        <div className="space-y-1.5">
-          {checks.map((c) => (
-            <div
-              key={c.name}
-              className="flex items-center justify-between border-b border-[#2b2d31] py-1"
-            >
-              <span className="text-[9px] text-[#8a8f98]">{c.name}</span>
-              <span className="font-mono text-[8px] text-white">{c.status}</span>
-            </div>
+      {/* Zona 2: Meio (Visual Principal + 3 Linhas de Progresso) */}
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-[0.28em] py-[0.2em]">
+        <ActivityChart bars={data.chartBars} />
+        <div className="flex flex-col gap-[0.16em]">
+          {data.journeys.map((j, i) => (
+            <JourneyRow key={j.label} {...j} delay={0.1 + i * 0.04} />
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-between border-t border-[#2b2d31] pt-1 text-[8px] text-[#8a8f98]">
-        <span>Perímetro</span>
-        <span className="font-mono text-[#c72c3b]">Protegido</span>
-      </div>
-    </div>
-  )
-}
 
-function IaScreen() {
-  return (
-    <div className="flex h-full flex-col justify-between p-3 text-[9px]">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between border-b border-[#2b2d31] pb-1 text-[#8a8f98]">
-          <span className="flex items-center gap-1 uppercase tracking-wider">
-            <MessageSquare className="h-3 w-3 text-[#c72c3b]" />
-            Agente Operacional
-          </span>
-          <span className="font-mono text-[8px] text-[#c72c3b]">ONLINE</span>
-        </div>
-        <div className="space-y-2 text-[8px]">
-          <div className="border border-[#2b2d31] bg-[#141518] p-2 text-[#8a8f98]">
-            <p className="font-mono text-[7px] text-[#c72c3b]">USUÁRIO</p>
-            <p className="text-white">Qual o status das integrações de dados?</p>
-          </div>
-          <div className="border-l-2 border-[#c72c3b] pl-2 text-white">
-            <p className="font-mono text-[7px] text-[#8a8f98]">AGENTE ZUSE</p>
-            <p className="leading-relaxed text-[#8a8f98]">
-              Todas as filas de sincronização operando sem latência. Dados consistentes.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-between border-t border-[#2b2d31] pt-1 text-[8px] text-[#8a8f98]">
-        <span>Fluxo automatizado</span>
-        <ArrowUpRight className="h-3 w-3 text-[#c72c3b]" />
-      </div>
-    </div>
-  )
-}
-
-function PhoneScreenContent({ screen }: { screen: Screen }) {
-  const screens: Record<Screen, ReactNode> = {
-    software: <SoftwareScreen />,
-    suporte: <SuporteScreen />,
-    seguranca: <SegurancaScreen />,
-    ia: <IaScreen />,
-  }
-
-  return (
-    <div className="flex h-full flex-col justify-between pt-7">
-      <PhoneHeader screen={screen} />
-      <div className="flex-1 overflow-hidden py-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={screen}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="h-full w-full"
-          >
-            {screens[screen]}
-          </motion.div>
-        </AnimatePresence>
+      {/* Zona 3: Base (3 Blocos-Resumo) */}
+      <div className="grid shrink-0 grid-cols-3 gap-[0.18em]">
+        {data.stats.map((s, i) => (
+          <StatCard key={s.label} {...s} delay={0.24 + i * 0.04} />
+        ))}
       </div>
     </div>
   )
@@ -270,7 +287,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
         const idx = SCREENS.indexOf(prev)
         return SCREENS[(idx + 1) % SCREENS.length]
       })
-    }, isMobile ? 5000 : 4200)
+    }, isMobile ? 5000 : 4000)
     return () => clearInterval(interval)
   }, [isMobile])
 
@@ -286,7 +303,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
           src="/images/iphone-frame.png"
           alt=""
           aria-hidden
-          className="relative z-10 block h-auto w-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.5)]"
+          className="relative z-10 block h-auto w-full drop-shadow-[0_25px_50px_rgba(0,0,0,0.6)]"
           draggable={false}
         />
 
@@ -299,7 +316,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
             right: SCREEN_INSET.right,
             bottom: SCREEN_INSET.bottom,
             borderRadius: SCREEN_INSET.radius,
-            backgroundColor: BRAND.bg,
+            backgroundColor: "#0b0b0d",
             border: "1px solid #2b2d31",
           }}
         >
@@ -307,14 +324,25 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
           <div
             className="pointer-events-none absolute top-[2.4%] left-1/2 z-30 h-[2.8%] min-h-[10px] max-h-[15px] w-[27%] -translate-x-1/2 rounded-full"
             style={{
-              backgroundColor: BRAND.island,
+              backgroundColor: "#000000",
               border: "1px solid #1a1a1e",
             }}
           />
 
-          {/* Conteúdo da Tela */}
+          {/* Conteúdo da Tela com AnimatePresence */}
           <div className="relative h-full w-full overflow-hidden">
-            <PhoneScreenContent screen={activeScreen} />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeScreen}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                className="h-full w-full"
+              >
+                <AppShell screen={activeScreen} />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>

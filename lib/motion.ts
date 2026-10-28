@@ -4,6 +4,12 @@ import { useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
+export const INTRO = {
+  form: 2.5,
+  travel: 0.8,
+  reveal: 0.9,
+} as const
+
 // Registrar plugins apenas no client
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)

@@ -2,7 +2,7 @@ import type React from "react"
 import { Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SmoothScroll } from "@/components/layout/smooth-scroll"
-import { Preloader } from "@/components/ui/preloader"
+import { Intro } from "@/components/ui/intro"
 import { VeraChat } from "@/components/vera/vera-chat"
 import { getPageMetadata } from "@/lib/seo"
 import "./globals.css"
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="dark">
       <body className={`${spaceGrotesk.variable} font-sans antialiased bg-[#0b0b0d] text-white selection:bg-[#c72c3b] selection:text-white`}>
-        <Preloader />
+        <Intro />
         <SmoothScroll>
           {children}
           <VeraChat />

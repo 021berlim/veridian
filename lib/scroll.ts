@@ -11,6 +11,10 @@ export function registerLenis(instance: Lenis | null) {
   lenisInstance = instance
 }
 
+export function getLenis() {
+  return lenisInstance
+}
+
 function ensureLenisRunning() {
   lenisInstance?.start()
 }

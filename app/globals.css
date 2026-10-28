@@ -169,6 +169,21 @@ body {
     pointer-events: none !important;
   }
 
+  /* Estado da intro inicial (Regra A3 / Contrato) */
+  html[data-intro-state="playing"] {
+    overflow: hidden;
+  }
+  html[data-intro-state="playing"] body {
+    overflow: hidden;
+  }
+  html[data-intro-state="playing"] #zuse-main-header {
+    opacity: 0;
+    pointer-events: none;
+  }
+  html[data-intro-state="playing"] [data-intro-reveal] {
+    opacity: 0;
+  }
+
   .mobile-menu-backdrop {
     background-color: #0b0b0df2;
     transform: translateZ(0);
