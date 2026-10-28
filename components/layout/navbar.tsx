@@ -47,21 +47,20 @@ export function Navbar() {
 
   // Listener para saber se o logo pousou no slot vindo da intro
   useEffect(() => {
-    const checkLogo = () => {
-      const introState = document.documentElement.dataset.introState
-      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      if (introState === "done" || prefersReduced) {
-        setHasLogoInSlot(true)
-      }
+    const handleIntroComplete = () => {
+      setHasLogoInSlot(true)
     }
 
-    checkLogo()
-    window.addEventListener("intro-complete", checkLogo)
-    window.addEventListener("intro-travel-start", checkLogo)
+    const introState = document.documentElement.dataset.introState
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (introState === "done" || prefersReduced) {
+      setHasLogoInSlot(true)
+    }
+
+    window.addEventListener("intro-complete", handleIntroComplete)
 
     return () => {
-      window.removeEventListener("intro-complete", checkLogo)
-      window.removeEventListener("intro-travel-start", checkLogo)
+      window.removeEventListener("intro-complete", handleIntroComplete)
     }
   }, [])
 

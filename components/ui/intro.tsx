@@ -10,11 +10,9 @@ export function Intro() {
   const compositionRef = useRef<HTMLDivElement>(null)
   const monoWrapperRef = useRef<HTMLDivElement>(null)
   const typoWrapperRef = useRef<HTMLDivElement>(null)
-  const [mounted, setMounted] = useState(false)
   const [active, setActive] = useState(true)
 
   useEffect(() => {
-    setMounted(true)
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const hasHash = window.location.hash.length > 1
 
@@ -157,7 +155,7 @@ export function Intro() {
 
       // Tempo de espera para o reveal do hero concluir (~0.9s)
       tl.to({}, { duration: INTRO.reveal }, 2.5 + INTRO.travel)
-    }, overlay)
+    })
 
     return () => {
       ctx.revert()
@@ -168,7 +166,7 @@ export function Intro() {
     }
   }, [])
 
-  if (!mounted || !active) return null
+  if (!active) return null
 
   return (
     <div
