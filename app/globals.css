@@ -41,7 +41,7 @@ body {
   --chart-3: #ffffff;
   --chart-4: #4b5563;
   --chart-5: #9ca3af;
-  --radius: 0rem;
+  --radius: 0.75rem;
   --sidebar: #111215;
   --sidebar-foreground: #ffffff;
   --sidebar-primary: #c72c3b;
@@ -83,10 +83,10 @@ body {
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: var(--radius);
-  --radius-md: var(--radius);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -127,7 +127,7 @@ body {
     @apply bg-background text-foreground;
   }
   [id] {
-    scroll-margin-top: 6.5rem;
+    scroll-margin-top: var(--header-h, 6.5rem);
   }
 }
 

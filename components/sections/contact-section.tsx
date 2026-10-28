@@ -164,7 +164,7 @@ export function ContactSection() {
                       id="name"
                       {...register("name")}
                       className={cn(
-                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        "rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
                         errors.name && "border-[#c72c3b]",
                       )}
                       placeholder="Nome completo"
@@ -183,7 +183,7 @@ export function ContactSection() {
                       type="email"
                       {...register("email")}
                       className={cn(
-                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        "rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
                         errors.email && "border-[#c72c3b]",
                       )}
                       placeholder="nome@empresa.com"
@@ -203,7 +203,7 @@ export function ContactSection() {
                       id="company"
                       {...register("company")}
                       className={cn(
-                        "rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                        "rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
                         errors.company && "border-[#c72c3b]",
                       )}
                       placeholder="Nome da organização"
@@ -225,13 +225,13 @@ export function ContactSection() {
                     >
                       <SelectTrigger
                         className={cn(
-                          "w-full rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white shadow-none focus:border-white focus:ring-0",
+                          "w-full rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white shadow-none focus:border-white focus:ring-0",
                           errors.projectType && "border-[#c72c3b]",
                         )}
                       >
                         <SelectValue placeholder="Selecione o serviço" />
                       </SelectTrigger>
-                      <SelectContent className="border border-[#2b2d31] bg-[#111215] text-white">
+                      <SelectContent className="rounded-md border border-[#2b2d31] bg-[#111215] text-white">
                         {projectTypes.map((type) => (
                           <SelectItem key={type} value={type} className="focus:bg-[#2b2d31] focus:text-white">
                             {type}
@@ -254,7 +254,7 @@ export function ContactSection() {
                     {...register("message")}
                     rows={4}
                     className={cn(
-                      "resize-none rounded-none border-0 border-b border-[#2b2d31] bg-transparent px-0 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
+                      "resize-none rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white placeholder:text-[#4b5563] shadow-none focus-visible:border-white focus-visible:ring-0",
                       errors.message && "border-[#c72c3b]",
                     )}
                     placeholder="Descreva requisitos, infraestrutura atual ou objetivos técnicos..."
@@ -271,7 +271,7 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group inline-flex items-center gap-3 border border-[#c72c3b] bg-[#c72c3b] px-8 py-3.5 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:bg-[#a6222f] disabled:opacity-50"
+                  className="group inline-flex items-center gap-3 rounded-full border border-[#c72c3b] bg-[#c72c3b] px-8 py-3.5 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:bg-[#a6222f] disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>

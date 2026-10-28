@@ -17,7 +17,7 @@ interface MobileMenuProps {
 }
 
 const menuEase = [0.22, 1, 0.36, 1] as const
-const MENU_ROW_WIDTH = "w-full max-w-[17rem]"
+const MENU_ROW_WIDTH = "w-full max-w-[18rem]"
 
 const menuItemVariants = {
   hidden: { opacity: 0, y: 14 },
@@ -57,7 +57,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
+          className="font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -73,7 +73,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="justify-self-center text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
+          className="justify-self-center font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -83,7 +83,7 @@ function MobileNavItem({
           aria-expanded={expanded}
           aria-label={`${expanded ? "Recolher" : "Expandir"} ${item.label}`}
           onClick={onToggle}
-          className="justify-self-end flex h-8 w-8 shrink-0 items-center justify-center border border-[#2b2d31] text-muted-foreground transition-colors hover:text-white"
+          className="justify-self-end flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 text-[#8a8f98] transition-colors hover:border-white hover:text-white"
         >
           <ChevronDown
             className={cn("h-4 w-4 transition-transform duration-300", expanded && "rotate-180")}
@@ -100,15 +100,15 @@ function MobileNavItem({
             transition={{ duration: 0.22, ease: menuEase }}
             className="w-full overflow-hidden"
           >
-            <div className="mt-3 w-full border-t border-[#2b2d31] pt-2">
+            <div className="mt-3 w-full rounded-xl border border-white/10 bg-[#141416]/90 px-4 py-3">
               {item.items.map((subItem) => (
                 <button
                   key={subItem.href}
                   type="button"
                   onClick={() => onNavigate(subItem.href)}
-                  className="flex w-full items-center justify-center gap-2 py-2.5 text-sm tracking-wide text-muted-foreground transition-colors hover:text-white"
+                  className="flex w-full items-center justify-center gap-2 border-t border-white/5 py-2.5 font-sans text-sm text-[#8a8f98] transition-colors first:border-t-0 hover:text-white"
                 >
-                  {subItem.label}
+                  <span>{subItem.label}</span>
                   <ArrowRight className="h-3.5 w-3.5 opacity-40" strokeWidth={1.5} />
                 </button>
               ))}
@@ -167,7 +167,7 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
               type="button"
               onClick={() => onOpenChange(false)}
               aria-label="Fechar menu"
-              className="absolute top-[max(1.25rem,env(safe-area-inset-top))] right-6 z-10 flex h-10 w-10 items-center justify-center border border-[#2b2d31] text-white transition-colors hover:border-white"
+              className="absolute top-[max(1.25rem,env(safe-area-inset-top))] right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white transition-colors hover:border-white"
             >
               <X className="h-5 w-5" strokeWidth={1.25} />
             </button>
@@ -231,10 +231,14 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
               <button
                 type="button"
                 onClick={() => onNavigate("#contato")}
-                className="flex w-full max-w-xs items-center justify-center gap-2 border border-[#2b2d31] bg-[#c72c3b] py-3 text-xs font-medium uppercase tracking-[0.08em] text-white transition-all hover:bg-[#a6222f]"
+                className="group relative flex w-full max-w-xs items-center gap-0 overflow-hidden rounded-full border border-white/20 bg-[#c72c3b] py-1.5 pr-1.5 pl-6 transition-all duration-300 hover:bg-[#a6222f]"
               >
-                <span>Iniciar conversa</span>
-                <ArrowRight className="h-4 w-4" />
+                <span className="relative z-10 flex-1 pr-3 text-left font-sans text-xs font-medium uppercase tracking-[0.06em] text-white">
+                  Iniciar projeto
+                </span>
+                <span className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/20">
+                  <ArrowRight className="h-4 w-4 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
               </button>
             </motion.div>
           </div>
