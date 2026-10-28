@@ -5,9 +5,9 @@ export const siteFlags = {
 
 export const siteConfig = {
   name: "Zuse Labs",
-  tagline: "Engenharia de software com precisão cinematográfica.",
+  tagline: "Você sonha, a gente compila.",
   description:
-    "Software sob medida, suporte e segurança de TI e inteligência artificial para empresas que exigem excelência técnica e confiabilidade operacional.",
+    "Desenvolvimento de software sob medida, plataformas digitais e retaguarda tecnológica para digitalizar processos e levar empresas ao próximo nível.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://zuselabs.com",
   contact: {
     email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
@@ -34,9 +34,9 @@ export const siteConfig = {
 
 export const landingContent = {
   hero: {
-    headline: "Engenharia de software com precisão cinematográfica.",
+    headline: "Você sonha, a gente compila.",
     subtitle:
-      "Software sob medida, suporte e segurança de TI e inteligência artificial para empresas.",
+      "Desenvolvimento de software sob medida e plataformas digitais para digitalizar processos, eliminar retrabalho e acelerar sua operação.",
     primaryCta: "Iniciar conversa",
     secondaryCta: "Conhecer serviços",
   },

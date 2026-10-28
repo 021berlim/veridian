@@ -5,42 +5,37 @@ import { Container } from "@/components/layout/container"
 import { gsap, ScrollTrigger, usePrefersReducedMotion } from "@/lib/motion"
 
 const MANIFESTO_WORDS: { text: string; highlight?: boolean }[] = [
-  { text: "ACREDITAMOS", highlight: false },
-  { text: "QUE", highlight: false },
-  { text: "CÓDIGO", highlight: false },
-  { text: "BEM", highlight: false },
-  { text: "ESCRITO", highlight: false },
-  { text: "É", highlight: false },
-  { text: "UM", highlight: false },
-  { text: "ATIVO", highlight: true },
-  { text: "ESTRATÉGICO.", highlight: true },
-  { text: "REJEITAMOS", highlight: false },
-  { text: "SOLUÇÕES", highlight: false },
-  { text: "IMPROVISADAS,", highlight: false },
-  { text: "COMPLEXIDADE", highlight: false },
-  { text: "DESNECESSÁRIA", highlight: false },
-  { text: "E", highlight: false },
-  { text: "PROMESSAS", highlight: false },
-  { text: "VAZIAS.", highlight: false },
-  { text: "NOSSA", highlight: false },
-  { text: "ENGENHARIA", highlight: false },
-  { text: "OPERA", highlight: false },
-  { text: "COM", highlight: false },
-  { text: "MÉTODO,", highlight: true },
-  { text: "DISCRIÇÃO", highlight: false },
-  { text: "E", highlight: false },
-  { text: "PRECISÃO", highlight: true },
-  { text: "PARA", highlight: false },
-  { text: "QUE", highlight: false },
-  { text: "SUA", highlight: false },
-  { text: "TECNOLOGIA", highlight: false },
-  { text: "OPERE", highlight: false },
+  { text: "VOCÊ", highlight: false },
+  { text: "SONHA,", highlight: true },
+  { text: "A", highlight: false },
+  { text: "GENTE", highlight: false },
+  { text: "COMPILA.", highlight: true },
+  { text: "TRANSFORMAMOS", highlight: false },
+  { text: "DESAFIOS", highlight: false },
+  { text: "OPERACIONAIS", highlight: false },
+  { text: "EM", highlight: false },
+  { text: "SISTEMAS", highlight: true },
+  { text: "SOB", highlight: true },
+  { text: "MEDIDA.", highlight: true },
+  { text: "DA", highlight: false },
+  { text: "DIGITALIZAÇÃO", highlight: false },
   { text: "DE", highlight: false },
-  { text: "FORMA", highlight: false },
-  { text: "ININTERRUPTA,", highlight: true },
-  { text: "SEGURA", highlight: false },
+  { text: "PROCESSOS", highlight: false },
+  { text: "À", highlight: false },
+  { text: "RETAGUARDA", highlight: true },
+  { text: "CRÍTICA,", highlight: false },
+  { text: "CRIAMOS", highlight: false },
+  { text: "PLATAFORMAS", highlight: false },
+  { text: "QUE", highlight: false },
+  { text: "ELIMINAM", highlight: false },
+  { text: "RETRABALHO", highlight: false },
   { text: "E", highlight: false },
-  { text: "LONGEVA.", highlight: true },
+  { text: "LEVAM", highlight: false },
+  { text: "SEU", highlight: false },
+  { text: "NEGÓCIO", highlight: false },
+  { text: "AO", highlight: false },
+  { text: "PRÓXIMO", highlight: true },
+  { text: "NÍVEL.", highlight: true },
 ]
 
 export function ManifestoSection() {
@@ -58,12 +53,12 @@ export function ManifestoSection() {
     const words = wordsContainerRef.current.querySelectorAll(".manifesto-word")
 
     const ctx = gsap.context(() => {
-      // Pin do Manifesto em 100vh com iluminação sequencial por scroll (estilo Lando Norris)
+      // Pin do Manifesto em 100vh com revelação sequencial e suave
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: `+=${window.innerHeight * 1.8}`,
+          end: `+=${window.innerHeight * 1.5}`,
           pin: pin,
           scrub: 0.6,
           anticipatePin: 1,
@@ -77,10 +72,10 @@ export function ManifestoSection() {
           {
             opacity: 1,
             color: isHighlight ? "#c72c3b" : "#ffffff",
-            duration: 0.25,
+            duration: 0.2,
             ease: "power2.out",
           },
-          ">+=0.04",
+          ">+=0.03",
         )
       })
     }, containerRef)
@@ -92,11 +87,11 @@ export function ManifestoSection() {
     return (
       <section
         id="manifesto"
-        className="flex min-h-[100svh] flex-col justify-center border-b border-[#2b2d31] bg-[#0b0b0d] px-6 py-20 text-white"
-        aria-label="Manifesto de Engenharia"
+        className="flex min-h-[100svh] flex-col justify-center border-b border-[#2b2d31] bg-[#0b0b0d] px-6 py-16 text-white"
+        aria-label="Manifesto Zuse Labs"
       >
-        <Container className="max-w-6xl">
-          <div className="flex flex-wrap gap-x-4 gap-y-3 font-sans text-3xl font-light uppercase tracking-[-0.03em] leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+        <Container className="max-w-4xl text-center">
+          <div className="flex flex-wrap justify-center gap-x-2.5 gap-y-2 font-sans text-2xl font-light uppercase tracking-[-0.02em] leading-[1.35] sm:text-3xl md:text-4xl lg:text-5xl">
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
@@ -117,13 +112,13 @@ export function ManifestoSection() {
         ref={pinRef}
         id="manifesto"
         className="relative flex h-screen w-full items-center justify-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
-        aria-label="Manifesto de Engenharia"
+        aria-label="Manifesto Zuse Labs"
       >
-        <Container className="max-w-6xl">
-          {/* Tipografia monumental estilo Lando Norris — pura, sem caixas/cards ou dados de sistema */}
+        <Container className="max-w-4xl text-center">
+          {/* Tipografia editorial balanceada em 100vh com revelação por scroll */}
           <div
             ref={wordsContainerRef}
-            className="flex flex-wrap gap-x-3.5 gap-y-2.5 font-sans text-3xl font-light uppercase tracking-[-0.03em] leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl select-none"
+            className="flex flex-wrap justify-center gap-x-2.5 gap-y-2 font-sans text-2xl font-light uppercase tracking-[-0.02em] leading-[1.35] sm:text-3xl md:text-4xl lg:text-5xl select-none"
           >
             {MANIFESTO_WORDS.map((w, i) => (
               <span
