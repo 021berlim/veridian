@@ -9,12 +9,13 @@ import { FinanceView } from "@/components/phone/finance"
 import { WorkshopView } from "@/components/phone/workshop"
 import { AssistantView } from "@/components/phone/assistant"
 
+// Inset preciso que faz o canvas da tela cobrir perfeitamente o desenho da moldura
 const SCREEN_INSET = {
-  top: "1.72%",
-  left: "4.35%",
-  right: "4.35%",
-  bottom: "1.72%",
-  radius: "10.2%",
+  top: "1.9%",
+  left: "4.7%",
+  right: "4.7%",
+  bottom: "1.9%",
+  radius: "8.6%",
 }
 
 interface PhoneMockupProps {
@@ -41,7 +42,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
       aria-hidden="true"
     >
       <div className="relative w-full">
-        {/* Moldura original do iPhone (restaurada) */}
+        {/* Moldura original do iPhone */}
         <img
           src="/images/iphone-frame.png"
           alt=""
@@ -50,7 +51,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
           draggable={false}
         />
 
-        {/* Tela interna com inset exato e container query para escala em cqw */}
+        {/* Tela interna com alinhamento perfeito aos cantos do bezel (sem borda cinza externa) */}
         <div
           id="phone-screen-container"
           className="absolute z-20 overflow-hidden"
@@ -61,18 +62,27 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
             bottom: SCREEN_INSET.bottom,
             borderRadius: SCREEN_INSET.radius,
             backgroundColor: "#0e0e10",
-            border: "1px solid #2b2d31",
             containerType: "inline-size",
           }}
         >
-          {/* Dynamic Island original */}
+          {/* Dynamic Island realista da Apple (câmera frontal com ótica AR sapphire + sensor FaceID) */}
           <div
-            className="pointer-events-none absolute top-[2.4%] left-1/2 z-30 h-[2.8%] min-h-[10px] max-h-[15px] w-[27%] -translate-x-1/2 rounded-full"
+            className="pointer-events-none absolute top-[2.2%] left-1/2 z-30 flex h-[2.7%] min-h-[11px] max-h-[15px] w-[22%] -translate-x-1/2 items-center justify-between px-[2.2cqw] rounded-full shadow-inner select-none"
             style={{
               backgroundColor: "#000000",
-              border: "1px solid #1a1a1e",
+              border: "0.5px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.9), inset 0 0.5px 1px rgba(255, 255, 255, 0.06)",
             }}
-          />
+          >
+            {/* Sensor TrueDepth / FaceID */}
+            <div className="h-[1.4cqw] w-[1.4cqw] rounded-full bg-[#08080c] ring-1 ring-white/[0.04]" />
+
+            {/* Lente da Câmera Frontal (Abertura óptica com reflexo azul-safira) */}
+            <div className="relative flex h-[1.9cqw] w-[1.9cqw] items-center justify-center rounded-full bg-[#0c0d14] ring-1 ring-white/[0.06]">
+              <div className="h-[0.9cqw] w-[0.9cqw] rounded-full bg-[#1c2242]" />
+              <div className="absolute top-[0.4cqw] right-[0.4cqw] h-[0.3cqw] w-[0.3cqw] rounded-full bg-[#465a9e]/70" />
+            </div>
+          </div>
 
           {/* Conteúdo da Tela com AnimatePresence e transição de translateY 12px */}
           <div className="relative h-full w-full overflow-hidden">
