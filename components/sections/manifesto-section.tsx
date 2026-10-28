@@ -58,7 +58,7 @@ export function ManifestoSection() {
     const words = wordsContainerRef.current.querySelectorAll(".manifesto-word")
 
     const ctx = gsap.context(() => {
-      // Pin do Manifesto em 100vh com efeito de palavras saltando para frente no scroll estilo Lando Norris
+      // Pin do Manifesto em 100vh com efeito de iluminação progressiva das palavras no scroll
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
@@ -76,11 +76,10 @@ export function ManifestoSection() {
           word,
           {
             opacity: 1,
-            scale: 1.09,
-            y: -3,
+            y: 0,
             color: isHighlight ? "#c72c3b" : "#ffffff",
-            duration: 0.22,
-            ease: "back.out(2)",
+            duration: 0.2,
+            ease: "power2.out",
           },
           ">+=0.025",
         )
@@ -99,7 +98,7 @@ export function ManifestoSection() {
         aria-label="Manifesto Zuse Labs"
       >
         <Container className="max-w-5xl text-center">
-          <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.15] sm:text-3xl md:text-4xl lg:text-[3rem]">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem]">
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
@@ -128,16 +127,16 @@ export function ManifestoSection() {
         aria-label="Manifesto Zuse Labs"
       >
         <Container className="max-w-5xl text-center">
-          {/* Tipografia robusta inspirada no Lando Norris: bold, tracking tenso, escala ampla e palavras que saltam na tela */}
+          {/* Tipografia robusta inspirada no Lando Norris: bold, tracking tenso, escala ampla e iluminação progressiva sem colisão entre palavras */}
           <div
             ref={wordsContainerRef}
-            className="flex flex-wrap justify-center gap-x-3 gap-y-2.5 sm:gap-x-4 sm:gap-y-3.5 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.18] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem] select-none"
+            className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem] select-none"
           >
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
                 data-highlight={w.highlight ? "true" : "false"}
-                className={`manifesto-word inline-block will-change-transform origin-center scale-[0.94] opacity-25 ${
+                className={`manifesto-word inline-block will-change-[opacity,color] opacity-20 ${
                   w.highlight ? "text-[#c72c3b]" : "text-white"
                 }`}
               >
