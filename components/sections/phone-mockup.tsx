@@ -61,7 +61,6 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
             bottom: SCREEN_INSET.bottom,
             borderRadius: SCREEN_INSET.radius,
             backgroundColor: "#0e0e10",
-            border: "1px solid #1a1a1e",
             containerType: "inline-size",
           }}
         >

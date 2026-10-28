@@ -96,7 +96,7 @@ export function Hero() {
             height: `${heightVh}vh`,
           }}
         >
-          <div className="h-full w-full border border-white/[0.04] bg-[#141416]/40" />
+          <div className="h-full w-full bg-transparent" />
         </div>
 
         <div
