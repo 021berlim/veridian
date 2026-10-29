@@ -86,10 +86,9 @@ export const navItems: readonly NavItem[] = [
   {
     type: "group",
     label: "Sobre",
-    href: "#capacidades",
+    href: "#manifesto",
     items: [
       { label: "Tecnologias", href: "#tecnologias" },
-      { label: "Capacidades", href: "#capacidades" },
       { label: "Manifesto", href: "#manifesto" },
     ],
   },
@@ -99,6 +98,7 @@ export const navItems: readonly NavItem[] = [
     href: "#servicos",
     items: [{ label: "Método", href: "#processo" }],
   },
+  { type: "link", label: "Projetos", href: "#projetos" },
   { type: "link", label: "FAQ", href: "#faq" },
   { type: "link", label: "Contato", href: "#contato" },
 ]

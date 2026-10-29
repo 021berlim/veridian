@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" fill="none">
+  <!-- Window background -->
+  <rect width="1200" height="800" rx="20" fill="#0b0b0d"/>
+  <rect x="0.5" y="0.5" width="1199" height="799" rx="19.5" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window Header / Titlebar -->
+  <rect width="1200" height="48" rx="20" fill="#141418"/>
+  <rect y="20" width="1200" height="28" fill="#141418"/>
+  <line x1="0" y1="48" x2="1200" y2="48" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window controls -->
+  <circle cx="28" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="48" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="68" cy="24" r="6" fill="#2b2d31"/>
+
+  <!-- URL Bar -->
+  <rect x="180" y="10" width="460" height="28" rx="6" fill="#0b0b0d" stroke="#2b2d31" stroke-width="1"/>
+  <circle cx="198" cy="24" r="4" fill="#c72c3b"/>
+  <text x="214" y="28" fill="#8a8f98" font-family="monospace" font-size="11">cortana.zuselabs.ai/workspace/report-q4</text>
+
+  <!-- Left Sidebar: Agent Sessions & Sources -->
+  <rect x="0" y="48" width="280" height="752" fill="#111215"/>
+  <line x1="280" y1="48" x2="280" y2="800" stroke="#2b2d31" stroke-width="1"/>
+
+  <text x="28" y="86" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600" letter-spacing="0.05em">CORTANA AI</text>
+  <text x="28" y="104" fill="#8a8f98" font-family="monospace" font-size="9" letter-spacing="0.1em">AGENTE DE BUSCA &amp; SÍNTESE</text>
+
+  <!-- New Task Button -->
+  <rect x="20" y="128" width="240" height="36" rx="6" fill="#1b1c22" stroke="#2b2d31" stroke-width="1"/>
+  <text x="40" y="151" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">+ Nova Pesquisa Profunda</text>
+
+  <!-- Sessions List -->
+  <text x="28" y="196" fill="#6b7280" font-family="monospace" font-size="10" letter-spacing="0.1em">SESSÕES RECENTES</text>
+
+  <!-- Active Session -->
+  <rect x="16" y="212" width="248" height="42" rx="6" fill="#18191f"/>
+  <line x1="16" y1="212" x2="16" y2="254" stroke="#c72c3b" stroke-width="3"/>
+  <text x="32" y="238" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">Mapeamento Mercado IA 2025</text>
+
+  <rect x="16" y="260" width="248" height="38" rx="6" fill="transparent"/>
+  <text x="32" y="284" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="12">Auditoria de Cibersegurança BACEN</text>
+
+  <rect x="16" y="304" width="248" height="38" rx="6" fill="transparent"/>
+  <text x="32" y="328" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="12">Benchmark de Provedores Cloud</text>
+
+  <rect x="16" y="348" width="248" height="38" rx="6" fill="transparent"/>
+  <text x="32" y="372" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="12">Análise de Patentes de Software</text>
+
+  <!-- Sources Indexed Section -->
+  <rect x="16" y="580" width="248" height="190" rx="8" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="32" y="608" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="600">Fontes Auditadas (RAG)</text>
+  <text x="32" y="626" fill="#8a8f98" font-family="monospace" font-size="10">24 DOCUMENTOS • 18 FONTES WEB</text>
+
+  <circle cx="38" cy="656" r="3" fill="#22c55e"/>
+  <text x="48" y="660" fill="#8a8f98" font-family="monospace" font-size="10">gartner.com/tech-radar</text>
+
+  <circle cx="38" cy="686" r="3" fill="#22c55e"/>
+  <text x="48" y="690" fill="#8a8f98" font-family="monospace" font-size="10">sec.gov/edgar-filings</text>
+
+  <circle cx="38" cy="716" r="3" fill="#22c55e"/>
+  <text x="48" y="720" fill="#8a8f98" font-family="monospace" font-size="10">github.com/papers-with-code</text>
+
+  <circle cx="38" cy="746" r="3" fill="#22c55e"/>
+  <text x="48" y="750" fill="#8a8f98" font-family="monospace" font-size="10">sciencedirect.com/article/821</text>
+
+  <!-- Main Chat & Synthesis Canvas -->
+  <!-- User Prompt Bubble -->
+  <rect x="320" y="80" width="840" height="72" rx="12" fill="#14151a" stroke="#2b2d31" stroke-width="1"/>
+  <text x="344" y="110" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">PROMPT DE PESQUISA DO USUÁRIO</text>
+  <text x="344" y="134" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14">"Investigue as arquiteturas de agentes autônomos com busca vetorial híbrida e gere um sumário executivo com prós, contras e viabilidade para clientes Zuse."</text>
+
+  <!-- Agent Reasoning Steps -->
+  <rect x="320" y="172" width="840" height="120" rx="10" fill="#0f1014" stroke="#222329" stroke-width="1"/>
+  <text x="344" y="198" fill="#c72c3b" font-family="monospace" font-size="11" letter-spacing="0.1em">ETAPAS DE RACIOCÍNIO &amp; EXECUÇÃO</text>
+
+  <text x="344" y="226" fill="#8a8f98" font-family="monospace" font-size="11">✓ 1. Disparada varredura em 6 bases acadêmicas e relatórios setoriais (4.2s)</text>
+  <text x="344" y="248" fill="#8a8f98" font-family="monospace" font-size="11">✓ 2. Cross-referencing e descarte de fontes redundantes / não-auditáveis</text>
+  <text x="344" y="270" fill="#22c55e" font-family="monospace" font-size="11">✓ 3. Síntese em linguagem clara estruturada conforme diretrizes de engenharia</text>
+
+  <!-- Generated Report Card -->
+  <rect x="320" y="312" width="840" height="370" rx="12" fill="#131418" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Report Header -->
+  <rect x="320" y="312" width="840" height="52" rx="12" fill="#18191f"/>
+  <rect x="320" y="352" width="840" height="12" fill="#18191f"/>
+  <text x="344" y="344" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600">Relatório de Inteligência Técnica: RAG Híbrido &amp; Agentes Cognitivos</text>
+  <rect x="1040" y="326" width="100" height="24" rx="4" fill="#c72c3b"/>
+  <text x="1054" y="342" fill="#ffffff" font-family="monospace" font-size="10" font-weight="600">EXPORTAR PDF</text>
+
+  <!-- Report Content -->
+  <text x="344" y="392" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="500">1. Resumo Executivo</text>
+  <text x="344" y="418" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="300" line-height="1.6">
+    <tspan x="344" dy="0">A combinação de busca léxica (BM25) com vetores densos (HNSW) reduz falsos positivos em 38% em documentação técnica.</tspan>
+    <tspan x="344" dy="22">Empresas que adotaram orquestração com verificação de fontes eliminaram alucinações críticas em fluxos de atendimento.</tspan>
+  </text>
+
+  <line x1="344" y1="460" x2="1136" y2="460" stroke="#222329" stroke-width="1"/>
+
+  <text x="344" y="490" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="500">2. Tabela Comparativa de Latência e Precisão</text>
+
+  <!-- Mini Table -->
+  <rect x="344" y="508" width="792" height="32" rx="4" fill="#1a1c22"/>
+  <text x="360" y="528" fill="#8a8f98" font-family="monospace" font-size="10">ARQUITETURA</text>
+  <text x="560" y="528" fill="#8a8f98" font-family="monospace" font-size="10">PRECISÃO (TOP-3)</text>
+  <text x="760" y="528" fill="#8a8f98" font-family="monospace" font-size="10">LATÊNCIA P95</text>
+  <text x="960" y="528" fill="#8a8f98" font-family="monospace" font-size="10">CUSTO RELATIVO</text>
+
+  <rect x="344" y="546" width="792" height="36" fill="#121316"/>
+  <text x="360" y="568" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12">RAG Vetorial Simples</text>
+  <text x="560" y="568" fill="#8a8f98" font-family="monospace" font-size="12">71.4%</text>
+  <text x="760" y="568" fill="#22c55e" font-family="monospace" font-size="12">180ms</text>
+  <text x="960" y="568" fill="#8a8f98" font-family="monospace" font-size="12">1.0x</text>
+
+  <rect x="344" y="586" width="792" height="36" fill="#14161c"/>
+  <text x="360" y="608" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="600">Cortana Hybrid Agent (Zuse)</text>
+  <text x="560" y="608" fill="#22c55e" font-family="monospace" font-size="12" font-weight="600">94.8%</text>
+  <text x="760" y="608" fill="#ffffff" font-family="monospace" font-size="12">310ms</text>
+  <text x="960" y="608" fill="#c72c3b" font-family="monospace" font-size="12">1.4x (Otimizado)</text>
+
+  <!-- Prompt input bar -->
+  <rect x="320" y="704" width="840" height="52" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="344" y="736" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Faça perguntas de aprofundamento sobre este relatório...</text>
+  <circle cx="1132" cy="730" r="16" fill="#c72c3b"/>
+  <path d="M1126 730 L1138 730 M1134 726 L1138 730 L1134 734" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+</svg>

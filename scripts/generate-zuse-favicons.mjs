@@ -38,17 +38,10 @@ async function generateFavicons() {
   const innerMatch = monoSvgContent.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i)
   const innerContent = innerMatch ? innerMatch[1] : monoSvgContent
 
-  // 1. SVG mestre de 512x512 com fundo escuro #0b0b0d e a logo negativa Z perfeitamente centralizada e nítida
+  // 1. SVG mestre sem background (fundo 100% transparente) com a logo negativa Z (monograma) perfeitamente nítida
   // ViewBox do monograma negativo original: 70 140 540 540.
-  // Escala: 0.76 => 410px centralizado em 512px (offset = (512 - 410)/2 = 51px)
-  const masterSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <rect width="512" height="512" rx="112" fill="#0b0b0d"/>
-  <rect x="2" y="2" width="508" height="508" rx="110" fill="none" stroke="#2b2d31" stroke-width="4"/>
-  <g transform="translate(51, 51) scale(0.76)">
-    <svg viewBox="70 140 540 540" width="540" height="540">
-      ${innerContent}
-    </svg>
-  </g>
+  const masterSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="70 140 540 540" width="512" height="512" fill="none">
+${innerContent}
 </svg>`
 
   // Salvar SVG principal

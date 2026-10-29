@@ -95,10 +95,13 @@ export function KeynoteSection() {
     <div ref={containerRef} className="relative w-full bg-[#0b0b0d]">
       <section
         ref={pinRef}
-        className="relative flex h-screen w-full items-center justify-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
+        className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
+        style={{
+          paddingTop: "var(--header-h, 92px)",
+        }}
         aria-label="Pilares de Atuação"
       >
-        <div className="relative mx-auto flex h-64 w-full max-w-5xl items-center justify-center">
+        <div className="relative mx-auto flex h-72 w-full max-w-5xl flex-col items-center justify-center text-center">
           {WORDS.map((item, index) => (
             <div
               key={item.title}
@@ -109,10 +112,10 @@ export function KeynoteSection() {
                 index === 0 ? "opacity-100" : "opacity-0"
               }`}
             >
-              <span className="font-sans text-6xl font-light tracking-[-0.04em] text-[#c72c3b] sm:text-8xl md:text-9xl">
+              <span className="block text-center font-sans text-6xl font-light tracking-[-0.04em] text-[#c72c3b] sm:text-8xl md:text-9xl">
                 {item.title}
               </span>
-              <p className="mt-6 max-w-xl text-sm font-normal text-[#8a8f98] sm:text-base md:text-lg">
+              <p className="mx-auto mt-6 max-w-xl text-center text-sm font-normal text-[#8a8f98] sm:text-base md:text-lg">
                 {item.desc}
               </p>
             </div>

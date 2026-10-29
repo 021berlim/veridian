@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -56,6 +56,17 @@ export function ContactSection() {
   })
 
   const projectType = watch("projectType")
+
+  useEffect(() => {
+    const handleSelectInterest = (e: Event) => {
+      const customEvent = e as CustomEvent<string>
+      if (customEvent.detail) {
+        setValue("projectType", customEvent.detail, { shouldValidate: true })
+      }
+    }
+    window.addEventListener("zuse-select-interest", handleSelectInterest)
+    return () => window.removeEventListener("zuse-select-interest", handleSelectInterest)
+  }, [setValue])
 
   const onSubmit = async (data: ContactFormData) => {
     setApiError(null)
@@ -217,7 +228,7 @@ export function ContactSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
+                    <Label htmlFor="projectType" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
                       Área de Interesse
                     </Label>
                     <Select
@@ -227,6 +238,7 @@ export function ContactSection() {
                       }
                     >
                       <SelectTrigger
+                        id="projectType"
                         className={cn(
                           "w-full rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white shadow-none focus:border-white focus:ring-0",
                           errors.projectType && "border-[#c72c3b]",

@@ -46,11 +46,11 @@ export function ClientsCarousel() {
     <section
       id="tecnologias"
       className="overflow-hidden border-y border-[#2b2d31] bg-[#0b0b0d] py-8 md:py-10"
-      aria-label="Tecnologias e Arquitetura"
+      aria-label="Empresas que confiam na ZUSE"
     >
       <div className="mx-auto mb-6 max-w-7xl px-6 text-center">
         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8a8f98]">
-          TECNOLOGIAS E ECOSSISTEMA TÉCNICO
+          Empresas que confiam na ZUSE
         </span>
       </div>
 
@@ -84,3 +84,4 @@ export function ClientsCarousel() {
     </section>
   )
 }
+

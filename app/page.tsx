@@ -2,34 +2,29 @@ import { Navbar } from "@/components/layout/navbar"
 import { Footer } from "@/components/layout/footer"
 import { Hero } from "@/components/sections/hero"
 import { ClientsCarousel } from "@/components/sections/clients-carousel"
-import { CapabilitiesSection } from "@/components/sections/capabilities-section"
 import { KeynoteSection } from "@/components/sections/keynote-section"
 import { ManifestoSection } from "@/components/sections/manifesto-section"
+import { ProjectsSection } from "@/components/sections/projects/projects-section"
 import { ProcessSection } from "@/components/sections/process-section"
 import { ServicesSection } from "@/components/sections/services-section"
-import { PortfolioSection } from "@/components/sections/portfolio-section"
-import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { FAQSection } from "@/components/sections/faq-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { JsonLd } from "@/components/seo/json-ld"
 import { getHomeStructuredData } from "@/lib/seo"
-import { siteFlags } from "@/data/site"
 
 export default function Home() {
   return (
     <>
       <JsonLd data={getHomeStructuredData()} />
-      <main className="min-h-screen overflow-x-clip bg-[#0b0b0d] selection:bg-[#c72c3b] selection:text-white">
+      <main className="min-h-screen overflow-x-clip bg-[#0b0b0d]">
         <Navbar />
         <Hero />
         <ClientsCarousel />
-        <CapabilitiesSection />
         <KeynoteSection />
         <ManifestoSection />
+        <ProjectsSection />
         <ProcessSection />
         <ServicesSection />
-        {siteFlags.showWork && <PortfolioSection />}
-        {siteFlags.showTestimonials && <TestimonialsSection />}
         <FAQSection />
         <ContactSection />
         <Footer />

@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" fill="none">
+  <!-- Window background -->
+  <rect width="1200" height="800" rx="20" fill="#0e0e11"/>
+  <rect x="0.5" y="0.5" width="1199" height="799" rx="19.5" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window Header / Titlebar -->
+  <rect width="1200" height="48" rx="20" fill="#141418"/>
+  <rect y="20" width="1200" height="28" fill="#141418"/>
+  <line x1="0" y1="48" x2="1200" y2="48" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window controls -->
+  <circle cx="28" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="48" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="68" cy="24" r="6" fill="#2b2d31"/>
+
+  <!-- Address / Search Bar -->
+  <rect x="180" y="10" width="480" height="28" rx="6" fill="#0b0b0d" stroke="#2b2d31" stroke-width="1"/>
+  <circle cx="198" cy="24" r="4" fill="#c72c3b"/>
+  <text x="214" y="28" fill="#8a8f98" font-family="monospace" font-size="11" letter-spacing="0.05em">erp.zuselabs.internal/faturamento/nfe</text>
+
+  <!-- Sidebar -->
+  <rect x="0" y="48" width="240" height="752" fill="#111215"/>
+  <line x1="240" y1="48" x2="240" y2="800" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Sidebar branding -->
+  <text x="28" y="86" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600" letter-spacing="0.05em">ZUSE ERP</text>
+  <text x="28" y="104" fill="#8a8f98" font-family="monospace" font-size="9" letter-spacing="0.1em">v4.8 • MULTIUSUÁRIO</text>
+
+  <!-- Sidebar Menu Items -->
+  <!-- Active Item: Faturamento & NF-e -->
+  <rect x="14" y="132" width="212" height="38" rx="8" fill="#1c1d22"/>
+  <line x1="14" y1="132" x2="14" y2="170" stroke="#c72c3b" stroke-width="3"/>
+  <text x="36" y="156" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="500">Notas Fiscais (NF-e)</text>
+
+  <text x="36" y="200" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Central de Chamados</text>
+  <text x="36" y="240" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Gestão de Filiais</text>
+  <text x="36" y="280" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Fluxo de Caixa</text>
+  <text x="36" y="320" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Auditoria &amp; Logs</text>
+  <text x="36" y="360" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Configurações</text>
+
+  <!-- Sidebar Footer User Status -->
+  <rect x="14" y="736" width="212" height="48" rx="8" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <circle cx="36" cy="760" r="12" fill="#2b2d31"/>
+  <text x="32" y="764" fill="#ffffff" font-family="monospace" font-size="11">JM</text>
+  <text x="56" y="756" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">Operador Matriz</text>
+  <circle cx="58" cy="768" r="3" fill="#22c55e"/>
+  <text x="66" y="771" fill="#8a8f98" font-family="monospace" font-size="9">SINCRONIZADO</text>
+
+  <!-- Main Content Area -->
+  <!-- Top bar -->
+  <text x="272" y="92" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="400" letter-spacing="-0.02em">Painel Fiscal &amp; Faturamento</text>
+  <text x="272" y="112" fill="#8a8f98" font-family="monospace" font-size="11">FILIAIS ATIVAS: 12 • SEFAZ RS / SP: ONLINE</text>
+
+  <!-- Primary Metric Cards -->
+  <rect x="272" y="136" width="280" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="292" y="164" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">NOTAS EMITIDAS HOJE</text>
+  <text x="292" y="200" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="26" font-weight="600">1.482</text>
+  <text x="470" y="200" fill="#22c55e" font-family="monospace" font-size="11">100% OK</text>
+
+  <rect x="572" y="136" width="280" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="592" y="164" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">TEMPO MÉDIO DE AUTORIZAÇÃO</text>
+  <text x="592" y="200" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="26" font-weight="600">420ms</text>
+  <text x="760" y="200" fill="#c72c3b" font-family="monospace" font-size="11">-18ms</text>
+
+  <rect x="872" y="136" width="298" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="892" y="164" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">CHAMADOS RESOLVIDOS (SLA)</text>
+  <text x="892" y="200" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="26" font-weight="600">99.4%</text>
+  <text x="1070" y="200" fill="#8a8f98" font-family="monospace" font-size="11">&lt; 15min</text>
+
+  <!-- Table Header -->
+  <rect x="272" y="250" width="898" height="42" rx="8" fill="#18191e" stroke="#2b2d31" stroke-width="1"/>
+  <text x="296" y="276" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">DOC / NF</text>
+  <text x="430" y="276" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">DESTINATÁRIO</text>
+  <text x="670" y="276" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">FILIAL ORIGEM</text>
+  <text x="880" y="276" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">VALOR TOTAL</text>
+  <text x="1060" y="276" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">STATUS</text>
+
+  <!-- Row 1 -->
+  <rect x="272" y="302" width="898" height="52" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="296" y="333" fill="#ffffff" font-family="monospace" font-size="12">NF-e 004821</text>
+  <text x="430" y="333" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Logística Integrada Sul S/A</text>
+  <text x="670" y="333" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Filial Curitiba (02)</text>
+  <text x="880" y="333" fill="#ffffff" font-family="monospace" font-size="13">R$ 148.920,00</text>
+  <rect x="1052" y="318" width="88" height="22" rx="4" fill="#0d2818"/>
+  <text x="1068" y="333" fill="#4ade80" font-family="monospace" font-size="10">AUTORIZADA</text>
+
+  <!-- Row 2 -->
+  <rect x="272" y="362" width="898" height="52" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="296" y="393" fill="#ffffff" font-family="monospace" font-size="12">NF-e 004820</text>
+  <text x="430" y="393" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Distribuidora Alvorada Ltda</text>
+  <text x="670" y="393" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Matriz Porto Alegre</text>
+  <text x="880" y="393" fill="#ffffff" font-family="monospace" font-size="13">R$ 42.150,00</text>
+  <rect x="1052" y="378" width="88" height="22" rx="4" fill="#0d2818"/>
+  <text x="1068" y="393" fill="#4ade80" font-family="monospace" font-size="10">AUTORIZADA</text>
+
+  <!-- Row 3 -->
+  <rect x="272" y="422" width="898" height="52" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="296" y="453" fill="#ffffff" font-family="monospace" font-size="12">NF-e 004819</text>
+  <text x="430" y="453" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Indústria Metalúrgica Paulista</text>
+  <text x="670" y="453" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Filial Campinas (05)</text>
+  <text x="880" y="453" fill="#ffffff" font-family="monospace" font-size="13">R$ 318.400,00</text>
+  <rect x="1052" y="438" width="88" height="22" rx="4" fill="#0d2818"/>
+  <text x="1068" y="453" fill="#4ade80" font-family="monospace" font-size="10">AUTORIZADA</text>
+
+  <!-- Row 4 -->
+  <rect x="272" y="482" width="898" height="52" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="296" y="513" fill="#ffffff" font-family="monospace" font-size="12">NF-e 004818</text>
+  <text x="430" y="513" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Cooperativa Agrícola Central</text>
+  <text x="670" y="513" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Filial Chapecó (03)</text>
+  <text x="880" y="513" fill="#ffffff" font-family="monospace" font-size="13">R$ 89.600,00</text>
+  <rect x="1052" y="498" width="88" height="22" rx="4" fill="#0d2818"/>
+  <text x="1068" y="513" fill="#4ade80" font-family="monospace" font-size="10">AUTORIZADA</text>
+
+  <!-- Lower Detail: Support & Ticket Stream -->
+  <rect x="272" y="556" width="898" height="216" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="296" y="586" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="500">Central de Chamados em Tempo Real</text>
+  <text x="296" y="604" fill="#8a8f98" font-family="monospace" font-size="10">FILA ATIVA • PRIORIDADE CRÍTICA AUTOMÁTICA</text>
+
+  <!-- Ticket item 1 -->
+  <circle cx="304" cy="636" r="4" fill="#c72c3b"/>
+  <text x="320" y="640" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12">#CH-1094: Validação de certificado A1 da filial Chapecó</text>
+  <text x="1050" y="640" fill="#8a8f98" font-family="monospace" font-size="11">há 2 min</text>
+
+  <!-- Ticket item 2 -->
+  <circle cx="304" cy="676" r="4" fill="#22c55e"/>
+  <text x="320" y="680" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12">#CH-1093: Sincronização de catálogo de produtos concluída</text>
+  <text x="1050" y="680" fill="#8a8f98" font-family="monospace" font-size="11">há 8 min</text>
+
+  <!-- Ticket item 3 -->
+  <circle cx="304" cy="716" r="4" fill="#22c55e"/>
+  <text x="320" y="720" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12">#CH-1092: Emissão em lote autorizada pela Sefaz RS (410 notas)</text>
+  <text x="1045" y="720" fill="#8a8f98" font-family="monospace" font-size="11">há 14 min</text>
+</svg>

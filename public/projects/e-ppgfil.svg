@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" fill="none">
+  <!-- Window background -->
+  <rect width="1200" height="800" rx="20" fill="#0c0d10"/>
+  <rect x="0.5" y="0.5" width="1199" height="799" rx="19.5" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window Header / Titlebar -->
+  <rect width="1200" height="48" rx="20" fill="#141418"/>
+  <rect y="20" width="1200" height="28" fill="#141418"/>
+  <line x1="0" y1="48" x2="1200" y2="48" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Window controls -->
+  <circle cx="28" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="48" cy="24" r="6" fill="#2b2d31"/>
+  <circle cx="68" cy="24" r="6" fill="#2b2d31"/>
+
+  <!-- URL Bar -->
+  <rect x="180" y="10" width="520" height="28" rx="6" fill="#0b0b0d" stroke="#2b2d31" stroke-width="1"/>
+  <circle cx="198" cy="24" r="4" fill="#c72c3b"/>
+  <text x="214" y="28" fill="#8a8f98" font-family="monospace" font-size="11">ppgfil.universidade.edu.br/protocolos/audit</text>
+
+  <!-- Navigation top bar -->
+  <rect x="0" y="48" width="1200" height="56" fill="#111215"/>
+  <line x1="0" y1="104" x2="1200" y2="104" stroke="#2b2d31" stroke-width="1"/>
+
+  <!-- Portal Title -->
+  <text x="40" y="82" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="600" letter-spacing="0.04em">e-PPGFIL</text>
+  <text x="130" y="82" fill="#8a8f98" font-family="monospace" font-size="11">SISTEMA ELETRÔNICO DE PROTOCOLOS</text>
+
+  <!-- Nav links -->
+  <text x="640" y="82" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="500">Protocolos Ativos</text>
+  <text x="780" y="82" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Bancas &amp; Defesas</text>
+  <text x="920" y="82" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Documentos</text>
+  <text x="1050" y="82" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Assinaturas</text>
+
+  <!-- Content Container -->
+  <!-- Header -->
+  <text x="40" y="148" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="400" letter-spacing="-0.02em">Fluxo de Protocolos e Trâmites Acadêmicos</text>
+  <text x="40" y="170" fill="#8a8f98" font-family="monospace" font-size="11">PROGRAMA DE PÓS-GRADUAÇÃO EM FILOSOFIA • ANO LETIVO 2024/2025</text>
+
+  <!-- Metrics row -->
+  <rect x="40" y="196" width="354" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="64" y="226" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">PROCESSOS DIGITALIZADOS</text>
+  <text x="64" y="262" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="600">842</text>
+  <text x="260" y="262" fill="#22c55e" font-family="monospace" font-size="11">100% SEM PAPEL</text>
+
+  <rect x="424" y="196" width="354" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="448" y="226" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">TEMPO MÉDIO DE PARECER</text>
+  <text x="448" y="262" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="600">3,2 dias</text>
+  <text x="660" y="262" fill="#c72c3b" font-family="monospace" font-size="11">-74% TEMPO</text>
+
+  <rect x="806" y="196" width="354" height="90" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="830" y="226" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">BANCAS HOMOLOGADAS</text>
+  <text x="830" y="262" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="600">68</text>
+  <text x="1050" y="262" fill="#8a8f98" font-family="monospace" font-size="11">CAPES OK</text>
+
+  <!-- Process List Table -->
+  <rect x="40" y="316" width="1120" height="44" rx="8" fill="#18191e" stroke="#2b2d31" stroke-width="1"/>
+  <text x="64" y="343" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">PROTOCOLO</text>
+  <text x="210" y="343" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">TIPO DE SOLICITAÇÃO</text>
+  <text x="500" y="343" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">PESQUISADOR / DISCENTE</text>
+  <text x="800" y="343" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">ETAPA ATUAL</text>
+  <text x="1040" y="343" fill="#8a8f98" font-family="monospace" font-size="10" letter-spacing="0.1em">SITUAÇÃO</text>
+
+  <!-- Item 1 -->
+  <rect x="40" y="372" width="1120" height="54" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="64" y="405" fill="#ffffff" font-family="monospace" font-size="12">#2024-0412</text>
+  <text x="210" y="405" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Homologação de Banca de Doutorado</text>
+  <text x="500" y="405" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Dra. Letícia Ramos Albuquerque</text>
+  <text x="800" y="405" fill="#ffffff" font-family="monospace" font-size="12">Assinatura da Coordenação</text>
+  <rect x="1030" y="388" width="94" height="22" rx="4" fill="#0d2818"/>
+  <text x="1042" y="403" fill="#4ade80" font-family="monospace" font-size="10">DEFERIDO</text>
+
+  <!-- Item 2 -->
+  <rect x="40" y="438" width="1120" height="54" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="64" y="471" fill="#ffffff" font-family="monospace" font-size="12">#2024-0411</text>
+  <text x="210" y="471" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Aproveitamento de Créditos Externos</text>
+  <text x="500" y="471" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Me. Gabriel Castanho Ribeiro</text>
+  <text x="800" y="471" fill="#ffffff" font-family="monospace" font-size="12">Parecer da Comissão</text>
+  <rect x="1030" y="454" width="94" height="22" rx="4" fill="#2b2d31"/>
+  <text x="1046" y="469" fill="#e5e7eb" font-family="monospace" font-size="10">EM ANÁLISE</text>
+
+  <!-- Item 3 -->
+  <rect x="40" y="504" width="1120" height="54" rx="6" fill="#121316" stroke="#222329" stroke-width="1"/>
+  <text x="64" y="537" fill="#ffffff" font-family="monospace" font-size="12">#2024-0410</text>
+  <text x="210" y="537" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="13">Qualificação de Dissertação de Mestrado</text>
+  <text x="500" y="537" fill="#8a8f98" font-family="'Space Grotesk', sans-serif" font-size="13">Ana Beatriz Moreira dos Santos</text>
+  <text x="800" y="537" fill="#ffffff" font-family="monospace" font-size="12">Documentos Validados</text>
+  <rect x="1030" y="520" width="94" height="22" rx="4" fill="#0d2818"/>
+  <text x="1042" y="535" fill="#4ade80" font-family="monospace" font-size="10">DEFERIDO</text>
+
+  <!-- Workflow Audit Strip -->
+  <rect x="40" y="582" width="1120" height="180" rx="10" fill="#141418" stroke="#2b2d31" stroke-width="1"/>
+  <text x="64" y="614" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="500">Trilha de Auditoria Digital &amp; ICP-Brasil</text>
+  <text x="64" y="632" fill="#8a8f98" font-family="monospace" font-size="10">ASSINATURA ELETRÔNICA CERTIFICADA • CARIMBO DO TEMPO</text>
+
+  <rect x="64" y="654" width="310" height="84" rx="6" fill="#1c1d22" stroke="#2b2d31" stroke-width="1"/>
+  <text x="80" y="682" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">1. Submissão do Candidato</text>
+  <text x="80" y="702" fill="#8a8f98" font-family="monospace" font-size="11">Autenticação federada gov.br</text>
+  <text x="80" y="722" fill="#22c55e" font-family="monospace" font-size="10">✓ PROTOCOLADO</text>
+
+  <rect x="398" y="654" width="310" height="84" rx="6" fill="#1c1d22" stroke="#2b2d31" stroke-width="1"/>
+  <text x="414" y="682" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">2. Avaliação de Parecerista</text>
+  <text x="414" y="702" fill="#8a8f98" font-family="monospace" font-size="11">Criptografia de chave pública</text>
+  <text x="414" y="722" fill="#22c55e" font-family="monospace" font-size="10">✓ ASSINADO DIGITALMENTE</text>
+
+  <rect x="732" y="654" width="310" height="84" rx="6" fill="#1c1d22" stroke="#2b2d31" stroke-width="1"/>
+  <text x="748" y="682" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="500">3. Homologação da Reitoria</text>
+  <text x="748" y="702" fill="#8a8f98" font-family="monospace" font-size="11">Registro e despacho automático</text>
+  <text x="748" y="722" fill="#c72c3b" font-family="monospace" font-size="10">● ARQUIVADO EM LIVRO ELETRÔNICO</text>
+</svg>

@@ -8,12 +8,17 @@ html {
   scrollbar-gutter: stable;
   background-color: #0b0b0d;
   color: #ffffff;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body {
   overflow-x: clip;
   background-color: #0b0b0d;
   color: #ffffff;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
 }
 
 :root {
@@ -102,6 +107,34 @@ body {
     @apply border-border outline-ring/50;
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  *:focus:not(:focus-visible) {
+    outline: none !important;
+  }
+
+  /* Impede cursor de digitação I-beam e seleção acidental em textos da interface */
+  p, h1, h2, h3, h4, h5, h6, span, label, li, a, button, section, div {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* Garante cursor de texto e edição normal apenas em inputs e textareas */
+  input,
+  textarea,
+  [contenteditable="true"] {
+    -webkit-user-select: text !important;
+    user-select: text !important;
+    cursor: text !important;
+  }
+
+  a,
+  button,
+  [role="button"],
+  [role="tab"],
+  summary,
+  .cursor-pointer {
+    cursor: pointer;
   }
 
   *::-webkit-scrollbar {

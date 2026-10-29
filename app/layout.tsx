@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className="dark">
-      <body className={`${spaceGrotesk.variable} font-sans antialiased bg-[#0b0b0d] text-white selection:bg-[#c72c3b] selection:text-white`}>
+    <html lang="pt-BR" className="dark select-none">
+      <body className={`${spaceGrotesk.variable} font-sans antialiased bg-[#0b0b0d] text-white select-none`}>
         <Intro />
         <SmoothScroll>
           {children}

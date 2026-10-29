@@ -9,7 +9,7 @@ const footerSections = [
     links: [
       { label: "Início", href: "#hero" },
       { label: "Tecnologias", href: "#tecnologias" },
-      { label: "Capacidades", href: "#capacidades" },
+      { label: "Projetos", href: "#projetos" },
       { label: "Método", href: "#processo" },
       { label: "Serviços", href: "#servicos" },
       { label: "FAQ", href: "#faq" },
