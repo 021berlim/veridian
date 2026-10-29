@@ -65,6 +65,7 @@ export default async function ProjectPage({ params }: PageProps) {
           {/* Palco 3D Interativo */}
           <CaseStageWrapper
             screens={project.screens}
+            defaultDevice={project.defaultDevice}
             projectName={project.name}
           />
 

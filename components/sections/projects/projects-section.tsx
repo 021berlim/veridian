@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useMemo, useRef, useEffect } from "react"
-import Image from "next/image"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { motion, useInView } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
@@ -10,13 +10,33 @@ import { usePrefersReducedMotion } from "@/lib/motion"
 import { projects as allProjects, type Project, type ProjectCategory } from "@/data/projects"
 import { FilterTabs } from "./filter-tabs"
 import { ProjectIndex } from "./project-index"
-import { ProjectPreview } from "./project-preview"
 import { CustomCursor } from "./custom-cursor"
+
+const DeviceStage = dynamic(
+  () => import("@/components/projects/case/stage/DeviceStage"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full w-full items-center justify-center font-mono text-xs text-[#8a8f98] uppercase tracking-widest">
+        Carregando palco 3D...
+      </div>
+    ),
+  },
+)
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const isSectionInView = useInView(sectionRef, { once: true, margin: "-10%" })
+  const isSectionInView = useInView(sectionRef, { once: false, margin: "200px" })
   const reducedMotion = usePrefersReducedMotion()
+
+  const [isDesktop, setIsDesktop] = useState(true)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)")
+    setIsDesktop(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
 
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "all">("all")
   const [isCursorHovered, setIsCursorHovered] = useState(false)
@@ -57,6 +77,8 @@ export function ProjectsSection() {
     const boundedIndex = Math.max(0, Math.min(index, filteredProjects.length - 1))
     setMobileActiveIndex(boundedIndex)
   }
+
+  const currentMobileProject = filteredProjects[mobileActiveIndex] || filteredProjects[0]
 
   return (
     <section
@@ -132,21 +154,47 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna Direita (~45%): ProjectPreview Sticky */}
-          <div className="md:col-span-5">
-            {activeProject && (
-              <ProjectPreview
-                project={activeProject}
-                onHoverStateChange={setIsCursorHovered}
-                reducedMotion={reducedMotion}
-                isFirst={true}
-              />
-            )}
+          {/* Coluna Direita (~45%): Palco 3D Flutuando Diretamente (Sem Card/Moldura) */}
+          <div className="md:col-span-5 sticky top-28 flex flex-col justify-between w-full h-[520px]">
+            <div className="relative w-full h-[430px] flex items-center justify-center">
+              {isDesktop && activeProject && (
+                <DeviceStage
+                  screens={activeProject.screens}
+                  defaultDevice={activeProject.defaultDevice}
+                  paused={!isSectionInView}
+                  height="100%"
+                />
+              )}
+            </div>
+
+            {/* Linha de Descrição e Stack Tecnológica em Mono separada por barra */}
+            <div className="pt-4 border-t border-[#2b2d31]/40 space-y-2">
+              <p className="text-xs text-[#8a8f98] line-clamp-2 leading-relaxed">
+                {activeProject?.tagline}
+              </p>
+              <div className="font-mono text-[10px] text-[#8a8f98]">
+                <span className="text-[#c72c3b] mr-2">TECH //</span>
+                <span>{activeProject?.stack.join(" / ")}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* CARROSSEL MOBILE (<768px): Scroll-snap horizontal com indicador no padrão do Método */}
+        {/* CARROSSEL MOBILE (<768px): Aparelho 3D único acima do card ativo com scroll vertical livre */}
         <div className="block md:hidden">
+          {/* Palco 3D Mobile Único */}
+          <div className="relative w-full h-[360px] flex items-center justify-center mb-6">
+            {!isDesktop && currentMobileProject && (
+              <DeviceStage
+                screens={currentMobileProject.screens}
+                defaultDevice={currentMobileProject.defaultDevice}
+                paused={!isSectionInView}
+                height="100%"
+              />
+            )}
+          </div>
+
+          {/* Lista Horizontal de Cards para Navegação */}
           <div
             ref={mobileScrollRef}
             onScroll={handleMobileScroll}
@@ -157,25 +205,10 @@ export function ProjectsSection() {
               <Link
                 key={project.slug}
                 href={`/projetos/${project.slug}`}
-                className="w-[85vw] min-w-[280px] shrink-0 snap-start flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#111215] p-4 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]"
+                className="w-[85vw] min-w-[280px] shrink-0 snap-start flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#111215] p-5 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]"
               >
-                {/* Mockup */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-[#2b2d31]/60 bg-[#0b0b0d]">
-                  <Image
-                    src={project.screens.laptop.src}
-                    alt={project.name}
-                    width={800}
-                    height={500}
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute top-2 right-2 flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-[#8a8f98] bg-[#0b0b0d]/90 px-2 py-0.5 rounded border border-white/5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#c72c3b]" />
-                    <span>{project.category}</span>
-                  </div>
-                </div>
-
                 {/* Info */}
-                <div className="mt-4 flex items-baseline justify-between">
+                <div className="flex items-baseline justify-between">
                   <div className="flex items-baseline gap-3">
                     <span className="font-mono text-sm text-[#c72c3b]">
                       {String(i + 1).padStart(2, "0")}
@@ -187,7 +220,7 @@ export function ProjectsSection() {
                   <ArrowUpRight className="h-4 w-4 text-[#8a8f98]" />
                 </div>
 
-                <p className="mt-2 text-xs leading-relaxed text-[#8a8f98] line-clamp-2">
+                <p className="mt-3 text-xs leading-relaxed text-[#8a8f98] line-clamp-2">
                   {project.tagline}
                 </p>
 
@@ -200,7 +233,7 @@ export function ProjectsSection() {
             ))}
           </div>
 
-          {/* Indicador de progresso e contador (padrão do Método) */}
+          {/* Indicador de progresso e contador */}
           <div className="w-full pt-4">
             <div className="flex items-center justify-between gap-6">
               <div className="relative h-[1px] w-full bg-white/10 overflow-hidden">
