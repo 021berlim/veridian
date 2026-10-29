@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, ContactShadows } from "@react-three/drei"
 import { Group } from "three"
+import { motion, AnimatePresence } from "framer-motion"
 import { usePrefersReducedMotion } from "@/lib/motion"
 import { useDeviceRotation } from "./useDeviceRotation"
 import { Laptop } from "./Laptop"
@@ -13,20 +14,18 @@ import { StaticFallback } from "./StaticFallback"
 import type { DeviceKind, DeviceStageProps } from "./types"
 import { cn } from "@/lib/utils"
 
-// Constantes de calibração do Palco 3D (ajustáveis)
 export const STAGE_CONFIG = {
-  CAMERA_POS: [0, 0, 4.4] as [number, number, number],
+  CAMERA_POS: [0, 0, 4.3] as [number, number, number],
   CAMERA_FOV: 42,
   DPR_MIN: 1,
   DPR_MAX: 1.75,
   FLOAT_SPEED: 1.4,
-  FLOAT_ROTATION: 0.05,
+  FLOAT_ROTATION: 0.04,
   FLOAT_INTENSITY: 0.08,
-  SHADOW_OPACITY: 0.55,
-  SHADOW_SCALE: 8,
+  SHADOW_OPACITY: 0.45,
+  SHADOW_SCALE: 7,
 } as const
 
-// Componente interno da cena 3D (dentro do Canvas)
 function StageScene({
   device,
   screens,
@@ -45,9 +44,6 @@ function StageScene({
     rotatingGroupRef.current.rotation.x = pitch
   })
 
-  // Se phone não estiver definido, reutiliza laptop screen com cover
-  const phoneScreen = screens.phone || screens.laptop
-
   return (
     <>
       <Lights />
@@ -58,18 +54,22 @@ function StageScene({
         floatIntensity={STAGE_CONFIG.FLOAT_INTENSITY}
       >
         <group ref={rotatingGroupRef}>
-          <Laptop
-            screen={screens.laptop}
-            active={device === "laptop"}
-          />
-          <Phone
-            screen={phoneScreen}
-            active={device === "phone"}
-          />
+          {screens.laptop && (
+            <Laptop
+              screen={screens.laptop}
+              active={device === "laptop"}
+            />
+          )}
+          {screens.phone && (
+            <Phone
+              screen={screens.phone}
+              active={device === "phone"}
+            />
+          )}
         </group>
       </Float>
 
-      {/* Sombra de contato estática leve */}
+      {/* Sombra de contato suave na base */}
       <ContactShadows
         position={[0, -1.35, 0]}
         opacity={STAGE_CONFIG.SHADOW_OPACITY}
@@ -84,18 +84,66 @@ function StageScene({
 
 export default function DeviceStage({
   screens,
-  initialDevice = "laptop",
+  defaultDevice,
+  device: controlledDevice,
+  onDeviceChange,
+  height,
+  showToggle = true,
+  showHint = true,
+  paused = false,
   className,
 }: DeviceStageProps) {
   const reducedMotion = usePrefersReducedMotion()
   const [hasWebGL, setHasWebGL] = useState<boolean | null>(null)
-  const [device, setDevice] = useState<DeviceKind>(initialDevice)
-  const [showHint, setShowHint] = useState(true)
+
+  const hasLaptop = Boolean(screens.laptop)
+  const hasPhone = Boolean(screens.phone)
+
+  // Dispositivo inicial baseado nas propriedades e disponibilidade de telas
+  const resolvedInitialDevice: DeviceKind = useMemo(() => {
+    if (defaultDevice && screens[defaultDevice]) return defaultDevice
+    if (hasLaptop) return "laptop"
+    if (hasPhone) return "phone"
+    return "laptop"
+  }, [defaultDevice, hasLaptop, hasPhone, screens])
+
+  const [uncontrolledDevice, setUncontrolledDevice] = useState<DeviceKind>(resolvedInitialDevice)
+  const currentDevice = controlledDevice ?? uncontrolledDevice
+
+  // Se o dispositivo atual não existir no novo screens, ajusta automaticamente
+  useEffect(() => {
+    if (currentDevice === "laptop" && !hasLaptop && hasPhone) {
+      if (controlledDevice === undefined) setUncontrolledDevice("phone")
+      onDeviceChange?.("phone")
+    } else if (currentDevice === "phone" && !hasPhone && hasLaptop) {
+      if (controlledDevice === undefined) setUncontrolledDevice("laptop")
+      onDeviceChange?.("laptop")
+    }
+  }, [hasLaptop, hasPhone, currentDevice, controlledDevice, onDeviceChange])
+
+  const setDevice = useCallback(
+    (next: DeviceKind) => {
+      if (controlledDevice === undefined) {
+        setUncontrolledDevice(next)
+      }
+      onDeviceChange?.(next)
+    },
+    [controlledDevice, onDeviceChange],
+  )
+
+  const toggleDevice = useCallback(() => {
+    if (hasLaptop && hasPhone) {
+      const next = currentDevice === "laptop" ? "phone" : "laptop"
+      setDevice(next)
+    }
+  }, [hasLaptop, hasPhone, currentDevice, setDevice])
+
+  const [hintVisible, setHintVisible] = useState(showHint)
   const [isIntersecting, setIsIntersecting] = useState(true)
   const [isTabHidden, setIsTabHidden] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Checagem de suporte WebGL
+  // Suporte a WebGL
   useEffect(() => {
     try {
       const canvas = document.createElement("canvas")
@@ -106,7 +154,7 @@ export default function DeviceStage({
     }
   }, [])
 
-  // IntersectionObserver: pausa renderização se fora da tela
+  // IntersectionObserver para pausar WebGL fora da viewport
   useEffect(() => {
     const el = containerRef.current
     if (!el || typeof IntersectionObserver === "undefined") return
@@ -115,26 +163,20 @@ export default function DeviceStage({
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting)
       },
-      { threshold: 0.05 },
+      { rootMargin: "200px" },
     )
 
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
 
-  // Pausa renderização se a aba do navegador estiver oculta
+  // Visibilidade de aba
   useEffect(() => {
     const handleVisibility = () => {
       setIsTabHidden(document.visibilityState === "hidden")
     }
     document.addEventListener("visibilitychange", handleVisibility)
     return () => document.removeEventListener("visibilitychange", handleVisibility)
-  }, [])
-
-  // Alternância entre laptop e phone
-  const toggleDevice = useCallback(() => {
-    setDevice((prev) => (prev === "laptop" ? "phone" : "laptop"))
-    setShowHint(false)
   }, [])
 
   const {
@@ -145,105 +187,123 @@ export default function DeviceStage({
     rotateBy,
   } = useDeviceRotation(toggleDevice)
 
-  // Tratamento de teclado acessível (←/→ gira, Enter/Space alterna)
+  const handlePointerDownWithHint = useCallback(
+    (e: React.PointerEvent) => {
+      if (hintVisible) setHintVisible(false)
+      onPointerDown(e)
+    },
+    [hintVisible, onPointerDown],
+  )
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowLeft") {
         e.preventDefault()
         rotateBy(-0.15)
-        setShowHint(false)
+        if (hintVisible) setHintVisible(false)
       } else if (e.key === "ArrowRight") {
         e.preventDefault()
         rotateBy(0.15)
-        setShowHint(false)
+        if (hintVisible) setHintVisible(false)
       } else if (e.key === "Enter" || e.key === " ") {
         e.preventDefault()
         toggleDevice()
+        if (hintVisible) setHintVisible(false)
       }
     },
-    [rotateBy, toggleDevice],
+    [rotateBy, toggleDevice, hintVisible],
   )
 
-  const handlePointerDownWithHint = useCallback(
-    (e: React.PointerEvent) => {
-      setShowHint(false)
-      onPointerDown(e)
-    },
-    [onPointerDown],
-  )
-
-  // Fallback caso WebGL indisponível ou reduced motion ativo
+  // Fallback se sem WebGL ou reduced motion
   if (hasWebGL === false || reducedMotion) {
     return (
       <StaticFallback
         screens={screens}
-        initialDevice={device}
+        defaultDevice={defaultDevice}
+        device={currentDevice}
+        onDeviceChange={setDevice}
         className={className}
       />
     )
   }
 
-  const frameloop = isIntersecting && !isTabHidden ? "always" : "never"
+  const frameloop = !paused && isIntersecting && !isTabHidden ? "always" : "never"
+  const canToggle = showToggle && hasLaptop && hasPhone
 
   return (
     <div
       ref={containerRef}
       tabIndex={0}
       role="region"
-      aria-label="Visualizador 3D do Projeto. Use as setas para girar e Enter para trocar o aparelho."
+      aria-label="Aparelho 3D interativo do projeto. Arraste para girar, clique para alternar aparelho."
       onKeyDown={handleKeyDown}
+      style={{ height: height || "100%" }}
       className={cn(
-        "relative flex h-full w-full flex-col items-center justify-between overflow-hidden select-none outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
+        "relative flex w-full flex-col items-center justify-center select-none outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]/50",
         className,
       )}
     >
-      {/* Botões Acessíveis no Topo do Palco */}
-      <div className="absolute top-4 z-20 flex items-center gap-3">
-        <button
-          type="button"
-          aria-pressed={device === "laptop"}
-          aria-label="Visualizar em Notebook"
-          onClick={() => {
-            setDevice("laptop")
-            setShowHint(false)
-          }}
-          className={cn(
-            "rounded border px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
-            device === "laptop"
-              ? "border-[#c72c3b] bg-[#c72c3b]/15 text-white"
-              : "border-[#2b2d31] bg-[#141518] text-[#8a8f98] hover:border-white/30",
-          )}
-        >
-          NOTEBOOK
-        </button>
+      {/* 1. Toggle NOTEBOOK / CELULAR: tipografia mono pura com sublinhado vermelho animado */}
+      {canToggle && (
+        <div className="absolute top-2 z-20 flex items-center gap-6">
+          <button
+            type="button"
+            aria-pressed={currentDevice === "laptop"}
+            onClick={() => {
+              setDevice("laptop")
+              if (hintVisible) setHintVisible(false)
+            }}
+            className={cn(
+              "relative pb-1 font-mono text-[11px] uppercase tracking-widest transition-colors",
+              currentDevice === "laptop"
+                ? "text-white"
+                : "text-[#8a8f98] hover:text-white",
+            )}
+          >
+            NOTEBOOK
+            {currentDevice === "laptop" && (
+              <motion.div
+                layoutId="deviceToggleUnderline"
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#c72c3b]"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+          </button>
 
-        <button
-          type="button"
-          aria-pressed={device === "phone"}
-          aria-label="Visualizar em Celular"
-          onClick={() => {
-            setDevice("phone")
-            setShowHint(false)
-          }}
-          className={cn(
-            "rounded border px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
-            device === "phone"
-              ? "border-[#c72c3b] bg-[#c72c3b]/15 text-white"
-              : "border-[#2b2d31] bg-[#141518] text-[#8a8f98] hover:border-white/30",
-          )}
-        >
-          CELULAR
-        </button>
-      </div>
+          <button
+            type="button"
+            aria-pressed={currentDevice === "phone"}
+            onClick={() => {
+              setDevice("phone")
+              if (hintVisible) setHintVisible(false)
+            }}
+            className={cn(
+              "relative pb-1 font-mono text-[11px] uppercase tracking-widest transition-colors",
+              currentDevice === "phone"
+                ? "text-white"
+                : "text-[#8a8f98] hover:text-white",
+            )}
+          >
+            CELULAR
+            {currentDevice === "phone" && (
+              <motion.div
+                layoutId="deviceToggleUnderline"
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#c72c3b]"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+          </button>
+        </div>
+      )}
 
-      {/* Região ao vivo para leitores de tela */}
+      {/* Região acessível para leitores de tela */}
       <span className="sr-only" aria-live="polite">
-        {device === "laptop"
+        {currentDevice === "laptop"
           ? "Visualizando interface no Notebook 3D"
           : "Visualizando interface no Celular 3D"}
       </span>
 
-      {/* Canvas 3D R3F */}
+      {/* 2. Canvas 3D Transparente (Frameless) */}
       <div
         className="h-full w-full cursor-grab active:cursor-grabbing"
         onPointerDown={handlePointerDownWithHint}
@@ -258,6 +318,7 @@ export default function DeviceStage({
             fov: STAGE_CONFIG.CAMERA_FOV,
           }}
           gl={{
+            alpha: true,
             antialias: true,
             powerPreference: "high-performance",
           }}
@@ -265,19 +326,27 @@ export default function DeviceStage({
           style={{ touchAction: "pan-y" }}
         >
           <StageScene
-            device={device}
+            device={currentDevice}
             screens={screens}
             stepRotation={stepRotation}
           />
         </Canvas>
       </div>
 
-      {/* Dica de Interação sutil que desaparece na primeira interação */}
-      {showHint && (
-        <div className="pointer-events-none absolute bottom-4 z-20 flex items-center justify-center font-mono text-[10px] tracking-widest text-[#8a8f98] bg-[#0b0b0d]/75 px-3 py-1 rounded border border-white/5 animate-pulse">
-          <span>ARRASTE PARA GIRAR // CLIQUE PARA TROCAR</span>
-        </div>
-      )}
+      {/* 3. Dica de Interação sutil */}
+      <AnimatePresence>
+        {hintVisible && showHint && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.3 }}
+            className="pointer-events-none absolute bottom-2 z-20 flex items-center justify-center font-mono text-[10px] tracking-widest text-[#8a8f98]"
+          >
+            <span>ARRASTE PARA GIRAR // CLIQUE PARA TROCAR</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
