@@ -58,22 +58,35 @@ export function ContactSection() {
   const projectType = watch("projectType")
 
   useEffect(() => {
-    // 1. Ler parâmetro ?area= na URL se existir
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search)
-      const areaParam = params.get("area")?.toLowerCase()
-      const areaMap: Record<string, string> = {
-        software: "Desenvolvimento de Software sob medida",
-        suporte: "Suporte e Manutenção de TI",
-        seguranca: "Cibersegurança",
-        ia: "Automação e Inteligência Artificial",
+    const areaMap: Record<string, string> = {
+      software: "Desenvolvimento de Software sob medida",
+      suporte: "Suporte e Manutenção de TI",
+      seguranca: "Cibersegurança",
+      ia: "Automação e Inteligência Artificial",
+    }
+
+    const checkUrlArea = () => {
+      if (typeof window === "undefined") return
+      let areaParam = new URLSearchParams(window.location.search).get("area")?.toLowerCase()
+      if (!areaParam && window.location.hash.includes("?")) {
+        const hashQuery = window.location.hash.split("?")[1]
+        areaParam = new URLSearchParams(hashQuery).get("area")?.toLowerCase()
       }
       if (areaParam && areaMap[areaParam]) {
         setValue("projectType", areaMap[areaParam], { shouldValidate: true })
       }
     }
 
-    // 2. Ouvir evento customizado disparado internamente
+    // 1. Checa ao montar com retry rápido para hidratação
+    checkUrlArea()
+    const t1 = setTimeout(checkUrlArea, 100)
+    const t2 = setTimeout(checkUrlArea, 400)
+
+    // 2. Ouve mudanças de hash/URL
+    window.addEventListener("hashchange", checkUrlArea)
+    window.addEventListener("popstate", checkUrlArea)
+
+    // 3. Ouvir evento customizado disparado internamente
     const handleSelectInterest = (e: Event) => {
       const customEvent = e as CustomEvent<string>
       if (customEvent.detail) {
@@ -81,7 +94,13 @@ export function ContactSection() {
       }
     }
     window.addEventListener("zuse-select-interest", handleSelectInterest)
-    return () => window.removeEventListener("zuse-select-interest", handleSelectInterest)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      window.removeEventListener("hashchange", checkUrlArea)
+      window.removeEventListener("popstate", checkUrlArea)
+      window.removeEventListener("zuse-select-interest", handleSelectInterest)
+    }
   }, [setValue])
 
   const onSubmit = async (data: ContactFormData) => {

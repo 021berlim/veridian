@@ -124,7 +124,7 @@ export function CaseContent({ project }: CaseContentProps) {
         </div>
 
         <Link
-          href={`/#contato?area=${project.category}`}
+          href={`/?area=${project.category}#contato`}
           onClick={handleCtaClick}
           className="group inline-flex items-center gap-3 border border-white/20 bg-white px-7 py-3 text-sm font-medium text-black transition-all hover:bg-white/90 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c72c3b]"
         >
