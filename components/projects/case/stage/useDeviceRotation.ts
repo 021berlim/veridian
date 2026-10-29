@@ -5,9 +5,11 @@ import { MathUtils } from "three"
 
 // Constantes de calibração da física de rotação (inclinado estilo 3/4 showcase premium)
 export const ROTATION_CONFIG = {
-  PITCH_LIMIT: Math.PI / 4, // ±45 graus
-  REST_YAW: -0.42, // ~-24° inclinação de perspectiva 3/4
+  REST_YAW: -0.42, // ~-24° inclinação de perspectiva 3/4 showcase
   REST_PITCH: 0.12, // ~+7° leve elevação
+  YAW_RANGE: Math.PI / 3.2, // ~±56° de rotação interativa (garante que a tela fica sempre voltada ao usuário)
+  PITCH_MIN: -0.15, // ~-8.5° limite inferior (evita inclinar a ponto de esconder a tela)
+  PITCH_MAX: 0.28, // ~+16° limite superior (evita inclinar demais para trás)
   SENSITIVITY_X: 0.005,
   SENSITIVITY_Y: 0.005,
   INERTIA_DAMPING: 0.92,
@@ -75,11 +77,15 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
     const rotDeltaX = deltaX * ROTATION_CONFIG.SENSITIVITY_X
     const rotDeltaY = deltaY * ROTATION_CONFIG.SENSITIVITY_Y
 
-    s.targetYaw += rotDeltaX
+    s.targetYaw = MathUtils.clamp(
+      s.targetYaw + rotDeltaX,
+      ROTATION_CONFIG.REST_YAW - ROTATION_CONFIG.YAW_RANGE,
+      ROTATION_CONFIG.REST_YAW + ROTATION_CONFIG.YAW_RANGE,
+    )
     s.targetPitch = MathUtils.clamp(
       s.targetPitch + rotDeltaY,
-      -ROTATION_CONFIG.PITCH_LIMIT,
-      ROTATION_CONFIG.PITCH_LIMIT,
+      ROTATION_CONFIG.PITCH_MIN,
+      ROTATION_CONFIG.PITCH_MAX,
     )
 
     s.velocityX = rotDeltaX
@@ -114,12 +120,16 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
     const now = Date.now()
 
     if (!s.isDragging) {
-      // Aplica inércia
-      s.targetYaw += s.velocityX
+      // Aplica inércia respeitando os limites da vitrine
+      s.targetYaw = MathUtils.clamp(
+        s.targetYaw + s.velocityX,
+        ROTATION_CONFIG.REST_YAW - ROTATION_CONFIG.YAW_RANGE,
+        ROTATION_CONFIG.REST_YAW + ROTATION_CONFIG.YAW_RANGE,
+      )
       s.targetPitch = MathUtils.clamp(
         s.targetPitch + s.velocityY,
-        -ROTATION_CONFIG.PITCH_LIMIT,
-        ROTATION_CONFIG.PITCH_LIMIT,
+        ROTATION_CONFIG.PITCH_MIN,
+        ROTATION_CONFIG.PITCH_MAX,
       )
 
       s.velocityX *= ROTATION_CONFIG.INERTIA_DAMPING
@@ -151,11 +161,15 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
 
   const rotateBy = useCallback((deltaYaw: number, deltaPitch = 0) => {
     const s = state.current
-    s.targetYaw += deltaYaw
+    s.targetYaw = MathUtils.clamp(
+      s.targetYaw + deltaYaw,
+      ROTATION_CONFIG.REST_YAW - ROTATION_CONFIG.YAW_RANGE,
+      ROTATION_CONFIG.REST_YAW + ROTATION_CONFIG.YAW_RANGE,
+    )
     s.targetPitch = MathUtils.clamp(
       s.targetPitch + deltaPitch,
-      -ROTATION_CONFIG.PITCH_LIMIT,
-      ROTATION_CONFIG.PITCH_LIMIT,
+      ROTATION_CONFIG.PITCH_MIN,
+      ROTATION_CONFIG.PITCH_MAX,
     )
     s.lastInteractionTime = Date.now()
   }, [])

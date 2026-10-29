@@ -15,15 +15,17 @@ import type { DeviceKind, DeviceStageProps } from "./types"
 import { cn } from "@/lib/utils"
 
 export const STAGE_CONFIG = {
-  CAMERA_POS: [0, 0.28, 4.6] as [number, number, number],
-  CAMERA_FOV: 42,
+  CAMERA_POS: [0, 0.20, 4.6] as [number, number, number],
+  CAMERA_FOV: 40,
+  CAMERA_NEAR: 0.5,
+  CAMERA_FAR: 30,
   DPR_MIN: 1,
   DPR_MAX: 1.75,
-  FLOAT_SPEED: 1.4,
-  FLOAT_ROTATION: 0.03,
-  FLOAT_INTENSITY: 0.06,
-  MIN_ZOOM_DISTANCE: 2.2,
-  MAX_ZOOM_DISTANCE: 5.6,
+  FLOAT_SPEED: 1.2,
+  FLOAT_ROTATION: 0.02,
+  FLOAT_INTENSITY: 0.035,
+  MIN_ZOOM_DISTANCE: 4.0,
+  MAX_ZOOM_DISTANCE: 5.3,
   DEFAULT_ZOOM_DISTANCE: 4.6,
 } as const
 
@@ -277,6 +279,8 @@ export default function DeviceStage({
           camera={{
             position: STAGE_CONFIG.CAMERA_POS,
             fov: STAGE_CONFIG.CAMERA_FOV,
+            near: STAGE_CONFIG.CAMERA_NEAR,
+            far: STAGE_CONFIG.CAMERA_FAR,
           }}
           gl={{
             alpha: true,

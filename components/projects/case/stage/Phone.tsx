@@ -54,7 +54,7 @@ export function Phone({ screen, active }: PhoneProps) {
 
   useFrame((_, delta) => {
     if (!rootRef.current) return
-    const targetScale = active ? 1 : 0.0001
+    const targetScale = active ? 0.84 : 0.0001
     const currentScale = rootRef.current.scale.x
     const newScale = MathUtils.damp(currentScale, targetScale, 6, delta)
     rootRef.current.scale.setScalar(newScale)
@@ -89,7 +89,7 @@ export function Phone({ screen, active }: PhoneProps) {
       <ContactShadows
         position={[0, -PHONE_CONFIG.BODY_HEIGHT / 2 - 0.02, 0]}
         opacity={0.5}
-        scale={[1.5, 0.9]}
+        scale={[1.4, 0.85]}
         blur={1.8}
         far={2}
         frames={1}
@@ -132,8 +132,8 @@ export function Phone({ screen, active }: PhoneProps) {
         <meshStandardMaterial color="#222327" metalness={0.8} roughness={0.3} />
       </mesh>
 
-      {/* 2. TELA DIGITAL (normal +Z, z = 0.056) */}
-      <mesh geometry={screenGeometry} position={[0, 0, 0.056]}>
+      {/* 2. TELA DIGITAL (normal +Z, z = 0.058 - separação limpa anti-z-fighting) */}
+      <mesh geometry={screenGeometry} position={[0, 0, 0.058]}>
         <ScreenMaterial
           source={screen}
           geometryAspect={screenAspect}
@@ -141,8 +141,8 @@ export function Phone({ screen, active }: PhoneProps) {
         />
       </mesh>
 
-      {/* 3. ILHA DINÂMICA (z = 0.057) */}
-      <group position={[0, PHONE_CONFIG.SCREEN_HEIGHT / 2 - 0.12, 0.057]}>
+      {/* 3. ILHA DINÂMICA (z = 0.060) */}
+      <group position={[0, PHONE_CONFIG.SCREEN_HEIGHT / 2 - 0.12, 0.060]}>
         <RoundedBox
           args={[PHONE_CONFIG.ISLAND_WIDTH, PHONE_CONFIG.ISLAND_HEIGHT, 0.001]}
           radius={PHONE_CONFIG.ISLAND_HEIGHT / 2}
@@ -157,8 +157,8 @@ export function Phone({ screen, active }: PhoneProps) {
         </mesh>
       </group>
 
-      {/* 4. VIDRO PROTETOR LEVEMENTE REFLEXIVO (z = 0.058) */}
-      <mesh geometry={screenGeometry} position={[0, 0, 0.058]}>
+      {/* 4. VIDRO PROTETOR LEVEMENTE REFLEXIVO (z = 0.061) */}
+      <mesh geometry={screenGeometry} position={[0, 0, 0.061]}>
         <meshStandardMaterial
           color="#ffffff"
           roughness={0.06}

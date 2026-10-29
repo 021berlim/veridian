@@ -44,9 +44,6 @@ function ImagePlane({
     <meshBasicMaterial
       map={texture}
       toneMapped={false}
-      polygonOffset
-      polygonOffsetFactor={-1}
-      polygonOffsetUnits={-1}
       side={DoubleSide}
     />
   )
@@ -116,9 +113,6 @@ function VideoPlane({
     return (
       <meshBasicMaterial
         color="#111215"
-        polygonOffset
-        polygonOffsetFactor={-1}
-        polygonOffsetUnits={-1}
         side={DoubleSide}
       />
     )
@@ -128,9 +122,6 @@ function VideoPlane({
     <meshBasicMaterial
       map={texture}
       toneMapped={false}
-      polygonOffset
-      polygonOffsetFactor={-1}
-      polygonOffsetUnits={-1}
       side={DoubleSide}
     />
   )
@@ -145,9 +136,6 @@ export function ScreenMaterial({
     return (
       <meshBasicMaterial
         color="#111215"
-        polygonOffset
-        polygonOffsetFactor={-1}
-        polygonOffsetUnits={-1}
         side={DoubleSide}
       />
     )
@@ -168,9 +156,6 @@ export function ScreenMaterial({
       fallback={
         <meshBasicMaterial
           color="#111215"
-          polygonOffset
-          polygonOffsetFactor={-1}
-          polygonOffsetUnits={-1}
           side={DoubleSide}
         />
       }

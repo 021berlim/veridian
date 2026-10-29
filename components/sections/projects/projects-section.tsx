@@ -141,10 +141,10 @@ export function ProjectsSection() {
           />
         </div>
 
-        {/* LAYOUT DUPLA COLUNA (DESKTOP ≥768px): Coluna Esquerda ~55% / Direita ~45% */}
-        <div className="hidden md:grid md:grid-cols-12 md:gap-12 lg:gap-16 items-start">
-          {/* Coluna Esquerda (~55%): ProjectIndex */}
-          <div className="md:col-span-7">
+        {/* LAYOUT DUPLA COLUNA (DESKTOP ≥768px): Coluna Esquerda ~50% / Direita ~50% com Ampla Área de Respiro */}
+        <div className="hidden md:grid md:grid-cols-12 md:gap-10 lg:gap-14 items-start">
+          {/* Coluna Esquerda (~50%): ProjectIndex */}
+          <div className="md:col-span-6">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -154,9 +154,9 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna Direita (~45%): Palco 3D Flutuando Diretamente (Sem Card/Moldura) */}
-          <div className="md:col-span-5 sticky top-24 flex flex-col justify-between w-full h-[560px] overflow-visible">
-            <div className="relative w-full h-[470px] overflow-visible">
+          {/* Coluna Direita (~50%): Palco 3D Flutuando com Ampla Área de Respiro */}
+          <div className="md:col-span-6 sticky top-24 flex flex-col justify-between w-full h-[620px] overflow-visible">
+            <div className="relative w-full h-[530px] overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}
@@ -181,8 +181,8 @@ export function ProjectsSection() {
 
         {/* CARROSSEL MOBILE (<768px): Aparelho 3D único acima do card ativo com scroll vertical livre */}
         <div className="block md:hidden">
-          {/* Palco 3D Mobile Único */}
-          <div className="relative w-full h-[360px] flex items-center justify-center mb-6">
+          {/* Palco 3D Mobile Único com Área de Respiro Expandida */}
+          <div className="relative w-full h-[420px] flex items-center justify-center mb-6 overflow-visible">
             {!isDesktop && currentMobileProject && (
               <DeviceStage
                 screens={currentMobileProject.screens}

@@ -38,7 +38,7 @@ export function Laptop({ screen, active }: LaptopProps) {
     if (!rootRef.current || !hingeRef.current) return
 
     const targetAngle = active ? LAPTOP_CONFIG.OPEN_ANGLE_RAD : 0
-    const targetScale = active ? 0.92 : 0.0001
+    const targetScale = active ? 0.68 : 0.0001
 
     // Amortecimento do ângulo da tampa
     lidAngleRef.current = MathUtils.damp(
@@ -59,12 +59,12 @@ export function Laptop({ screen, active }: LaptopProps) {
   const screenAspect = LAPTOP_CONFIG.SCREEN_WIDTH / LAPTOP_CONFIG.SCREEN_HEIGHT
 
   return (
-    <group ref={rootRef} position={[0, -0.32, 0]}>
+    <group ref={rootRef} position={[0, -0.26, 0]}>
       {/* Sombra de contato exclusiva e proporcional ao Notebook */}
       <ContactShadows
         position={[0, -LAPTOP_CONFIG.BASE_HEIGHT / 2 - 0.01, 0]}
-        opacity={0.55}
-        scale={[3.8, 2.7]}
+        opacity={0.52}
+        scale={[3.0, 2.2]}
         blur={2.2}
         far={2}
         frames={1}
@@ -162,7 +162,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Bezel / Moldura preta interna */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.001, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.002, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[
@@ -173,10 +173,10 @@ export function Laptop({ screen, active }: LaptopProps) {
           <meshBasicMaterial color={LAPTOP_CONFIG.BEZEL_COLOR} />
         </mesh>
 
-        {/* TELA DO NOTEBOOK (ScreenMaterial) */}
+        {/* TELA DO NOTEBOOK (ScreenMaterial) - Espaçamento limpo anti-z-fighting */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.002, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.006, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[LAPTOP_CONFIG.SCREEN_WIDTH, LAPTOP_CONFIG.SCREEN_HEIGHT]}
@@ -191,7 +191,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Câmera discreta na moldura superior interna */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.0025, LAPTOP_CONFIG.LID_DEPTH - 0.035]}
+          position={[0, -0.007, LAPTOP_CONFIG.LID_DEPTH - 0.035]}
         >
           <circleGeometry args={[0.012, 16]} />
           <meshBasicMaterial color="#000000" />
@@ -200,7 +200,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Vidro protetor com leve reflexo translúcido */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.003, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.009, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[LAPTOP_CONFIG.SCREEN_WIDTH, LAPTOP_CONFIG.SCREEN_HEIGHT]}
