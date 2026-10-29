@@ -2,20 +2,20 @@
 
 import { useRef } from "react"
 import { useFrame } from "@react-three/fiber"
-import { RoundedBox } from "@react-three/drei"
+import { RoundedBox, ContactShadows } from "@react-three/drei"
 import { MathUtils, Group } from "three"
 import { ScreenMaterial } from "./ScreenMaterial"
 import type { ScreenSource } from "./types"
 
 export const LAPTOP_CONFIG = {
-  BASE_WIDTH: 3.2,
-  BASE_HEIGHT: 0.12,
-  BASE_DEPTH: 2.2,
-  LID_WIDTH: 3.2,
-  LID_HEIGHT: 0.08,
-  LID_DEPTH: 2.1,
-  SCREEN_WIDTH: 3.0,
-  SCREEN_HEIGHT: 1.875, // 16:10
+  BASE_WIDTH: 3.1,
+  BASE_HEIGHT: 0.11,
+  BASE_DEPTH: 2.1,
+  LID_WIDTH: 3.1,
+  LID_HEIGHT: 0.075,
+  LID_DEPTH: 2.05,
+  SCREEN_WIDTH: 2.92,
+  SCREEN_HEIGHT: 1.825, // 16:10
   OPEN_ANGLE_RAD: 1.8326, // ~105°
   METAL_COLOR: "#1c1d21",
   BEZEL_COLOR: "#0a0b0d",
@@ -38,7 +38,7 @@ export function Laptop({ screen, active }: LaptopProps) {
     if (!rootRef.current || !hingeRef.current) return
 
     const targetAngle = active ? LAPTOP_CONFIG.OPEN_ANGLE_RAD : 0
-    const targetScale = active ? 1 : 0.0001
+    const targetScale = active ? 0.92 : 0.0001
 
     // Amortecimento do ângulo da tampa
     lidAngleRef.current = MathUtils.damp(
@@ -59,7 +59,17 @@ export function Laptop({ screen, active }: LaptopProps) {
   const screenAspect = LAPTOP_CONFIG.SCREEN_WIDTH / LAPTOP_CONFIG.SCREEN_HEIGHT
 
   return (
-    <group ref={rootRef} position={[0, -0.4, 0]}>
+    <group ref={rootRef} position={[0, -0.32, 0]}>
+      {/* Sombra de contato exclusiva e proporcional ao Notebook */}
+      <ContactShadows
+        position={[0, -LAPTOP_CONFIG.BASE_HEIGHT / 2 - 0.01, 0]}
+        opacity={0.55}
+        scale={[3.8, 2.7]}
+        blur={2.2}
+        far={2}
+        frames={1}
+      />
+
       {/* 1. BASE DO NOTEBOOK (em y = 0) */}
       <group position={[0, 0, 0]}>
         {/* Chassis inferior de alumínio usinado */}
@@ -85,12 +95,12 @@ export function Laptop({ screen, active }: LaptopProps) {
           <meshBasicMaterial color={LAPTOP_CONFIG.ACCENT_RED} />
         </mesh>
 
-        {/* Cavidade do teclado (na face superior da base: y = 0.06) */}
+        {/* Cavidade do teclado */}
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2 + 0.001, -0.25]}
         >
-          <planeGeometry args={[2.7, 1.15]} />
+          <planeGeometry args={[2.62, 1.12]} />
           <meshStandardMaterial
             color={LAPTOP_CONFIG.KEYBOARD_COLOR}
             roughness={0.82}
@@ -102,7 +112,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         <group position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2 + 0.002, -0.25]}>
           {[-0.38, -0.19, 0, 0.19, 0.38].map((offsetZ, i) => (
             <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, offsetZ]}>
-              <planeGeometry args={[2.62, 0.14]} />
+              <planeGeometry args={[2.54, 0.13]} />
               <meshStandardMaterial
                 color="#0c0d10"
                 roughness={0.7}
@@ -115,9 +125,9 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Trackpad */}
         <mesh
           rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2 + 0.001, 0.58]}
+          position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2 + 0.001, 0.56]}
         >
-          <planeGeometry args={[0.95, 0.62]} />
+          <planeGeometry args={[0.92, 0.6]} />
           <meshStandardMaterial
             color={LAPTOP_CONFIG.TRACKPAD_COLOR}
             roughness={0.35}
@@ -126,12 +136,12 @@ export function Laptop({ screen, active }: LaptopProps) {
         </mesh>
       </group>
 
-      {/* 2. DOBRADIÇA NA ARESTA TRASEIRA (y = 0.06, z = -1.1) */}
+      {/* 2. DOBRADIÇA NA ARESTA TRASEIRA */}
       <group
         ref={hingeRef}
         position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2, -LAPTOP_CONFIG.BASE_DEPTH / 2]}
       >
-        {/* Carcaça da tampa: estende-se sobre a base em +Z */}
+        {/* Carcaça da tampa */}
         <RoundedBox
           args={[
             LAPTOP_CONFIG.LID_WIDTH,
@@ -149,7 +159,7 @@ export function Laptop({ screen, active }: LaptopProps) {
           />
         </RoundedBox>
 
-        {/* Bezel / Moldura preta interna (face interna: y <= 0) */}
+        {/* Bezel / Moldura preta interna */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
           position={[0, -0.001, LAPTOP_CONFIG.LID_DEPTH / 2]}
@@ -181,11 +191,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Câmera discreta na moldura superior interna */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[
-            0,
-            -0.0025,
-            LAPTOP_CONFIG.LID_DEPTH - 0.035,
-          ]}
+          position={[0, -0.0025, LAPTOP_CONFIG.LID_DEPTH - 0.035]}
         >
           <circleGeometry args={[0.012, 16]} />
           <meshBasicMaterial color="#000000" />

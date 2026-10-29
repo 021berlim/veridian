@@ -84,7 +84,7 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projetos"
-      className="relative border-b border-[#2b2d31] bg-[#0b0b0d] py-16 md:py-24 text-white overflow-hidden"
+      className="relative border-b border-[#2b2d31] bg-[#0b0b0d] py-16 md:py-24 text-white overflow-visible"
       aria-label="Projetos em Produção"
     >
       {/* Custom Cursor no Desktop */}
@@ -155,8 +155,8 @@ export function ProjectsSection() {
           </div>
 
           {/* Coluna Direita (~45%): Palco 3D Flutuando Diretamente (Sem Card/Moldura) */}
-          <div className="md:col-span-5 sticky top-28 flex flex-col justify-between w-full h-[520px]">
-            <div className="relative w-full h-[430px] flex items-center justify-center">
+          <div className="md:col-span-5 sticky top-24 flex flex-col justify-between w-full h-[560px] overflow-visible">
+            <div className="relative w-full h-[470px] overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}

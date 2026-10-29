@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
-import { RoundedBox } from "@react-three/drei"
+import { RoundedBox, ContactShadows } from "@react-three/drei"
 import {
   MathUtils,
   Group,
@@ -85,6 +85,16 @@ export function Phone({ screen, active }: PhoneProps) {
 
   return (
     <group ref={rootRef} position={[0, 0, 0]}>
+      {/* Sombra de contato exclusiva e proporcional ao Celular */}
+      <ContactShadows
+        position={[0, -PHONE_CONFIG.BODY_HEIGHT / 2 - 0.02, 0]}
+        opacity={0.5}
+        scale={[1.5, 0.9]}
+        blur={1.8}
+        far={2}
+        frames={1}
+      />
+
       {/* 1. CORPO METÁLICO ARREDONDADO */}
       <RoundedBox
         args={[

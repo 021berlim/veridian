@@ -1,16 +1,18 @@
 "use client"
 
-import { useRef, useCallback, useEffect } from "react"
+import { useRef, useCallback } from "react"
 import { MathUtils } from "three"
 
-// Constantes de calibração da física de rotação (ajustáveis)
+// Constantes de calibração da física de rotação (inclinado estilo 3/4 showcase premium)
 export const ROTATION_CONFIG = {
-  PITCH_LIMIT: Math.PI / 6, // ±30 graus
+  PITCH_LIMIT: Math.PI / 4, // ±45 graus
+  REST_YAW: -0.42, // ~-24° inclinação de perspectiva 3/4
+  REST_PITCH: 0.12, // ~+7° leve elevação
   SENSITIVITY_X: 0.005,
   SENSITIVITY_Y: 0.005,
   INERTIA_DAMPING: 0.92,
   RETURN_DELAY_MS: 3000,
-  RETURN_SPEED: 2.5,
+  RETURN_SPEED: 2.2,
   CLICK_DELTA_PX: 4,
 } as const
 
@@ -27,10 +29,10 @@ export interface RotationState {
 
 export function useDeviceRotation(onToggleDevice?: () => void) {
   const state = useRef<RotationState>({
-    yaw: 0,
-    pitch: 0,
-    targetYaw: 0,
-    targetPitch: 0,
+    yaw: ROTATION_CONFIG.REST_YAW,
+    pitch: ROTATION_CONFIG.REST_PITCH,
+    targetYaw: ROTATION_CONFIG.REST_YAW,
+    targetPitch: ROTATION_CONFIG.REST_PITCH,
     velocityX: 0,
     velocityY: 0,
     isDragging: false,
@@ -41,7 +43,6 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
   const hasInteractedRef = useRef(false)
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
-    // Apenas botão principal (esquerdo / touch)
     if (e.button !== 0 && e.pointerType === "mouse") return
 
     const s = state.current
@@ -60,7 +61,7 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
     try {
       e.currentTarget.setPointerCapture(e.pointerId)
     } catch {
-      // Falha silenciosa em navegadores que não suportam capture
+      // Ignorar falha se não suportado
     }
   }, [])
 
@@ -124,10 +125,20 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
       s.velocityX *= ROTATION_CONFIG.INERTIA_DAMPING
       s.velocityY *= ROTATION_CONFIG.INERTIA_DAMPING
 
-      // Retorno suave à pose frontal após tempo idle
+      // Retorno suave à pose inicial inclinada (estilo 3/4 showcase) após tempo idle
       if (now - s.lastInteractionTime > ROTATION_CONFIG.RETURN_DELAY_MS) {
-        s.targetYaw = MathUtils.damp(s.targetYaw, 0, ROTATION_CONFIG.RETURN_SPEED, delta)
-        s.targetPitch = MathUtils.damp(s.targetPitch, 0, ROTATION_CONFIG.RETURN_SPEED, delta)
+        s.targetYaw = MathUtils.damp(
+          s.targetYaw,
+          ROTATION_CONFIG.REST_YAW,
+          ROTATION_CONFIG.RETURN_SPEED,
+          delta,
+        )
+        s.targetPitch = MathUtils.damp(
+          s.targetPitch,
+          ROTATION_CONFIG.REST_PITCH,
+          ROTATION_CONFIG.RETURN_SPEED,
+          delta,
+        )
       }
     }
 
@@ -138,7 +149,6 @@ export function useDeviceRotation(onToggleDevice?: () => void) {
     return { yaw: s.yaw, pitch: s.pitch }
   }, [])
 
-  // Teclado: setas giram
   const rotateBy = useCallback((deltaYaw: number, deltaPitch = 0) => {
     const s = state.current
     s.targetYaw += deltaYaw

@@ -16,7 +16,7 @@ function StageSkeleton() {
     <div
       role="status"
       aria-label="Carregando visualização 3D do projeto"
-      className="relative flex h-[70vh] min-h-[480px] w-full items-center justify-center overflow-hidden"
+      className="relative flex h-[72vh] min-h-[500px] w-full items-center justify-center overflow-hidden"
     >
       <div className="flex flex-col items-center gap-3 font-mono text-xs text-[#8a8f98]">
         <div className="h-6 w-6 rounded-full border-2 border-[#c72c3b] border-t-transparent animate-spin" />
@@ -37,12 +37,12 @@ export function CaseStageWrapper({
   defaultDevice,
 }: CaseStageWrapperProps) {
   return (
-    <section aria-label="Aparelho 3D interativo" className="my-8 w-full">
-      <div className="relative h-[70vh] min-h-[480px] w-full flex items-center justify-center">
+    <section aria-label="Aparelho 3D interativo" className="my-8 w-full overflow-visible">
+      <div className="relative h-[72vh] min-h-[500px] w-full flex items-center justify-center overflow-visible">
         <DeviceStage
           screens={screens}
           defaultDevice={defaultDevice}
-          height="70vh"
+          height="72vh"
         />
       </div>
     </section>
