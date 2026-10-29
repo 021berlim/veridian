@@ -3,11 +3,16 @@
 import { useState, useMemo, useRef, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { motion, useInView } from "framer-motion"
+import { motion, AnimatePresence, useInView } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { usePrefersReducedMotion } from "@/lib/motion"
-import { projects as allProjects, type Project, type ProjectCategory } from "@/data/projects"
+import {
+  projects as allProjects,
+  type Project,
+  type ProjectCategory,
+  CATEGORY_LABELS,
+} from "@/data/projects"
 import { FilterTabs } from "./filter-tabs"
 import { ProjectIndex } from "./project-index"
 import { CustomCursor } from "./custom-cursor"
@@ -141,10 +146,15 @@ export function ProjectsSection() {
           />
         </div>
 
-        {/* LAYOUT DUPLA COLUNA (DESKTOP ≥768px): Coluna Esquerda ~50% / Direita ~50% com Ampla Área de Respiro */}
-        <div className="hidden md:grid md:grid-cols-12 md:gap-10 lg:gap-14 items-start">
-          {/* Coluna Esquerda (~50%): ProjectIndex */}
-          <div className="md:col-span-6">
+        {/* LAYOUT 3 COLUNAS (DESKTOP ≥768px):
+            1. Seleção do Projeto (1/3)
+            2. Palco 3D do Notebook/Celular (1/3)
+            3. Texto de Explicação e Detalhes do Projeto (1/3)
+            Mesmo tamanho proporcional (1/3 cada) e alinhados visualmente
+        */}
+        <div className="hidden md:grid md:grid-cols-12 md:gap-6 lg:gap-8 items-stretch">
+          {/* Coluna 1 (1/3): ProjectIndex (Seleção de Projetos) */}
+          <div className="md:col-span-4 flex flex-col justify-center">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -154,9 +164,9 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna Direita (~50%): Palco 3D Flutuando com Ampla Área de Respiro */}
-          <div className="md:col-span-6 sticky top-24 flex flex-col justify-between w-full h-[620px] overflow-visible">
-            <div className="relative w-full h-[530px] overflow-visible">
+          {/* Coluna 2 (1/3): Notebook / Palco 3D Flutuando Centralizado */}
+          <div className="md:col-span-4 flex flex-col items-center justify-center min-h-[460px] h-[480px] overflow-visible">
+            <div className="relative w-full h-full overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}
@@ -165,17 +175,60 @@ export function ProjectsSection() {
                 />
               )}
             </div>
+          </div>
 
-            {/* Linha de Descrição e Stack Tecnológica em Mono separada por barra */}
-            <div className="pt-4 border-t border-[#2b2d31]/40 space-y-2">
-              <p className="text-xs text-[#8a8f98] line-clamp-2 leading-relaxed">
-                {activeProject?.tagline}
-              </p>
-              <div className="font-mono text-[10px] text-[#8a8f98]">
-                <span className="text-[#c72c3b] mr-2">TECH //</span>
-                <span>{activeProject?.stack.join(" / ")}</span>
-              </div>
-            </div>
+          {/* Coluna 3 (1/3): Texto de Explicação e Detalhes do Projeto Alinhados */}
+          <div className="md:col-span-4 flex flex-col justify-between min-h-[460px] h-[480px] border-t border-b border-[#2b2d31]/60 py-5 md:py-6 pl-0 md:pl-2">
+            <AnimatePresence mode="wait">
+              {activeProject && (
+                <motion.div
+                  key={activeProject.slug}
+                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -16 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col justify-between h-full"
+                >
+                  {/* Topo: Categoria + Título + Tagline + Contexto/Solução */}
+                  <div className="space-y-3.5">
+                    <div className="flex items-center justify-between font-mono text-[11px] text-[#8a8f98]">
+                      <span className="text-[#c72c3b] uppercase tracking-wider font-medium">
+                        PROJECT // {CATEGORY_LABELS[activeProject.category]}
+                      </span>
+                      <span>{activeProject.year || "2025"}</span>
+                    </div>
+
+                    <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
+                      {activeProject.name}
+                    </h3>
+
+                    <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed">
+                      {activeProject.tagline}
+                    </p>
+
+                    <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-4">
+                      {activeProject.solution || activeProject.context}
+                    </p>
+                  </div>
+
+                  {/* Base: Stack Tecnológica + Botão/Link para o Case Completo */}
+                  <div className="pt-4 border-t border-[#2b2d31]/50 space-y-3">
+                    <div className="font-mono text-[10px] text-[#8a8f98] leading-relaxed">
+                      <span className="text-[#c72c3b] mr-2">TECH //</span>
+                      <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
+                    </div>
+
+                    <Link
+                      href={`/projetos/${activeProject.slug}`}
+                      className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors pt-1"
+                    >
+                      <span>Ver case completo</span>
+                      <ArrowUpRight className="h-4 w-4 text-[#8a8f98] transition-transform duration-300 group-hover:text-[#c72c3b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

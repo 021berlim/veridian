@@ -24,7 +24,7 @@ export const STAGE_CONFIG = {
   FLOAT_SPEED: 1.2,
   FLOAT_ROTATION: 0.02,
   FLOAT_INTENSITY: 0.035,
-  MIN_ZOOM_DISTANCE: 4.0,
+  MIN_ZOOM_DISTANCE: 4.1,
   MAX_ZOOM_DISTANCE: 5.3,
   DEFAULT_ZOOM_DISTANCE: 4.6,
 } as const
@@ -307,9 +307,9 @@ export default function DeviceStage({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.3 }}
-            className="pointer-events-none absolute bottom-1 z-20 flex items-center justify-center font-mono text-[10px] tracking-widest text-[#8a8f98]"
+            className="pointer-events-none absolute bottom-1 z-20 flex items-center justify-center font-mono text-[9px] tracking-wider text-[#8a8f98] text-center px-2"
           >
-            <span>ARRASTE PARA GIRAR // CLIQUE PARA TROCAR // SCROLL PARA ZOOM</span>
+            <span>ARRASTE PARA GIRAR // CLIQUE PARA TROCAR</span>
           </motion.div>
         )}
       </AnimatePresence>

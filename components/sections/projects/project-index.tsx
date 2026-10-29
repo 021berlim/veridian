@@ -91,7 +91,7 @@ export function ProjectIndex({
                 onFocus={() => onSelectProject(project)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 className={cn(
-                  "group relative flex cursor-pointer items-center justify-between py-6 md:py-8 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
+                  "group relative flex cursor-pointer items-center justify-between py-5 md:py-6 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
                   isActive ? "opacity-100" : "opacity-35 hover:opacity-85",
                 )}
               >
@@ -103,11 +103,11 @@ export function ProjectIndex({
                   )}
                 />
 
-                <div className="flex items-baseline gap-5 sm:gap-8 pl-4 sm:pl-6 pr-4">
+                <div className="flex items-baseline gap-4 sm:gap-6 pl-3 sm:pl-4 pr-2">
                   {/* Número Mono */}
                   <span
                     className={cn(
-                      "font-mono text-sm sm:text-base font-normal transition-colors duration-300",
+                      "font-mono text-xs sm:text-sm font-normal transition-colors duration-300",
                       isActive ? "text-[#c72c3b]" : "text-[#4b5563] group-hover:text-[#8a8f98]",
                     )}
                   >
@@ -115,24 +115,24 @@ export function ProjectIndex({
                   </span>
 
                   {/* Nome do Projeto + Categoria em mono */}
-                  <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-4">
-                    <h3 className="font-sans text-xl sm:text-2xl md:text-3xl font-light tracking-[-0.02em] text-white transition-colors">
+                  <div className="flex flex-col items-start gap-0.5">
+                    <h3 className="font-sans text-lg sm:text-xl lg:text-2xl font-light tracking-[-0.02em] text-white transition-colors">
                       {project.name}
                     </h3>
-                    <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#8a8f98]/80 mt-1 sm:mt-0">
+                    <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-[#8a8f98]/80">
                       / {project.category}
                     </span>
                   </div>
                 </div>
 
                 {/* Seta ↗ animada */}
-                <div className="flex items-center pr-4 text-[#8a8f98] transition-colors group-hover:text-white">
+                <div className="flex items-center pr-2 text-[#8a8f98] transition-colors group-hover:text-white">
                   <ArrowUpRight
                     className={cn(
-                      "h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300 ease-out",
+                      "h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 ease-out",
                       isActive
-                        ? "text-[#c72c3b] translate-x-1 -translate-y-1"
-                        : "group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1",
+                        ? "text-[#c72c3b] translate-x-0.5 -translate-y-0.5"
+                        : "group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
                     )}
                   />
                 </div>
