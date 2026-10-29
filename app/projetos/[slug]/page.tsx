@@ -1,6 +1,13 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Link from "next/link"
+import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer"
+import { Container } from "@/components/layout/container"
+import { CaseHeader } from "@/components/projects/case/case-header"
+import { CaseHero } from "@/components/projects/case/case-hero"
+import { CaseStageWrapper } from "@/components/projects/case/case-stage-wrapper"
+import { CaseContent } from "@/components/projects/case/case-content"
+import { CaseNext } from "@/components/projects/case/case-next"
 import { projects } from "@/data/projects"
 
 interface PageProps {
@@ -15,25 +22,61 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params
   const project = projects.find((p) => p.slug === slug)
   if (!project) return {}
+
+  const title = `${project.name} | Zuse Labs`
+  const description = project.tagline
+
   return {
-    title: `${project.name} | Zuse Labs`,
-    description: project.tagline,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   }
 }
 
 export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params
-  const project = projects.find((p) => p.slug === slug)
-  if (!project) notFound()
+  const currentIndex = projects.findIndex((p) => p.slug === slug)
+  if (currentIndex === -1) notFound()
+
+  const project = projects[currentIndex]
+  const nextProject = projects[(currentIndex + 1) % projects.length]
 
   return (
-    <div className="min-h-screen bg-[#0b0b0d] px-6 py-24 text-white">
-      <Link href="/#projetos" className="text-sm font-mono text-[#c72c3b]">
-        ← PROJETOS
-      </Link>
-      <h1 className="mt-8 font-sans text-4xl text-white">{project.name}</h1>
-      <p className="mt-4 text-[#8a8f98]">{project.tagline}</p>
-      <p className="mt-8 font-mono text-xs uppercase text-[#8a8f98]">Em construção</p>
+    <div className="min-h-screen bg-[#0b0b0d] text-white">
+      <Navbar />
+
+      <main className="pt-28 pb-16">
+        <Container>
+          {/* Cabeçalho mono com categoria, ano e links */}
+          <CaseHeader category={project.category} year={project.year} />
+
+          {/* Título com reveal e subtítulo tagline */}
+          <CaseHero title={project.name} tagline={project.tagline} />
+
+          {/* Palco 3D Interativo */}
+          <CaseStageWrapper
+            screens={project.screens}
+            projectName={project.name}
+          />
+
+          {/* Conteúdo editorial: Contexto, Desafio, Solução, Resultado, Stack e CTA */}
+          <CaseContent project={project} />
+
+          {/* Navegação circular para o próximo case */}
+          <CaseNext nextProject={nextProject} />
+        </Container>
+      </main>
+
+      <Footer />
     </div>
   )
 }

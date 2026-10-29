@@ -58,6 +58,22 @@ export function ContactSection() {
   const projectType = watch("projectType")
 
   useEffect(() => {
+    // 1. Ler parâmetro ?area= na URL se existir
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const areaParam = params.get("area")?.toLowerCase()
+      const areaMap: Record<string, string> = {
+        software: "Desenvolvimento de Software sob medida",
+        suporte: "Suporte e Manutenção de TI",
+        seguranca: "Cibersegurança",
+        ia: "Automação e Inteligência Artificial",
+      }
+      if (areaParam && areaMap[areaParam]) {
+        setValue("projectType", areaMap[areaParam], { shouldValidate: true })
+      }
+    }
+
+    // 2. Ouvir evento customizado disparado internamente
     const handleSelectInterest = (e: Event) => {
       const customEvent = e as CustomEvent<string>
       if (customEvent.detail) {
