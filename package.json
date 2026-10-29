@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
+    "screens": "node scripts/capture-screens.mjs",
     "start": "next start",
     "generate:brand": "node scripts/generate-brand-assets.mjs",
     "setup:whatsapp": "node scripts/setup-evolution-typebot.mjs",

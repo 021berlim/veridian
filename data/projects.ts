@@ -1,4 +1,7 @@
-import type { ProjectScreens } from "@/components/projects/case/stage/types"
+import type {
+  ProjectScreens,
+  DeviceKind,
+} from "@/components/projects/case/stage/types"
 
 export type ProjectCategory = "software" | "suporte" | "seguranca" | "ia"
 
@@ -13,6 +16,7 @@ export interface Project {
   result?: string
   stack: string[]
   screens: ProjectScreens
+  defaultDevice?: DeviceKind
   year?: string
 }
 
@@ -45,10 +49,15 @@ export const projects: readonly Project[] = [
     result:
       "Tempo médio de autorização de notas reduzido para menos de 500ms e centralização integral das filiais em uma base única auditável.",
     stack: ["TypeScript", "Electron", "Node.js", "PostgreSQL", "Tailwind CSS"],
+    defaultDevice: "laptop",
     screens: {
       laptop: {
         type: "image",
-        src: "/projects/erp-multiusuario.svg",
+        src: "/projects/erp-multiusuario/screen-laptop.png",
+      },
+      phone: {
+        type: "image",
+        src: "/projects/erp-multiusuario/screen-phone.png",
       },
     },
     year: "2025",
@@ -67,10 +76,15 @@ export const projects: readonly Project[] = [
     result:
       "Eliminação total do uso de papel e redução de mais de 70% no tempo decorrido entre submissão e homologação de defesas.",
     stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL"],
+    defaultDevice: "laptop",
     screens: {
       laptop: {
         type: "image",
-        src: "/projects/e-ppgfil.svg",
+        src: "/projects/e-ppgfil/screen-laptop.png",
+      },
+      phone: {
+        type: "image",
+        src: "/projects/e-ppgfil/screen-phone.png",
       },
     },
     year: "2024",
@@ -89,10 +103,11 @@ export const projects: readonly Project[] = [
     result:
       "Redução expressiva no tempo percebido de espera e controle transparente da capacidade diária de cada unidade de atendimento.",
     stack: ["React Native", "Android", "Node.js", "Redis", "Docker"],
+    defaultDevice: "phone",
     screens: {
-      laptop: {
+      phone: {
         type: "image",
-        src: "/projects/fila-cadunico.svg",
+        src: "/projects/fila-cadunico/screen-phone.png",
       },
     },
     year: "2024",
@@ -111,10 +126,15 @@ export const projects: readonly Project[] = [
     result:
       "Automação de relatórios de mercado que antes demandavam dias de compilação manual, agora gerados em minutos com rastreabilidade total.",
     stack: ["Python", "FastAPI", "OpenAI / OpenRouter", "Qdrant", "Next.js"],
+    defaultDevice: "laptop",
     screens: {
       laptop: {
         type: "image",
-        src: "/projects/cortana.svg",
+        src: "/projects/cortana/screen-laptop.png",
+      },
+      phone: {
+        type: "image",
+        src: "/projects/cortana/screen-phone.png",
       },
     },
     year: "2025",
