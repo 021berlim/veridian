@@ -15,7 +15,7 @@ import type { DeviceKind, DeviceStageProps } from "./types"
 import { cn } from "@/lib/utils"
 
 export const STAGE_CONFIG = {
-  CAMERA_POS: [0, 0, 4.3] as [number, number, number],
+  CAMERA_POS: [0, 0.28, 4.2] as [number, number, number],
   CAMERA_FOV: 42,
   DPR_MIN: 1,
   DPR_MAX: 1.75,
@@ -163,11 +163,23 @@ export default function DeviceStage({
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting)
       },
-      { rootMargin: "200px" },
+      { rootMargin: "300px" },
     )
 
     observer.observe(el)
     return () => observer.disconnect()
+  }, [])
+
+  // ResizeObserver para garantir redimensionamento perfeito do buffer WebGL
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el || typeof ResizeObserver === "undefined") return
+
+    const ro = new ResizeObserver(() => {
+      window.dispatchEvent(new Event("resize"))
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
   }, [])
 
   // Visibilidade de aba
@@ -227,7 +239,7 @@ export default function DeviceStage({
     )
   }
 
-  const frameloop = !paused && isIntersecting && !isTabHidden ? "always" : "never"
+  const frameloop = !paused && !isTabHidden ? "always" : "never"
   const canToggle = showToggle && hasLaptop && hasPhone
 
   return (
@@ -239,7 +251,7 @@ export default function DeviceStage({
       onKeyDown={handleKeyDown}
       style={{ height: height || "100%" }}
       className={cn(
-        "relative flex w-full flex-col items-center justify-center select-none outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]/50",
+        "relative flex h-full w-full flex-col items-center justify-center select-none outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]/50",
         className,
       )}
     >
@@ -305,13 +317,14 @@ export default function DeviceStage({
 
       {/* 2. Canvas 3D Transparente (Frameless) */}
       <div
-        className="h-full w-full cursor-grab active:cursor-grabbing"
+        className="relative h-full w-full flex-1 cursor-grab active:cursor-grabbing min-h-[300px] [&_canvas]:!w-full [&_canvas]:!h-full [&_canvas]:!block"
         onPointerDown={handlePointerDownWithHint}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
         <Canvas
+          className="h-full w-full"
           dpr={[STAGE_CONFIG.DPR_MIN, STAGE_CONFIG.DPR_MAX]}
           camera={{
             position: STAGE_CONFIG.CAMERA_POS,
@@ -323,7 +336,7 @@ export default function DeviceStage({
             powerPreference: "high-performance",
           }}
           frameloop={frameloop}
-          style={{ touchAction: "pan-y" }}
+          style={{ width: "100%", height: "100%", touchAction: "pan-y" }}
         >
           <StageScene
             device={currentDevice}

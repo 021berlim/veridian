@@ -131,7 +131,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         ref={hingeRef}
         position={[0, LAPTOP_CONFIG.BASE_HEIGHT / 2, -LAPTOP_CONFIG.BASE_DEPTH / 2]}
       >
-        {/* Carcaça da tampa: quando lidAngle=0, estende-se sobre a base em +Z */}
+        {/* Carcaça da tampa: estende-se sobre a base em +Z */}
         <RoundedBox
           args={[
             LAPTOP_CONFIG.LID_WIDTH,
@@ -149,10 +149,10 @@ export function Laptop({ screen, active }: LaptopProps) {
           />
         </RoundedBox>
 
-        {/* Bezel / Moldura preta interna */}
+        {/* Bezel / Moldura preta interna (face interna: y <= 0) */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.0405, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.001, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[
@@ -166,7 +166,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* TELA DO NOTEBOOK (ScreenMaterial) */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.041, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.002, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[LAPTOP_CONFIG.SCREEN_WIDTH, LAPTOP_CONFIG.SCREEN_HEIGHT]}
@@ -183,8 +183,8 @@ export function Laptop({ screen, active }: LaptopProps) {
           rotation={[Math.PI / 2, 0, 0]}
           position={[
             0,
-            -0.0412,
-            LAPTOP_CONFIG.LID_DEPTH - 0.025,
+            -0.0025,
+            LAPTOP_CONFIG.LID_DEPTH - 0.035,
           ]}
         >
           <circleGeometry args={[0.012, 16]} />
@@ -194,7 +194,7 @@ export function Laptop({ screen, active }: LaptopProps) {
         {/* Vidro protetor com leve reflexo translúcido */}
         <mesh
           rotation={[Math.PI / 2, 0, 0]}
-          position={[0, -0.0415, LAPTOP_CONFIG.LID_DEPTH / 2]}
+          position={[0, -0.003, LAPTOP_CONFIG.LID_DEPTH / 2]}
         >
           <planeGeometry
             args={[LAPTOP_CONFIG.SCREEN_WIDTH, LAPTOP_CONFIG.SCREEN_HEIGHT]}

@@ -161,7 +161,6 @@ export function ProjectsSection() {
                 <DeviceStage
                   screens={activeProject.screens}
                   defaultDevice={activeProject.defaultDevice}
-                  paused={!isSectionInView}
                   height="100%"
                 />
               )}
@@ -188,7 +187,6 @@ export function ProjectsSection() {
               <DeviceStage
                 screens={currentMobileProject.screens}
                 defaultDevice={currentMobileProject.defaultDevice}
-                paused={!isSectionInView}
                 height="100%"
               />
             )}
