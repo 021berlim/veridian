@@ -54,7 +54,7 @@ export function Phone({ screen, active }: PhoneProps) {
 
   useFrame((_, delta) => {
     if (!rootRef.current) return
-    const targetScale = active ? 0.78 : 0.0001
+    const targetScale = active ? 0.82 : 0.0001
     const currentScale = rootRef.current.scale.x
     const newScale = MathUtils.damp(currentScale, targetScale, 6, delta)
     rootRef.current.scale.setScalar(newScale)

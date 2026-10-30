@@ -101,8 +101,8 @@ export function ProjectsSection() {
 
       <Container className="h-full flex flex-col justify-between pt-4 md:pt-6 pb-4 md:pb-6 min-h-0">
         {/* Cabeçalho da Seção + FilterTabs */}
-        <div className="shrink-0 mb-3 md:mb-4 lg:mb-5 max-w-4xl">
-          <div className="overflow-hidden py-1">
+        <div className="shrink-0 mb-2 md:mb-3 max-w-4xl">
+          <div className="overflow-hidden py-0.5">
             <motion.h2
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
               animate={
@@ -111,15 +111,13 @@ export function ProjectsSection() {
                   : { y: "100%", opacity: 0 }
               }
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.03em] text-white leading-[1.12]"
+              className="font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.03em] text-white whitespace-nowrap"
             >
-              Projetos que já estão
-              <br className="hidden sm:inline" />{" "}
-              em produção.
+              Projetos que já estão em produção.
             </motion.h2>
           </div>
 
-          <div className="overflow-hidden mt-1.5 md:mt-2 py-0.5">
+          <div className="overflow-hidden mt-1 py-0.5">
             <motion.p
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
               animate={
@@ -132,14 +130,14 @@ export function ProjectsSection() {
                 delay: reducedMotion ? 0 : 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-sm sm:text-base md:text-lg text-[#8a8f98] font-normal"
+              className="text-xs sm:text-sm text-[#8a8f98] font-normal"
             >
               Sistemas reais, construídos sob medida.
             </motion.p>
           </div>
 
           {/* FilterTabs: Todos / Software / Suporte / Segurança / IA */}
-          <div className="mt-3 md:mt-4">
+          <div className="mt-2 md:mt-2.5">
             <FilterTabs
               availableCategories={availableCategories}
               activeCategory={activeCategory}
@@ -170,6 +168,7 @@ export function ProjectsSection() {
             <div className="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
+                  key={activeProject.slug}
                   screens={activeProject.screens}
                   defaultDevice={activeProject.defaultDevice}
                   height="100%"
