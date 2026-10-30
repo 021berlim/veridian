@@ -146,13 +146,13 @@ export function ProjectsSection() {
           />
         </div>
 
-        {/* LAYOUT DUPLA COLUNA 40/60 (DESKTOP ≥768px - ABORDAGEM A):
-            Coluna 1 (40% - md:col-span-5): ProjectIndex clássico e limpo
-            Coluna 2 (60% - md:col-span-7): Palco 3D Grande no Topo + Barra/Card de Telemetria Integrada no Rodapé
+        {/* LAYOUT DUPLA COLUNA 40/60 (DESKTOP ≥768px):
+            Coluna 1 (40% - md:col-span-5): ProjectIndex com exatamente 4 projetos visíveis (h-[480px])
+            Coluna 2 (60% - md:col-span-7): Palco 3D + Descrição técnica (h-[480px], SEM cards, SEM sombras, alinhado de ponta a ponta)
         */}
-        <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-10 items-center">
-          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Seleção de Projetos) */}
-          <div className="md:col-span-5 flex flex-col justify-center">
+        <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-12 items-stretch">
+          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Lista com altura de 480px correspondendo a 4 projetos) */}
+          <div className="md:col-span-5 flex flex-col justify-start">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -162,10 +162,10 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna 2 (60% / col-span-7): Card Unificado com Palco 3D Soberano + Telemetria no Rodapé */}
-          <div className="md:col-span-7 flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#0e0f12]/60 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/50">
-            {/* Topo: Palco 3D com Amplo Espaço de Rotação e Canvas Expansivo */}
-            <div className="relative w-full h-[440px] lg:h-[480px] flex items-center justify-center overflow-visible">
+          {/* Coluna 2 (60% / col-span-7): Sem cards, sem sombras - Mesma altura (480px) de ponta a ponta */}
+          <div className="md:col-span-7 flex flex-col justify-between h-[480px] border-t border-b border-[#2b2d31]/60">
+            {/* Topo: Palco 3D do Notebook/Celular */}
+            <div className="relative w-full h-[310px] flex items-center justify-center overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}
@@ -175,17 +175,17 @@ export function ProjectsSection() {
               )}
             </div>
 
-            {/* Rodapé: Barra de Telemetria Técnica Integrada */}
-            <div className="border-t border-[#2b2d31]/70 bg-[#0b0b0d]/90 px-6 py-5 backdrop-blur-md">
+            {/* Base: Descrição Técnica e Metadados do Projeto Alinhados */}
+            <div className="border-t border-[#2b2d31]/50 pt-3.5 pb-2 flex flex-col justify-between h-[170px]">
               <AnimatePresence mode="wait">
                 {activeProject && (
                   <motion.div
                     key={activeProject.slug}
-                    initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                    initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
+                    exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                     transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex flex-col gap-3"
+                    className="flex flex-col justify-between h-full"
                   >
                     {/* Header de Telemetria: Categoria + Ano */}
                     <div className="flex items-center justify-between font-mono text-[11px] text-[#8a8f98]">
@@ -196,22 +196,22 @@ export function ProjectsSection() {
                     </div>
 
                     {/* Título + Tagline + Solução/Contexto */}
-                    <div>
+                    <div className="space-y-0.5">
                       <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
                         {activeProject.name}
                       </h3>
-                      <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed mt-1">
+                      <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed line-clamp-1">
                         {activeProject.tagline}
                       </p>
                       {(activeProject.solution || activeProject.context) && (
-                        <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-2 mt-1.5">
+                        <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-2">
                           {activeProject.solution || activeProject.context}
                         </p>
                       )}
                     </div>
 
-                    {/* Rodapé da Barra: Stack Tecnológica + CTA */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#2b2d31]/50">
+                    {/* Rodapé: Stack Tecnológica + CTA */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#2b2d31]/40">
                       <div className="font-mono text-[10px] text-[#8a8f98] leading-relaxed">
                         <span className="text-[#c72c3b] mr-2">TECH //</span>
                         <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
@@ -219,7 +219,7 @@ export function ProjectsSection() {
 
                       <Link
                         href={`/projetos/${activeProject.slug}`}
-                        className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors"
+                        className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors"
                       >
                         <span className="underline underline-offset-4 decoration-[#2b2d31] group-hover:decoration-[#c72c3b]">
                           Ver case completo

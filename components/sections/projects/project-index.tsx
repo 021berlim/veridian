@@ -44,7 +44,7 @@ export function ProjectIndex({
       id="projects-list"
       role="list"
       aria-label="Lista de projetos"
-      className="w-full divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60"
+      className="w-full h-[480px] overflow-y-auto divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60 [scrollbar-width:thin] [scrollbar-color:#2b2d31_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#2b2d31] hover:[&::-webkit-scrollbar-thumb]:bg-[#c72c3b]"
     >
       <AnimatePresence mode="popLayout">
         {projects.map((project, index) => {
@@ -55,6 +55,7 @@ export function ProjectIndex({
             <motion.div
               layout={!reducedMotion}
               key={project.slug}
+              className="h-[120px] shrink-0"
               initial={
                 reducedMotion
                   ? { opacity: 0 }
@@ -91,7 +92,7 @@ export function ProjectIndex({
                 onFocus={() => onSelectProject(project)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 className={cn(
-                  "group relative flex cursor-pointer items-center justify-between py-5 md:py-6 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
+                  "group relative flex h-full w-full cursor-pointer items-center justify-between px-3 sm:px-4 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]",
                   isActive ? "opacity-100" : "opacity-35 hover:opacity-85",
                 )}
               >
