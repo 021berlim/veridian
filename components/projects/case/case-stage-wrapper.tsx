@@ -1,30 +1,7 @@
 "use client"
 
-import dynamic from "next/dynamic"
+import { ProjectMediaPreview } from "@/components/projects/case/stage/ProjectMediaPreview"
 import type { ProjectScreens, DeviceKind } from "@/components/projects/case/stage/types"
-
-const DeviceStage = dynamic(
-  () => import("@/components/projects/case/stage/DeviceStage"),
-  {
-    ssr: false,
-    loading: () => <StageSkeleton />,
-  },
-)
-
-function StageSkeleton() {
-  return (
-    <div
-      role="status"
-      aria-label="Carregando visualização 3D do projeto"
-      className="relative flex h-[72vh] min-h-[500px] w-full items-center justify-center overflow-hidden"
-    >
-      <div className="flex flex-col items-center gap-3 font-mono text-xs text-[#8a8f98]">
-        <div className="h-6 w-6 rounded-full border-2 border-[#c72c3b] border-t-transparent animate-spin" />
-        <span className="tracking-widest uppercase">Carregando modelo 3D...</span>
-      </div>
-    </div>
-  )
-}
 
 interface CaseStageWrapperProps {
   screens: ProjectScreens
@@ -34,15 +11,14 @@ interface CaseStageWrapperProps {
 
 export function CaseStageWrapper({
   screens,
-  defaultDevice,
+  projectName,
 }: CaseStageWrapperProps) {
   return (
-    <section aria-label="Aparelho 3D interativo" className="my-8 w-full overflow-visible">
-      <div className="relative h-[72vh] min-h-[500px] w-full flex items-center justify-center overflow-visible">
-        <DeviceStage
+    <section aria-label="Visualização do projeto" className="my-8 w-full overflow-hidden">
+      <div className="relative min-h-[420px] md:min-h-[520px] w-full flex items-center justify-center">
+        <ProjectMediaPreview
           screens={screens}
-          defaultDevice={defaultDevice}
-          height="72vh"
+          alt={projectName ? `Interface do sistema ${projectName}` : undefined}
         />
       </div>
     </section>

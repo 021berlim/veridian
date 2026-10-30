@@ -17,17 +17,7 @@ import { FilterTabs } from "./filter-tabs"
 import { ProjectIndex } from "./project-index"
 import { CustomCursor } from "./custom-cursor"
 
-const DeviceStage = dynamic(
-  () => import("@/components/projects/case/stage/DeviceStage"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-full w-full items-center justify-center font-mono text-xs text-[#8a8f98] uppercase tracking-widest">
-        Carregando palco 3D...
-      </div>
-    ),
-  },
-)
+import { ProjectMediaPreview } from "@/components/projects/case/stage/ProjectMediaPreview"
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -164,14 +154,13 @@ export function ProjectsSection() {
 
           {/* Coluna 2 (50% / col-span-6): Sem cards, sem sombras - Mesma altura (h-full) de ponta a ponta */}
           <div className="md:col-span-6 h-full min-h-0 flex flex-col justify-between border-t border-b border-[#2b2d31]/60">
-            {/* Topo: Palco 3D do Notebook/Celular com flex-1 dinâmico e zoom aproximado */}
-            <div className="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-visible">
+            {/* Topo: Imagem/Vídeo estático direto do projeto com cantos arredondados e altura ajustada */}
+            <div className="relative w-full flex-1 min-h-0 flex items-center justify-center p-2 sm:p-3 overflow-hidden">
               {isDesktop && activeProject && (
-                <DeviceStage
+                <ProjectMediaPreview
                   key={activeProject.slug}
                   screens={activeProject.screens}
-                  defaultDevice={activeProject.defaultDevice}
-                  height="100%"
+                  alt={`Interface do sistema ${activeProject.name}`}
                 />
               )}
             </div>
@@ -235,15 +224,15 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* CARROSSEL MOBILE (<768px): Aparelho 3D único acima do card ativo com scroll vertical livre */}
+        {/* CARROSSEL MOBILE (<768px): Imagem estática com cantos arredondados */}
         <div className="block md:hidden">
-          {/* Palco 3D Mobile Único com Área de Respiro Expandida */}
-          <div className="relative w-full h-[420px] flex items-center justify-center mb-6 overflow-visible">
+          {/* Prévia de Mídia Mobile Única com Altura Ajustada */}
+          <div className="relative w-full h-[320px] sm:h-[360px] flex items-center justify-center mb-6 overflow-hidden">
             {!isDesktop && currentMobileProject && (
-              <DeviceStage
+              <ProjectMediaPreview
+                key={currentMobileProject.slug}
                 screens={currentMobileProject.screens}
-                defaultDevice={currentMobileProject.defaultDevice}
-                height="100%"
+                alt={`Interface do sistema ${currentMobileProject.name}`}
               />
             )}
           </div>
