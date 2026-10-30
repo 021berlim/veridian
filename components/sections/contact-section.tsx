@@ -1,21 +1,15 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { CheckCircle2, Loader2, ArrowRight } from "lucide-react"
+import { CheckCircle2, Loader2, ArrowRight, ChevronDown, Check } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Container } from "@/components/layout/container"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { landingContent, projectTypes } from "@/data/site"
 import { cn } from "@/lib/utils"
 
@@ -56,6 +50,32 @@ export function ContactSection() {
   })
 
   const projectType = watch("projectType")
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  // Fechar dropdown ao clicar fora ou ao pressionar Escape
+  useEffect(() => {
+    if (!isDropdownOpen) return
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown)
+    window.addEventListener("keydown", handleKeyDown)
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown)
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [isDropdownOpen])
 
   useEffect(() => {
     const areaMap: Record<string, string> = {
@@ -266,29 +286,70 @@ export function ContactSection() {
                     <Label htmlFor="projectType" className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
                       Área de Interesse
                     </Label>
-                    <Select
-                      value={projectType}
-                      onValueChange={(value) =>
-                        setValue("projectType", value, { shouldValidate: true })
-                      }
-                    >
-                      <SelectTrigger
+
+                    {/* Isolamento relativo estrito para o dropdown flutuante (não afeta o space-y do form) */}
+                    <div className="relative" ref={dropdownRef}>
+                      {/* Trigger com aparência idêntica, posicionado sem alterar o fluxo da página */}
+                      <button
                         id="projectType"
+                        type="button"
+                        onClick={() => setIsDropdownOpen((prev) => !prev)}
                         className={cn(
-                          "w-full rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-white shadow-none focus:border-white focus:ring-0",
+                          "w-full flex items-center justify-between rounded-md border border-[#2b2d31] bg-[#141518] px-3.5 py-3 text-base text-left text-white shadow-none focus:border-white focus:outline-none transition-colors cursor-pointer",
                           errors.projectType && "border-[#c72c3b]",
+                          isDropdownOpen && "border-white"
                         )}
+                        aria-haspopup="listbox"
+                        aria-expanded={isDropdownOpen}
                       >
-                        <SelectValue placeholder="Selecione o serviço" />
-                      </SelectTrigger>
-                      <SelectContent className="rounded-md border border-[#2b2d31] bg-[#111215] text-white">
-                        {projectTypes.map((type) => (
-                          <SelectItem key={type} value={type} className="focus:bg-[#2b2d31] focus:text-white">
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                        <span className={cn(projectType ? "text-white" : "text-[#4b5563]")}>
+                          {projectType || "Selecione o serviço"}
+                        </span>
+                        <ChevronDown
+                          className={cn(
+                            "h-4 w-4 text-[#8a8f98] transition-transform duration-200 shrink-0",
+                            isDropdownOpen && "rotate-180 text-white"
+                          )}
+                        />
+                      </button>
+
+                      {/* Menu Flutuante Absoluto (Zero layout shift, zero reposicionamento) */}
+                      <AnimatePresence>
+                        {isDropdownOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -4 }}
+                            transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                            className="absolute top-full left-0 right-0 z-50 mt-1.5 rounded-md border border-[#2b2d31] bg-[#111215] p-1 shadow-2xl text-white"
+                            role="listbox"
+                          >
+                            {projectTypes.map((type) => {
+                              const isSelected = projectType === type
+                              return (
+                                <div
+                                  key={type}
+                                  role="option"
+                                  aria-selected={isSelected}
+                                  onClick={() => {
+                                    setValue("projectType", type, { shouldValidate: true })
+                                    setIsDropdownOpen(false)
+                                  }}
+                                  className={cn(
+                                    "relative flex w-full cursor-pointer items-center justify-between rounded px-3 py-2.5 text-sm text-[#e5e7eb] hover:bg-[#2b2d31] hover:text-white transition-colors select-none",
+                                    isSelected && "bg-[#2b2d31]/50 text-white font-medium"
+                                  )}
+                                >
+                                  <span>{type}</span>
+                                  {isSelected && <Check className="h-4 w-4 text-[#c72c3b]" />}
+                                </div>
+                              )
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
                     {errors.projectType && (
                       <p className="text-xs text-[#c72c3b] font-mono">{errors.projectType.message}</p>
                     )}
