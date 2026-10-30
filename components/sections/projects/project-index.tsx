@@ -39,12 +39,19 @@ export function ProjectIndex({
     }
   }
 
+  const hasOverflow = projects.length > 4
+
   return (
     <div
       id="projects-list"
       role="list"
       aria-label="Lista de projetos"
-      className="w-full h-[480px] overflow-y-auto divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60 [scrollbar-width:thin] [scrollbar-color:#2b2d31_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#2b2d31] hover:[&::-webkit-scrollbar-thumb]:bg-[#c72c3b]"
+      className={cn(
+        "w-full h-[480px] divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60",
+        hasOverflow
+          ? "overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#2b2d31_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#2b2d31] hover:[&::-webkit-scrollbar-thumb]:bg-[#c72c3b]"
+          : "overflow-hidden flex flex-col",
+      )}
     >
       <AnimatePresence mode="popLayout">
         {projects.map((project, index) => {
@@ -55,7 +62,14 @@ export function ProjectIndex({
             <motion.div
               layout={!reducedMotion}
               key={project.slug}
-              className="h-[120px] shrink-0"
+              className={cn(
+                "w-full",
+                hasOverflow
+                  ? "h-[119px] shrink-0"
+                  : projects.length === 4
+                    ? "flex-1 min-h-0"
+                    : "h-[119px] shrink-0",
+              )}
               initial={
                 reducedMotion
                   ? { opacity: 0 }
