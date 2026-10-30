@@ -3,7 +3,9 @@ export type DeviceKind = 'laptop' | 'phone'
 export type ScreenSource = {
   type: 'image' | 'video'
   src: string
+  title?: string
   poster?: string
+  alt?: string
 }
 
 export type ProjectScreens = {
@@ -13,6 +15,7 @@ export type ProjectScreens = {
 
 export type DeviceStageProps = {
   screens: ProjectScreens
+  media?: ScreenSource[]
   defaultDevice?: DeviceKind
   device?: DeviceKind
   onDeviceChange?: (d: DeviceKind) => void

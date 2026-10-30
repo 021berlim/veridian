@@ -1,7 +1,10 @@
 import type {
   ProjectScreens,
+  ScreenSource,
   DeviceKind,
 } from "@/components/projects/case/stage/types"
+
+export type { ScreenSource }
 
 export type ProjectCategory = "software" | "suporte" | "seguranca" | "ia"
 
@@ -16,6 +19,7 @@ export interface Project {
   result?: string
   stack: string[]
   screens: ProjectScreens
+  media?: ScreenSource[]
   defaultDevice?: DeviceKind
   year?: string
 }
@@ -32,6 +36,16 @@ export const CATEGORY_SERVICE_MAP: Record<ProjectCategory, string> = {
   suporte: "Suporte e Manutenção de TI",
   seguranca: "Cibersegurança",
   ia: "Automação e Inteligência Artificial",
+}
+
+export function getProjectMedia(project: Project): ScreenSource[] {
+  if (project.media && project.media.length > 0) {
+    return project.media
+  }
+  const items: ScreenSource[] = []
+  if (project.screens?.laptop) items.push(project.screens.laptop)
+  if (project.screens?.phone) items.push(project.screens.phone)
+  return items
 }
 
 export const projects: readonly Project[] = [
@@ -60,6 +74,33 @@ export const projects: readonly Project[] = [
         src: "/projects/erp-multiusuario/screen-phone.png",
       },
     },
+    media: [
+      {
+        type: "image",
+        src: "/projects/erp-multiusuario/screen-laptop.png",
+        title: "Painel Fiscal SEFAZ e SLAs em tempo real",
+      },
+      {
+        type: "image",
+        src: "/projects/erp-multiusuario/screen-phone.png",
+        title: "Versão Mobile para Gestores de Filial",
+      },
+      {
+        type: "image",
+        src: "/projects/e-ppgfil/screen-laptop.png",
+        title: "Módulo de Gestão de Pedidos e Faturamento Central",
+      },
+      {
+        type: "image",
+        src: "/projects/cortana/screen-laptop.png",
+        title: "Auditoria Contábil e Telemetria em Lote",
+      },
+      {
+        type: "image",
+        src: "/projects/cortana/screen-phone.png",
+        title: "App de Notificações Críticas em Campo",
+      },
+    ],
     year: "2025",
   },
   {
@@ -87,6 +128,23 @@ export const projects: readonly Project[] = [
         src: "/projects/e-ppgfil/screen-phone.png",
       },
     },
+    media: [
+      {
+        type: "image",
+        src: "/projects/e-ppgfil/screen-laptop.png",
+        title: "Painel de Tramitação de Defesas e Pareceres",
+      },
+      {
+        type: "image",
+        src: "/projects/e-ppgfil/screen-phone.png",
+        title: "Visão Mobile de Notificações para Discentes",
+      },
+      {
+        type: "image",
+        src: "/projects/erp-multiusuario/screen-laptop.png",
+        title: "Fluxo de Assinaturas Digitais em Lote",
+      },
+    ],
     year: "2024",
   },
   {
@@ -110,6 +168,13 @@ export const projects: readonly Project[] = [
         src: "/projects/fila-cadunico/screen-phone.png",
       },
     },
+    media: [
+      {
+        type: "image",
+        src: "/projects/fila-cadunico/screen-phone.png",
+        title: "Totem de Senhas Digitais e Chamadas Sonoras",
+      },
+    ],
     year: "2024",
   },
   {
@@ -137,6 +202,23 @@ export const projects: readonly Project[] = [
         src: "/projects/cortana/screen-phone.png",
       },
     },
+    media: [
+      {
+        type: "image",
+        src: "/projects/cortana/screen-laptop.png",
+        title: "Workspace de Pesquisa com Citação de Fontes",
+      },
+      {
+        type: "image",
+        src: "/projects/cortana/screen-phone.png",
+        title: "Interface Conversacional Mobile",
+      },
+      {
+        type: "image",
+        src: "/projects/erp-multiusuario/screen-laptop.png",
+        title: "Sintetizador Automatizado de Relatórios",
+      },
+    ],
     year: "2025",
   },
 ]

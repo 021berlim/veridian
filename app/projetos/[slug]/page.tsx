@@ -5,10 +5,10 @@ import { Footer } from "@/components/layout/footer"
 import { Container } from "@/components/layout/container"
 import { CaseHeader } from "@/components/projects/case/case-header"
 import { CaseHero } from "@/components/projects/case/case-hero"
-import { CaseStageWrapper } from "@/components/projects/case/case-stage-wrapper"
+import { CaseMediaGallery } from "@/components/projects/case/case-media-gallery"
 import { CaseContent } from "@/components/projects/case/case-content"
 import { CaseNext } from "@/components/projects/case/case-next"
-import { projects } from "@/data/projects"
+import { projects, getProjectMedia } from "@/data/projects"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -49,6 +49,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   const project = projects[currentIndex]
   const nextProject = projects[(currentIndex + 1) % projects.length]
+  const media = getProjectMedia(project)
 
   return (
     <div className="min-h-screen bg-[#0b0b0d] text-white">
@@ -62,10 +63,9 @@ export default async function ProjectPage({ params }: PageProps) {
           {/* Título com reveal e subtítulo tagline */}
           <CaseHero title={project.name} tagline={project.tagline} />
 
-          {/* Palco 3D Interativo */}
-          <CaseStageWrapper
-            screens={project.screens}
-            defaultDevice={project.defaultDevice}
+          {/* Galeria Completa de Telas e Vídeos (Quantas o usuário quiser - Prints 3 e 4) */}
+          <CaseMediaGallery
+            media={media}
             projectName={project.name}
           />
 

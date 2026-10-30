@@ -17,7 +17,7 @@ import { FilterTabs } from "./filter-tabs"
 import { ProjectIndex } from "./project-index"
 import { CustomCursor } from "./custom-cursor"
 
-import { ProjectMediaPreview } from "@/components/projects/case/stage/ProjectMediaPreview"
+import { ProjectPreviewGrid } from "@/components/projects/case/stage/ProjectPreviewGrid"
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -154,12 +154,13 @@ export function ProjectsSection() {
 
           {/* Coluna 2 (50% / col-span-6): Sem cards, sem sombras - Mesma altura (h-full) de ponta a ponta */}
           <div className="md:col-span-6 h-full min-h-0 flex flex-col justify-between border-t border-b border-[#2b2d31]/60">
-            {/* Topo: Imagem/Vídeo estático direto do projeto com cantos arredondados e altura ajustada */}
-            <div className="relative w-full flex-1 min-h-0 flex items-center justify-center p-2 sm:p-3 overflow-hidden">
+            {/* Topo: Grade de Mídia (1 destaque superior + até 3 na grade inferior) com a MESMA LARGURA da linha acima */}
+            <div className="relative w-full flex-1 min-h-0 py-2 sm:py-2.5 flex flex-col justify-between overflow-hidden">
               {isDesktop && activeProject && (
-                <ProjectMediaPreview
+                <ProjectPreviewGrid
                   key={activeProject.slug}
                   screens={activeProject.screens}
+                  media={activeProject.media}
                   alt={`Interface do sistema ${activeProject.name}`}
                 />
               )}
@@ -200,22 +201,12 @@ export function ProjectsSection() {
                       )}
                     </div>
 
-                    {/* Rodapé: Stack Tecnológica + CTA */}
+                    {/* Rodapé: Stack Tecnológica (Sem o botão "Ver case completo") */}
                     <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#2b2d31]/40">
                       <div className="font-mono text-xs text-[#8a8f98] leading-relaxed">
                         <span className="text-[#c72c3b] mr-2">TECH //</span>
                         <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
                       </div>
-
-                      <Link
-                        href={`/projetos/${activeProject.slug}`}
-                        className="group inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors"
-                      >
-                        <span className="underline underline-offset-4 decoration-[#2b2d31] group-hover:decoration-[#c72c3b]">
-                          Ver case completo
-                        </span>
-                        <ArrowUpRight className="h-4 w-4 text-[#8a8f98] transition-transform duration-300 group-hover:text-[#c72c3b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </Link>
                     </div>
                   </motion.div>
                 )}
@@ -224,14 +215,15 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* CARROSSEL MOBILE (<768px): Imagem estática com cantos arredondados */}
+        {/* CARROSSEL MOBILE (<768px): Grade de mídia com cantos arredondados */}
         <div className="block md:hidden">
           {/* Prévia de Mídia Mobile Única com Altura Ajustada */}
           <div className="relative w-full h-[320px] sm:h-[360px] flex items-center justify-center mb-6 overflow-hidden">
             {!isDesktop && currentMobileProject && (
-              <ProjectMediaPreview
+              <ProjectPreviewGrid
                 key={currentMobileProject.slug}
                 screens={currentMobileProject.screens}
+                media={currentMobileProject.media}
                 alt={`Interface do sistema ${currentMobileProject.name}`}
               />
             )}
