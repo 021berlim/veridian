@@ -47,7 +47,7 @@ export function ProjectIndex({
       role="list"
       aria-label="Lista de projetos"
       className={cn(
-        "w-full h-[480px] divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60",
+        "w-full h-full min-h-0 divide-y divide-[#2b2d31]/50 border-t border-b border-[#2b2d31]/60",
         hasOverflow
           ? "overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#2b2d31_transparent] [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#2b2d31] hover:[&::-webkit-scrollbar-thumb]:bg-[#c72c3b]"
           : "overflow-hidden flex flex-col",
@@ -65,10 +65,10 @@ export function ProjectIndex({
               className={cn(
                 "w-full",
                 hasOverflow
-                  ? "h-[119px] shrink-0"
+                  ? "h-[25%] shrink-0 min-h-[80px]"
                   : projects.length === 4
                     ? "flex-1 min-h-0"
-                    : "h-[119px] shrink-0",
+                    : "h-[25%] shrink-0 min-h-[80px]",
               )}
               initial={
                 reducedMotion

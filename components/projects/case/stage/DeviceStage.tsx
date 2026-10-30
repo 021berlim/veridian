@@ -267,7 +267,7 @@ export default function DeviceStage({
 
       {/* Canvas 3D Transparente (Frameless) */}
       <div
-        className="relative h-full w-full flex-1 cursor-grab active:cursor-grabbing min-h-[360px] overflow-visible [&_canvas]:!w-full [&_canvas]:!h-full [&_canvas]:!block"
+        className="relative h-full w-full flex-1 cursor-grab active:cursor-grabbing min-h-0 overflow-visible [&_canvas]:!w-full [&_canvas]:!h-full [&_canvas]:!block"
         onPointerDown={handlePointerDownWithHint}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

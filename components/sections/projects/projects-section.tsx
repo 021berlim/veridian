@@ -89,7 +89,7 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projetos"
-      className="relative border-b border-[#2b2d31] bg-[#0b0b0d] py-16 md:py-24 text-white overflow-visible"
+      className="relative border-b border-[#2b2d31] bg-[#0b0b0d] text-white py-12 md:py-0 md:h-[calc(100dvh-var(--header-h,5.75rem))] md:max-h-[calc(100dvh-var(--header-h,5.75rem))] flex flex-col justify-center overflow-hidden"
       aria-label="Projetos em Produção"
     >
       {/* Custom Cursor no Desktop */}
@@ -99,9 +99,9 @@ export function ProjectsSection() {
         reducedMotion={reducedMotion}
       />
 
-      <Container>
-        {/* Cabeçalho da Seção com Reveal por Linha (Máscara) */}
-        <div className="mb-10 max-w-4xl">
+      <Container className="h-full flex flex-col justify-between pt-4 md:pt-6 pb-4 md:pb-6 min-h-0">
+        {/* Cabeçalho da Seção + FilterTabs */}
+        <div className="shrink-0 mb-3 md:mb-4 lg:mb-5 max-w-4xl">
           <div className="overflow-hidden">
             <motion.h2
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
@@ -111,13 +111,13 @@ export function ProjectsSection() {
                   : { y: "100%", opacity: 0 }
               }
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-3xl font-light tracking-[-0.03em] sm:text-5xl md:text-6xl text-white"
+              className="font-sans text-2xl sm:text-4xl md:text-5xl font-light tracking-[-0.03em] text-white"
             >
               Projetos que já estão em produção.
             </motion.h2>
           </div>
 
-          <div className="overflow-hidden mt-3">
+          <div className="overflow-hidden mt-1 md:mt-2">
             <motion.p
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
               animate={
@@ -130,29 +130,29 @@ export function ProjectsSection() {
                 delay: reducedMotion ? 0 : 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-base sm:text-lg text-[#8a8f98] font-normal"
+              className="text-xs sm:text-sm md:text-base text-[#8a8f98] font-normal"
             >
               Sistemas reais, construídos sob medida.
             </motion.p>
           </div>
-        </div>
 
-        {/* FilterTabs: Todos / Software / Suporte / Segurança / IA */}
-        <div className="mb-10">
-          <FilterTabs
-            availableCategories={availableCategories}
-            activeCategory={activeCategory}
-            onSelectCategory={setActiveCategory}
-          />
+          {/* FilterTabs: Todos / Software / Suporte / Segurança / IA */}
+          <div className="mt-3 md:mt-4">
+            <FilterTabs
+              availableCategories={availableCategories}
+              activeCategory={activeCategory}
+              onSelectCategory={setActiveCategory}
+            />
+          </div>
         </div>
 
         {/* LAYOUT DUPLA COLUNA 40/60 (DESKTOP ≥768px):
-            Coluna 1 (40% - md:col-span-5): ProjectIndex com exatamente 4 projetos visíveis (h-[480px])
-            Coluna 2 (60% - md:col-span-7): Palco 3D + Descrição técnica (h-[480px], SEM cards, SEM sombras, alinhado de ponta a ponta)
+            Coluna 1 (40% - md:col-span-5): ProjectIndex com exatamente 4 projetos visíveis (h-full)
+            Coluna 2 (60% - md:col-span-7): Palco 3D + Descrição técnica (h-full, SEM cards, SEM sombras, alinhado de ponta a ponta)
         */}
-        <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-12 items-stretch">
-          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Lista com altura de 480px correspondendo a 4 projetos) */}
-          <div className="md:col-span-5 flex flex-col justify-start">
+        <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-12 items-stretch flex-1 min-h-0 overflow-hidden">
+          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Lista com altura flexível correspondendo a 4 projetos) */}
+          <div className="md:col-span-5 h-full min-h-0 flex flex-col justify-start">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -162,10 +162,10 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna 2 (60% / col-span-7): Sem cards, sem sombras - Mesma altura (480px) de ponta a ponta */}
-          <div className="md:col-span-7 flex flex-col justify-between h-[480px] border-t border-b border-[#2b2d31]/60">
-            {/* Topo: Palco 3D do Notebook/Celular */}
-            <div className="relative w-full h-[310px] flex items-center justify-center overflow-visible">
+          {/* Coluna 2 (60% / col-span-7): Sem cards, sem sombras - Mesma altura (h-full) de ponta a ponta */}
+          <div className="md:col-span-7 h-full min-h-0 flex flex-col justify-between border-t border-b border-[#2b2d31]/60">
+            {/* Topo: Palco 3D do Notebook/Celular com flex-1 dinâmico */}
+            <div className="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}
@@ -176,7 +176,7 @@ export function ProjectsSection() {
             </div>
 
             {/* Base: Descrição Técnica e Metadados do Projeto Alinhados */}
-            <div className="border-t border-[#2b2d31]/50 pt-3.5 pb-2 flex flex-col justify-between h-[170px]">
+            <div className="border-t border-[#2b2d31]/50 pt-2.5 pb-1 flex flex-col justify-between shrink-0 min-h-[145px] lg:min-h-[155px]">
               <AnimatePresence mode="wait">
                 {activeProject && (
                   <motion.div
@@ -197,10 +197,10 @@ export function ProjectsSection() {
 
                     {/* Título + Tagline + Solução/Contexto */}
                     <div className="space-y-0.5">
-                      <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
+                      <h3 className="font-sans text-lg lg:text-xl font-light tracking-[-0.02em] text-white">
                         {activeProject.name}
                       </h3>
-                      <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed line-clamp-1">
+                      <p className="text-xs sm:text-sm text-[#e5e7eb] font-normal leading-relaxed line-clamp-1">
                         {activeProject.tagline}
                       </p>
                       {(activeProject.solution || activeProject.context) && (
