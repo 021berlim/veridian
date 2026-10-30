@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useRef, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { Maximize2, Play } from "lucide-react"
+import { Play } from "lucide-react"
 import type { ProjectScreens, ScreenSource } from "./types"
 import { MediaZoomModal } from "@/components/projects/case/media-zoom-modal"
 
@@ -149,11 +149,6 @@ export function ProjectPreviewGrid({
                 />
               )}
 
-              {/* Botão sutil de zoom no hover */}
-              <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur-sm p-1.5 rounded-lg border border-white/10 text-white pointer-events-none">
-                <Maximize2 className="h-3.5 w-3.5" />
-              </div>
-
               {/* Linha hairline interna superior */}
               <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-white/10" />
             </motion.div>
@@ -212,19 +207,6 @@ export function ProjectPreviewGrid({
                       className="object-cover object-top select-none pointer-events-none"
                     />
                   )}
-
-                  {/* Indicador de clique para zoom no canto */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleOpenZoom(actualIndex)
-                    }}
-                    className="absolute bottom-1 right-1 opacity-0 group-hover/thumb:opacity-100 transition-opacity bg-black/80 p-1 rounded border border-white/20 text-white"
-                    title="Ampliar em tela cheia"
-                  >
-                    <Maximize2 className="h-2.5 w-2.5" />
-                  </button>
                 </button>
               )
             })}

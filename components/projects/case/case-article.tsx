@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Maximize2, Layers } from "lucide-react"
+import { Layers } from "lucide-react"
 import type { Project, ScreenSource } from "@/data/projects"
 import { getProjectMedia, CATEGORY_LABELS } from "@/data/projects"
 import { MediaZoomModal } from "./media-zoom-modal"
@@ -94,11 +94,6 @@ export function CaseArticle({ project }: CaseArticleProps) {
                 className="object-cover object-top select-none pointer-events-none transition-transform duration-700 group-hover:scale-[1.01]"
               />
             )}
-
-            {/* Ícone de zoom */}
-            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/75 backdrop-blur-md p-2 rounded-xl border border-white/10 text-white">
-              <Maximize2 className="h-4 w-4" />
-            </div>
           </div>
 
           {/* Legenda de Jornal (Caption) abaixo da imagem */}
@@ -189,9 +184,6 @@ export function CaseArticle({ project }: CaseArticleProps) {
                     sizes="(max-width: 1024px) 100vw, 896px"
                     className="object-cover object-top select-none pointer-events-none"
                   />
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-black/75 p-2 rounded-lg border border-white/10 text-white">
-                    <Maximize2 className="h-3.5 w-3.5" />
-                  </div>
                 </div>
                 {sec.figure.title && (
                   <p className="font-mono text-xs text-[#8a8f98] px-1">
@@ -271,12 +263,7 @@ export function CaseArticle({ project }: CaseArticleProps) {
                   className="object-cover object-top select-none pointer-events-none transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
-                  <div className="flex justify-end">
-                    <div className="bg-black/60 backdrop-blur-sm p-1.5 rounded-lg border border-white/10 text-white">
-                      <Maximize2 className="h-3.5 w-3.5" />
-                    </div>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 pointer-events-none">
                   {img.title && (
                     <p className="font-mono text-xs text-white line-clamp-2">
                       {img.title}

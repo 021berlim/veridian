@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Maximize2, Play } from "lucide-react"
+import { Play } from "lucide-react"
 import type { ScreenSource } from "./stage/types"
 import { MediaZoomModal } from "./media-zoom-modal"
 
@@ -52,10 +52,6 @@ export function CaseMediaGallery({ media, projectName }: CaseMediaGalleryProps) 
                     disablePictureInPicture
                     className="w-full h-full object-cover object-center select-none pointer-events-none"
                   />
-
-                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/70 backdrop-blur-sm p-2 rounded-xl border border-white/10 text-white">
-                    <Maximize2 className="h-4 w-4" />
-                  </div>
 
                   {vid.title && (
                     <div className="absolute bottom-4 left-4 z-20 font-mono text-xs text-white/90 bg-black/80 px-3 py-1.5 rounded-lg border border-white/10">
@@ -107,13 +103,7 @@ export function CaseMediaGallery({ media, projectName }: CaseMediaGalleryProps) 
                   />
 
                   {/* Header / Caption ao passar o mouse */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
-                    <div className="flex justify-end">
-                      <div className="bg-black/60 backdrop-blur-sm p-1.5 rounded-lg border border-white/10 text-white">
-                        <Maximize2 className="h-3.5 w-3.5" />
-                      </div>
-                    </div>
-
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 pointer-events-none">
                     {img.title && (
                       <p className="font-mono text-xs text-white line-clamp-2">
                         {img.title}
