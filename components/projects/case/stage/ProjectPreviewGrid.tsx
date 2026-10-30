@@ -184,19 +184,11 @@ export function ProjectPreviewGrid({
                   key={item.src}
                   onClick={(e) => {
                     e.stopPropagation()
-                    setFeaturedIndex(actualIndex)
-                  }}
-                  onDoubleClick={(e) => {
-                    e.stopPropagation()
                     handleOpenZoom(actualIndex)
                   }}
-                  className={`group/thumb relative h-14 sm:h-16 md:h-20 w-full overflow-hidden rounded-lg sm:rounded-xl border transition-all cursor-pointer ${
-                    isSelected
-                      ? "border-[#c72c3b] ring-1 ring-[#c72c3b]"
-                      : "border-[#2b2d31]/80 hover:border-neutral-400"
-                  } bg-[#0c0d10]`}
-                  title={item.title || "Clique para pré-visualizar"}
-                  aria-label={item.title || `Ver imagem ${actualIndex + 1}`}
+                  className="group/thumb relative h-14 sm:h-16 md:h-20 w-full overflow-hidden rounded-lg sm:rounded-xl border border-[#2b2d31]/80 hover:border-[#c72c3b] transition-all cursor-zoom-in bg-[#0c0d10]"
+                  title={item.title || "Clique para ampliar em tela cheia"}
+                  aria-label={item.title || `Ampliar imagem ${actualIndex + 1}`}
                 >
                   {item.type === "video" ? (
                     <div className="relative w-full h-full flex items-center justify-center bg-black/60">

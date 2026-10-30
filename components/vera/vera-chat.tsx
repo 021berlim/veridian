@@ -267,7 +267,7 @@ export function VeraChat() {
   }
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-5 right-5 z-50 transition-opacity duration-200 [[data-zoom-open=true]_&]:pointer-events-none [[data-zoom-open=true]_&]:opacity-0">
       <AnimatePresence initial={false}>
         {isOpen ? (
           <motion.div
