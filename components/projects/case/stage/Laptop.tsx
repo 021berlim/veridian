@@ -38,7 +38,7 @@ export function Laptop({ screen, active }: LaptopProps) {
     if (!rootRef.current || !hingeRef.current) return
 
     const targetAngle = active ? LAPTOP_CONFIG.OPEN_ANGLE_RAD : 0
-    const targetScale = active ? 0.58 : 0.0001
+    const targetScale = active ? 0.68 : 0.0001
 
     // Amortecimento do ângulo da tampa
     lidAngleRef.current = MathUtils.damp(

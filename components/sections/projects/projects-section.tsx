@@ -146,15 +146,13 @@ export function ProjectsSection() {
           />
         </div>
 
-        {/* LAYOUT 3 COLUNAS (DESKTOP ≥768px):
-            1. Seleção do Projeto (1/3)
-            2. Palco 3D do Notebook/Celular (1/3)
-            3. Texto de Explicação e Detalhes do Projeto (1/3)
-            Mesmo tamanho proporcional (1/3 cada) e alinhados visualmente
+        {/* LAYOUT DUPLA COLUNA 40/60 (DESKTOP ≥768px - ABORDAGEM A):
+            Coluna 1 (40% - md:col-span-5): ProjectIndex clássico e limpo
+            Coluna 2 (60% - md:col-span-7): Palco 3D Grande no Topo + Barra/Card de Telemetria Integrada no Rodapé
         */}
-        <div className="hidden md:grid md:grid-cols-12 md:gap-6 lg:gap-8 items-stretch">
-          {/* Coluna 1 (1/3): ProjectIndex (Seleção de Projetos) */}
-          <div className="md:col-span-4 flex flex-col justify-center">
+        <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-10 items-center">
+          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Seleção de Projetos) */}
+          <div className="md:col-span-5 flex flex-col justify-center">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -164,9 +162,10 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna 2 (1/3): Notebook / Palco 3D Flutuando Centralizado */}
-          <div className="md:col-span-4 flex flex-col items-center justify-center min-h-[460px] h-[480px] overflow-visible">
-            <div className="relative w-full h-full overflow-visible">
+          {/* Coluna 2 (60% / col-span-7): Card Unificado com Palco 3D Soberano + Telemetria no Rodapé */}
+          <div className="md:col-span-7 flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#0e0f12]/60 backdrop-blur-sm overflow-hidden shadow-2xl shadow-black/50">
+            {/* Topo: Palco 3D com Amplo Espaço de Rotação e Canvas Expansivo */}
+            <div className="relative w-full h-[440px] lg:h-[480px] flex items-center justify-center overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
                   screens={activeProject.screens}
@@ -175,22 +174,20 @@ export function ProjectsSection() {
                 />
               )}
             </div>
-          </div>
 
-          {/* Coluna 3 (1/3): Texto de Explicação e Detalhes do Projeto Alinhados */}
-          <div className="md:col-span-4 flex flex-col justify-between min-h-[460px] h-[480px] border-t border-b border-[#2b2d31]/60 py-5 md:py-6 pl-0 md:pl-2">
-            <AnimatePresence mode="wait">
-              {activeProject && (
-                <motion.div
-                  key={activeProject.slug}
-                  initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -16 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col justify-between h-full"
-                >
-                  {/* Topo: Categoria + Título + Tagline + Contexto/Solução */}
-                  <div className="space-y-3.5">
+            {/* Rodapé: Barra de Telemetria Técnica Integrada */}
+            <div className="border-t border-[#2b2d31]/70 bg-[#0b0b0d]/90 px-6 py-5 backdrop-blur-md">
+              <AnimatePresence mode="wait">
+                {activeProject && (
+                  <motion.div
+                    key={activeProject.slug}
+                    initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
+                    transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex flex-col gap-3"
+                  >
+                    {/* Header de Telemetria: Categoria + Ano */}
                     <div className="flex items-center justify-between font-mono text-[11px] text-[#8a8f98]">
                       <span className="text-[#c72c3b] uppercase tracking-wider font-medium">
                         PROJECT // {CATEGORY_LABELS[activeProject.category]}
@@ -198,37 +195,42 @@ export function ProjectsSection() {
                       <span>{activeProject.year || "2025"}</span>
                     </div>
 
-                    <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
-                      {activeProject.name}
-                    </h3>
-
-                    <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed">
-                      {activeProject.tagline}
-                    </p>
-
-                    <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-4">
-                      {activeProject.solution || activeProject.context}
-                    </p>
-                  </div>
-
-                  {/* Base: Stack Tecnológica + Botão/Link para o Case Completo */}
-                  <div className="pt-4 border-t border-[#2b2d31]/50 space-y-3">
-                    <div className="font-mono text-[10px] text-[#8a8f98] leading-relaxed">
-                      <span className="text-[#c72c3b] mr-2">TECH //</span>
-                      <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
+                    {/* Título + Tagline + Solução/Contexto */}
+                    <div>
+                      <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
+                        {activeProject.name}
+                      </h3>
+                      <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed mt-1">
+                        {activeProject.tagline}
+                      </p>
+                      {(activeProject.solution || activeProject.context) && (
+                        <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-2 mt-1.5">
+                          {activeProject.solution || activeProject.context}
+                        </p>
+                      )}
                     </div>
 
-                    <Link
-                      href={`/projetos/${activeProject.slug}`}
-                      className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors pt-1"
-                    >
-                      <span>Ver case completo</span>
-                      <ArrowUpRight className="h-4 w-4 text-[#8a8f98] transition-transform duration-300 group-hover:text-[#c72c3b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    {/* Rodapé da Barra: Stack Tecnológica + CTA */}
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#2b2d31]/50">
+                      <div className="font-mono text-[10px] text-[#8a8f98] leading-relaxed">
+                        <span className="text-[#c72c3b] mr-2">TECH //</span>
+                        <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
+                      </div>
+
+                      <Link
+                        href={`/projetos/${activeProject.slug}`}
+                        className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-white hover:text-[#c72c3b] transition-colors"
+                      >
+                        <span className="underline underline-offset-4 decoration-[#2b2d31] group-hover:decoration-[#c72c3b]">
+                          Ver case completo
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 text-[#8a8f98] transition-transform duration-300 group-hover:text-[#c72c3b] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
 
