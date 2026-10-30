@@ -102,7 +102,7 @@ export function ProjectsSection() {
       <Container className="h-full flex flex-col justify-between pt-4 md:pt-6 pb-4 md:pb-6 min-h-0">
         {/* Cabeçalho da Seção + FilterTabs */}
         <div className="shrink-0 mb-3 md:mb-4 lg:mb-5 max-w-4xl">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden py-1">
             <motion.h2
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
               animate={
@@ -111,13 +111,15 @@ export function ProjectsSection() {
                   : { y: "100%", opacity: 0 }
               }
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-2xl sm:text-4xl md:text-5xl font-light tracking-[-0.03em] text-white"
+              className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[-0.03em] text-white leading-[1.12]"
             >
-              Projetos que já estão em produção.
+              Projetos que já estão
+              <br className="hidden sm:inline" />{" "}
+              em produção.
             </motion.h2>
           </div>
 
-          <div className="overflow-hidden mt-1 md:mt-2">
+          <div className="overflow-hidden mt-1.5 md:mt-2 py-0.5">
             <motion.p
               initial={reducedMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }}
               animate={
@@ -130,7 +132,7 @@ export function ProjectsSection() {
                 delay: reducedMotion ? 0 : 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-xs sm:text-sm md:text-base text-[#8a8f98] font-normal"
+              className="text-sm sm:text-base md:text-lg text-[#8a8f98] font-normal"
             >
               Sistemas reais, construídos sob medida.
             </motion.p>
@@ -146,13 +148,13 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* LAYOUT DUPLA COLUNA 40/60 (DESKTOP ≥768px):
-            Coluna 1 (40% - md:col-span-5): ProjectIndex com exatamente 4 projetos visíveis (h-full)
-            Coluna 2 (60% - md:col-span-7): Palco 3D + Descrição técnica (h-full, SEM cards, SEM sombras, alinhado de ponta a ponta)
+        {/* LAYOUT DUPLA COLUNA EQUILIBRADA 50/50 (DESKTOP ≥768px):
+            Coluna 1 (50% - md:col-span-6): ProjectIndex com títulos grandes e visibilidade de 4 projetos
+            Coluna 2 (50% - md:col-span-6): Palco 3D com zoom aproximado + Descrição técnica ampliada
         */}
         <div className="hidden md:grid md:grid-cols-12 md:gap-8 lg:gap-12 items-stretch flex-1 min-h-0 overflow-hidden">
-          {/* Coluna 1 (40% / col-span-5): ProjectIndex (Lista com altura flexível correspondendo a 4 projetos) */}
-          <div className="md:col-span-5 h-full min-h-0 flex flex-col justify-start">
+          {/* Coluna 1 (50% / col-span-6): ProjectIndex (Lista com altura flexível correspondendo a 4 projetos) */}
+          <div className="md:col-span-6 h-full min-h-0 flex flex-col justify-start">
             <ProjectIndex
               projects={filteredProjects}
               activeProject={activeProject}
@@ -162,9 +164,9 @@ export function ProjectsSection() {
             />
           </div>
 
-          {/* Coluna 2 (60% / col-span-7): Sem cards, sem sombras - Mesma altura (h-full) de ponta a ponta */}
-          <div className="md:col-span-7 h-full min-h-0 flex flex-col justify-between border-t border-b border-[#2b2d31]/60">
-            {/* Topo: Palco 3D do Notebook/Celular com flex-1 dinâmico */}
+          {/* Coluna 2 (50% / col-span-6): Sem cards, sem sombras - Mesma altura (h-full) de ponta a ponta */}
+          <div className="md:col-span-6 h-full min-h-0 flex flex-col justify-between border-t border-b border-[#2b2d31]/60">
+            {/* Topo: Palco 3D do Notebook/Celular com flex-1 dinâmico e zoom aproximado */}
             <div className="relative w-full flex-1 min-h-0 flex items-center justify-center overflow-visible">
               {isDesktop && activeProject && (
                 <DeviceStage
@@ -188,7 +190,7 @@ export function ProjectsSection() {
                     className="flex flex-col justify-between h-full"
                   >
                     {/* Header de Telemetria: Categoria + Ano */}
-                    <div className="flex items-center justify-between font-mono text-[11px] text-[#8a8f98]">
+                    <div className="flex items-center justify-between font-mono text-xs text-[#8a8f98]">
                       <span className="text-[#c72c3b] uppercase tracking-wider font-medium">
                         PROJECT // {CATEGORY_LABELS[activeProject.category]}
                       </span>
@@ -197,14 +199,14 @@ export function ProjectsSection() {
 
                     {/* Título + Tagline + Solução/Contexto */}
                     <div className="space-y-0.5">
-                      <h3 className="font-sans text-lg lg:text-xl font-light tracking-[-0.02em] text-white">
+                      <h3 className="font-sans text-xl lg:text-2xl font-light tracking-[-0.02em] text-white">
                         {activeProject.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#e5e7eb] font-normal leading-relaxed line-clamp-1">
+                      <p className="text-sm text-[#e5e7eb] font-normal leading-relaxed line-clamp-1">
                         {activeProject.tagline}
                       </p>
                       {(activeProject.solution || activeProject.context) && (
-                        <p className="text-xs text-[#8a8f98] leading-relaxed line-clamp-2">
+                        <p className="text-xs sm:text-sm text-[#8a8f98] leading-relaxed line-clamp-2">
                           {activeProject.solution || activeProject.context}
                         </p>
                       )}
@@ -212,7 +214,7 @@ export function ProjectsSection() {
 
                     {/* Rodapé: Stack Tecnológica + CTA */}
                     <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#2b2d31]/40">
-                      <div className="font-mono text-[10px] text-[#8a8f98] leading-relaxed">
+                      <div className="font-mono text-xs text-[#8a8f98] leading-relaxed">
                         <span className="text-[#c72c3b] mr-2">TECH //</span>
                         <span className="text-[#8a8f98]">{activeProject.stack.join(" / ")}</span>
                       </div>

@@ -30,7 +30,7 @@ export function FilterTabs({
     <div
       role="tablist"
       aria-label="Filtrar projetos por categoria"
-      className="flex flex-wrap items-center gap-6 sm:gap-8 border-b border-[#2b2d31]/60 pb-3"
+      className="flex flex-wrap items-center gap-6 sm:gap-8 pb-1"
     >
       {tabs.map((tab) => {
         const isActive = activeCategory === tab.id
