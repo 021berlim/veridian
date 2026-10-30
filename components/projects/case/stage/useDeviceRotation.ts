@@ -5,8 +5,8 @@ import { MathUtils } from "three"
 
 // Constantes de calibração da física de rotação (inclinado estilo 3/4 showcase premium)
 export const ROTATION_CONFIG = {
-  REST_YAW: -0.42, // ~-24° inclinação de perspectiva 3/4 showcase
-  REST_PITCH: 0.12, // ~+7° leve elevação
+  REST_YAW: -0.12, // ~-7° inclinação frontal sutil para legibilidade máxima da tela
+  REST_PITCH: 0.05, // ~+3° foco frontal na tela
   YAW_RANGE: Math.PI / 3.2, // ~±56° de rotação interativa (garante que a tela fica sempre voltada ao usuário)
   PITCH_MIN: -0.15, // ~-8.5° limite inferior (evita inclinar a ponto de esconder a tela)
   PITCH_MAX: 0.28, // ~+16° limite superior (evita inclinar demais para trás)

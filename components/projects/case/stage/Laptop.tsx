@@ -38,7 +38,7 @@ export function Laptop({ screen, active }: LaptopProps) {
     if (!rootRef.current || !hingeRef.current) return
 
     const targetAngle = active ? LAPTOP_CONFIG.OPEN_ANGLE_RAD : 0
-    const targetScale = active ? 0.64 : 0.0001
+    const targetScale = active ? 0.65 : 0.0001
 
     // Amortecimento do ângulo da tampa
     lidAngleRef.current = MathUtils.damp(
@@ -59,7 +59,7 @@ export function Laptop({ screen, active }: LaptopProps) {
   const screenAspect = LAPTOP_CONFIG.SCREEN_WIDTH / LAPTOP_CONFIG.SCREEN_HEIGHT
 
   return (
-    <group ref={rootRef} position={[0, -0.26, 0]}>
+    <group ref={rootRef} position={[0, -0.42, 0.1]}>
       {/* Sombra de contato exclusiva e proporcional ao Notebook */}
       <ContactShadows
         position={[0, -LAPTOP_CONFIG.BASE_HEIGHT / 2 - 0.01, 0]}
