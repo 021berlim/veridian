@@ -25,13 +25,13 @@ import {
 import { useLenis } from "lenis/react"
 
 const INITIAL_GREETING =
-  "Oi, que bom te ver por aqui. Sou a Vera, da Veridian Capital, e minha função é te ajudar com tudo relacionado aos nossos serviços, que vão de marketing digital e desenvolvimento de software a design, experiência e consultoria digital. Pensa em mim como sua concierge pessoal pra tudo que sua marca precisa no mundo digital. Me conta o que você tem em mente, tô aqui pra ouvir e te ajudar a encontrar a melhor solução."
+  "Oi, que bom te ver por aqui. Sou a Vera, da Zuse, e minha função é te ajudar com tudo relacionado aos nossos serviços, que vão de desenvolvimento de software sob medida e suporte de TI a cibersegurança e automação com inteligência artificial. Pensa em mim como sua consultora técnica pra tudo que sua operação precisa em tecnologia. Me conta o que você tem em mente, tô aqui pra ouvir e te ajudar a encontrar a melhor solução."
 
 const CAPTURE_TRANSITION =
-  "Que bom saber do seu interesse, vou anotar seus dados pra nossa equipe montar uma proposta pensada no que você precisa."
+  "Que bom saber do seu interesse, vou anotar seus dados pro nosso time de engenharia montar uma proposta pensada no que você precisa."
 
 const COMPLETION_MESSAGE =
-  "Pronto, já passei tudo pro time e a gente volta em breve com uma proposta. Se precisar de mais alguma coisa, é só chamar."
+  "Pronto, já passei tudo pro time da Zuse e a gente volta em breve com uma proposta. Se precisar de mais alguma coisa, é só chamar."
 
 function createMessage(role: ChatMessage["role"], content: string): ChatMessage {
   return {
@@ -289,7 +289,7 @@ export function VeraChat() {
                   V.E.R.A.
                 </p>
                 <p className="mt-1 font-serif text-sm leading-snug text-foreground">
-                  Sua assistente na Veridian
+                  Sua assistente na Zuse
                 </p>
               </div>
               <button
@@ -319,7 +319,7 @@ export function VeraChat() {
                     className={cn(
                       "max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
                       message.role === "user"
-                        ? "bg-foreground text-primary-foreground"
+                        ? "bg-primary text-primary-foreground"
                         : "border border-border/60 bg-secondary text-foreground",
                     )}
                   >
@@ -364,7 +364,7 @@ export function VeraChat() {
                   onClick={handleSend}
                   disabled={!input.trim() || isLoading}
                   aria-label="Enviar mensagem"
-                  className="h-9 w-9 shrink-0 rounded-full bg-foreground text-primary-foreground hover:bg-foreground/90"
+                  className="h-9 w-9 shrink-0 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <Send className="h-3.5 w-3.5" strokeWidth={1.5} />
                 </Button>
@@ -401,7 +401,7 @@ export function VeraChat() {
                 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOpen(true)}
-                aria-label="Abrir V.E.R.A. — Assistente Veridian"
+                aria-label="Abrir V.E.R.A. — Assistente Zuse"
                 className="flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-background/75 text-foreground shadow-sm backdrop-blur-xl transition-colors duration-300 hover:border-border hover:bg-background/90"
               >
                 <span className="font-serif text-base tracking-wide">V</span>

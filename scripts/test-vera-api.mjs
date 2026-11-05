@@ -25,7 +25,7 @@ async function testChat() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      messages: [{ role: "user", content: "O que a Veridian Capital faz?" }],
+      messages: [{ role: "user", content: "O que a Zuse Labs faz?" }],
       phase: "chat",
     }),
   })

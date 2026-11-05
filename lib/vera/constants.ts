@@ -15,12 +15,12 @@ export const LEAD_INTENT_PATTERNS = [
   /valor/i,
   /iniciar projeto/i,
   /come[cç]ar projeto/i,
-  /quero (trabalhar|contratar|iniciar)/i,
+  /quero (trabalhar|contratar|iniciar|desenvolver)/i,
   /preciso de/i,
   /solicitar/i,
-  /falar com (a equipe|algu[eé]m|voc[eê]s)/i,
+  /falar com (a equipe|o time|a engenharia|algu[eé]m|voc[eê]s)/i,
   /entrar em contato/i,
-  /validar.*estrat[eé]gia/i,
+  /validar.*(estrat[eé]gia|arquitetura|escopo)/i,
   /enviar mensagem/i,
 ] as const
 

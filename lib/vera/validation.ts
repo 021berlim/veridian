@@ -1,25 +1,15 @@
-import { PROJECT_TYPE_OPTIONS } from "./constants"
+import { LEAD_INTENT_PATTERNS, PROJECT_TYPE_OPTIONS } from "./constants"
 import type { CaptureStep } from "./types"
 
+function stripAccents(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+}
+
 export function detectLeadIntent(message: string): boolean {
-  const patterns = [
-    /or[cç]amento/i,
-    /proposta/i,
-    /contrat(ar|o)/i,
-    /quanto custa/i,
-    /pre[cç]o/i,
-    /valor/i,
-    /iniciar projeto/i,
-    /come[cç]ar projeto/i,
-    /quero (trabalhar|contratar|iniciar)/i,
-    /preciso de/i,
-    /solicitar/i,
-    /falar com (a equipe|algu[eé]m|voc[eê]s)/i,
-    /entrar em contato/i,
-    /validar.*estrat[eé]gia/i,
-    /enviar mensagem/i,
-  ]
-  return patterns.some((pattern) => pattern.test(message))
+  return LEAD_INTENT_PATTERNS.some((pattern) => pattern.test(message))
 }
 
 export function validateCaptureInput(
@@ -50,15 +40,30 @@ export function validateCaptureInput(
       return { valid: true, normalized: trimmed }
 
     case "projectType": {
+      const normalizedInput = stripAccents(trimmed)
+
       const exact = PROJECT_TYPE_OPTIONS.find(
-        (type) => type.toLowerCase() === trimmed.toLowerCase(),
+        (type) => stripAccents(type) === normalizedInput,
       )
       if (exact) return { valid: true, normalized: exact }
 
       const partial = PROJECT_TYPE_OPTIONS.find((type) =>
-        type.toLowerCase().includes(trimmed.toLowerCase()),
+        stripAccents(type).includes(normalizedInput),
       )
       if (partial) return { valid: true, normalized: partial }
+
+      if (/\b(software|sistema|sistemas|app|aplicativo|plataforma|web|erp|sob medida)\b/.test(normalizedInput)) {
+        return { valid: true, normalized: "Desenvolvimento de Software sob medida" }
+      }
+      if (/\b(suporte|manutencao|sustentacao|infraestrutura|ti|servidor|servidores)\b/.test(normalizedInput)) {
+        return { valid: true, normalized: "Suporte e Manutenção de TI" }
+      }
+      if (/\b(ciberseguranca|seguranca|cyber|auditoria|protecao|pentest)\b/.test(normalizedInput)) {
+        return { valid: true, normalized: "Cibersegurança" }
+      }
+      if (/\b(automacao|inteligencia artificial|ia|ai|agente|agentes|bot|chatbot)\b/.test(normalizedInput)) {
+        return { valid: true, normalized: "Automação e Inteligência Artificial" }
+      }
 
       if (/outro/i.test(trimmed)) return { valid: true, normalized: "Outro" }
 

@@ -30,7 +30,7 @@ export async function callVeraOpenRouter({
   }
 
   const systemPrompt = buildVeraSystemPrompt(phase, lead)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://veridian-pi.vercel.app"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://zuselabs.com"
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
@@ -38,7 +38,7 @@ export async function callVeraOpenRouter({
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
       "HTTP-Referer": siteUrl,
-      "X-Title": "Veridian Capital - V.E.R.A.",
+      "X-Title": "Zuse Labs - V.E.R.A.",
     },
     body: JSON.stringify({
       model: VERA_MODEL,
