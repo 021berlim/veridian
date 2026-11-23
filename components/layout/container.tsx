@@ -10,7 +10,7 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ children, className, as: Tag = "div", ...props }, ref) => {
     return (
-      <Tag ref={ref} className={cn("mx-auto w-full max-w-7xl px-6", className)} {...props}>
+      <Tag ref={ref} className={cn("zuse-m-container mx-auto w-full max-w-7xl px-6", className)} {...props}>
         {children}
       </Tag>
     )

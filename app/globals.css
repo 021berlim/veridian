@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./mobile-viewport.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -169,33 +170,29 @@ body {
     text-wrap: balance;
   }
 
-  .vera-scrollbar {
+  .zuse-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
 
-  .vera-scrollbar::-webkit-scrollbar {
+  .zuse-scrollbar::-webkit-scrollbar {
     width: var(--scrollbar-size);
   }
 
-  .vera-scrollbar::-webkit-scrollbar-track {
+  .zuse-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
 
-  .vera-scrollbar::-webkit-scrollbar-thumb {
+  .zuse-scrollbar::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb);
     border-radius: 9999px;
   }
 
-  .vera-scrollbar::-webkit-scrollbar-thumb:hover {
+  .zuse-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-thumb-hover);
   }
 
-  .vera-chat-scroll {
-    overscroll-behavior: contain;
-  }
-
-  /* Vera só surge após conclusão do preloader (Regras V1 e G5) */
+  /* Botão flutuante WhatsApp só surge após conclusão do preloader */
   html:not([data-preloader-done="true"]) .fixed.bottom-5.right-5 {
     display: none !important;
     opacity: 0 !important;

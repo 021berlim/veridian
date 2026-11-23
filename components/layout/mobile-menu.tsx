@@ -57,7 +57,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
+          className="zuse-m-drawer-link font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -73,7 +73,7 @@ function MobileNavItem({
         <button
           type="button"
           onClick={() => onNavigate(item.href)}
-          className="justify-self-center font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
+          className="zuse-m-drawer-link justify-self-center font-sans text-2xl font-light tracking-tight text-white transition-opacity hover:opacity-70"
         >
           {item.label}
         </button>
@@ -178,13 +178,13 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
                 animate="visible"
                 exit="hidden"
                 variants={menuStaggerVariants}
-                className="vera-scrollbar flex max-h-full w-full flex-col items-center overflow-y-auto py-6"
+                className="zuse-scrollbar flex max-h-full w-full flex-col items-center overflow-y-auto py-6"
               >
                 <motion.button
                   type="button"
                   variants={menuItemVariants}
                   onClick={handleLogoClick}
-                  className="mb-10 py-1"
+                  className="zuse-m-drawer-logo mb-10 py-1"
                   aria-label="Voltar ao início"
                 >
                   <Logo />
@@ -193,7 +193,7 @@ export function MobileMenu({ open, onOpenChange, onNavigate }: MobileMenuProps) 
                 <motion.nav
                   aria-label="Seções"
                   variants={menuStaggerVariants}
-                  className="flex w-full flex-col items-center gap-7"
+                  className="zuse-m-drawer-nav flex w-full flex-col items-center gap-7"
                 >
                   {navItems.map((item) => (
                     <motion.div

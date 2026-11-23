@@ -36,21 +36,21 @@ const footerSections = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#0b0b0d] py-16 text-white sm:py-20">
+    <footer className="zuse-m-footer bg-[#0b0b0d] py-16 text-white sm:py-20">
       <Container>
-        <div className="grid gap-12 border-b border-[#2b2d31] pb-16 lg:grid-cols-12 lg:gap-16">
+        <div className="zuse-m-footer-grid grid gap-12 border-b border-[#2b2d31] pb-16 lg:grid-cols-12 lg:gap-16">
           {/* Coluna Principal da Marca */}
           <div className="lg:col-span-5">
             <Link href="/" className="inline-block transition-opacity hover:opacity-80">
-              <Logo />
+              <Logo size="lg" />
             </Link>
-            <p className="mt-6 max-w-sm text-sm font-normal leading-relaxed text-[#8a8f98]">
+            <p className="zuse-m-footer-desc mt-6 max-w-sm text-sm font-normal leading-relaxed text-[#8a8f98]">
               {siteConfig.description}
             </p>
           </div>
 
           {/* Colunas de Links Textuais Limpos */}
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+          <div className="zuse-m-footer-cols grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
             {footerSections.map((section) => (
               <div key={section.title}>
                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#8a8f98]">
@@ -74,7 +74,7 @@ export function Footer() {
         </div>
 
         {/* Linha Inferior com Copyright Limpo */}
-        <div className="flex flex-col items-start justify-between gap-4 pt-8 text-xs font-mono text-[#8a8f98] sm:flex-row sm:items-center">
+        <div className="zuse-m-footer-bottom flex flex-col items-start justify-between gap-4 pt-8 text-xs font-mono text-[#8a8f98] sm:flex-row sm:items-center">
           <p>© 2026 Zuse Labs. Todos os direitos reservados.</p>
           <p className="text-[10px] uppercase tracking-wider text-[#4b5563]">
             Engenharia de software com precisão cinematográfica

@@ -1,7 +1,0 @@
-{
-  "message": "{{userMessage}}",
-  "history": "{{vera_history}}",
-  "remoteJid": "{{remoteJid}}",
-  "pushName": "{{pushName}}",
-  "origem": "WhatsApp"
-}

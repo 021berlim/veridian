@@ -3,7 +3,7 @@ import { Space_Grotesk } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SmoothScroll } from "@/components/layout/smooth-scroll"
 import { Intro } from "@/components/ui/intro"
-import { VeraChat } from "@/components/vera/vera-chat"
+import { WhatsAppButton } from "@/components/ui/whatsapp-button"
 import { getPageMetadata } from "@/lib/seo"
 import "./globals.css"
 
@@ -27,7 +27,7 @@ export default function RootLayout({
         <Intro />
         <SmoothScroll>
           {children}
-          <VeraChat />
+          <WhatsAppButton />
           <Analytics />
         </SmoothScroll>
       </body>

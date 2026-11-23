@@ -1,0 +1,612 @@
+/* ==========================================================================
+   ZUSE LABS — Viewport Normalization & Universal Hero Fold-Cut Engine
+   - < 768px: normalização proporcional mobile + Hero "Telefone Infinito".
+   - >= 768px: Hero "Telefone Infinito" (corte universal em 100dvh via CSS vars).
+   Todas as declarações com dvh possuem fallback real em vh (@supports / pair).
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* ------------------------------------------------------------------------
+     1. GLOBAL & LAYOUT
+     ------------------------------------------------------------------------ */
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  main {
+    overflow-x: clip;
+  }
+
+  [id] {
+    scroll-margin-top: var(--header-h, 8.92vh);
+    scroll-margin-top: var(--header-h, 8.92dvh);
+  }
+
+  .zuse-m-container {
+    padding-inline: min(6.11vw, 2.82vh);
+    padding-inline: min(6.11vw, 2.82dvh);
+  }
+
+  #zuse-main-header {
+    padding: 1.41vh min(4.07vw, 1.88vh) 0;
+    padding: 1.41dvh min(4.07vw, 1.88dvh) 0;
+  }
+
+  .zuse-m-nav-bar {
+    padding: 1.17vh min(5.09vw, 2.35vh);
+    padding: 1.17dvh min(5.09vw, 2.35dvh);
+  }
+
+  #zuse-header-logo-slot {
+    height: clamp(32px, 4.2vh, 38px);
+    height: clamp(32px, 4.2dvh, 38px);
+    min-width: min(35.6vw, 16.43vh);
+    min-width: min(35.6vw, 16.43dvh);
+  }
+
+  .zuse-m-logo-svg {
+    height: clamp(28px, 3.6vh, 34px);
+    height: clamp(28px, 3.6dvh, 34px);
+    width: auto;
+  }
+
+  .zuse-m-menu-btn {
+    width: clamp(36px, 4.69vh, 42px);
+    width: clamp(36px, 4.69dvh, 42px);
+    height: clamp(36px, 4.69vh, 42px);
+    height: clamp(36px, 4.69dvh, 42px);
+  }
+
+  .zuse-m-drawer-logo {
+    margin-bottom: 4.69vh;
+    margin-bottom: 4.69dvh;
+  }
+
+  .zuse-m-drawer-nav {
+    margin-bottom: 4.69vh;
+    margin-bottom: 4.69dvh;
+    gap: 3.29vh;
+    gap: 3.29dvh;
+  }
+
+  .zuse-m-drawer-link {
+    font-size: clamp(1.125rem, min(6.11vw, 2.82vh), 1.625rem);
+    font-size: clamp(1.125rem, min(6.11vw, 2.82dvh), 1.625rem);
+  }
+
+  /* ------------------------------------------------------------------------
+     2. HERO — "TELEFONE INFINITO" (CORTE NA METADE NA LINHA DOS 100dvh)
+     ------------------------------------------------------------------------ */
+  #hero.zuse-m-hero {
+    --hero-pad-top: calc(var(--header-h, 8.8vh) + 4vh);
+    --hero-title-size: clamp(1.5rem, min(8.6vw, 4.1vh), 2.35rem);
+    --hero-sub-size: clamp(0.75rem, min(3.75vw, 1.82vh), 1.02rem);
+    --hero-gap: 2.2vh;
+    --hero-cta-height: clamp(36px, 5.2vh, 48px);
+    --hero-phone-gap: 3.5vh;
+    --phone-start-offset: 60vh;
+    --phone-width: min(82vw, 39.2vh);
+    --phone-height: calc(var(--phone-width) * 1243 / 609);
+    --hero-pad-bottom: 7vh;
+    --watermark-size: min(19.5vw, 11.5vh);
+    --watermark-box-h: 24vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-top: var(--hero-pad-top) !important;
+    padding-bottom: var(--hero-pad-bottom) !important;
+    padding-inline: 0 !important;
+  }
+
+  @supports (height: 1dvh) {
+    #hero.zuse-m-hero {
+      --hero-pad-top: calc(var(--header-h, 8.8dvh) + 4dvh);
+      --hero-title-size: clamp(1.5rem, min(8.6vw, 4.1dvh), 2.35rem);
+      --hero-sub-size: clamp(0.75rem, min(3.75vw, 1.82dvh), 1.02rem);
+      --hero-gap: 2.2dvh;
+      --hero-cta-height: clamp(36px, 5.2dvh, 48px);
+      --hero-phone-gap: 3.5dvh;
+      --phone-start-offset: 60dvh;
+      --phone-width: min(82vw, 39.2dvh);
+      --phone-height: calc(var(--phone-width) * 1243 / 609);
+      --hero-pad-bottom: 7dvh;
+      --watermark-size: min(19.5vw, 11.5dvh);
+      --watermark-box-h: 24dvh;
+    }
+  }
+
+  .zuse-m-hero-bg {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .zuse-m-watermark-wrap {
+    height: var(--watermark-box-h);
+  }
+
+  .zuse-m-watermark-text {
+    font-size: var(--watermark-size);
+    transform: translateY(10%);
+  }
+
+  .zuse-m-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .zuse-m-hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(var(--phone-start-offset) - var(--hero-pad-top) - var(--hero-phone-gap));
+    margin-bottom: var(--hero-phone-gap);
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .zuse-m-hero-h1 {
+    font-size: var(--hero-title-size);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .zuse-m-hero-sub {
+    margin-top: var(--hero-gap);
+    font-size: var(--hero-sub-size);
+    line-height: 1.48;
+    max-width: min(88vw, 38ch);
+    margin-inline: auto;
+  }
+
+  .zuse-m-hero-ctas {
+    margin-top: calc(var(--hero-gap) * 1.2);
+    gap: calc(var(--hero-gap) * 0.65);
+    display: grid;
+    grid-template-columns: 1fr;
+    width: fit-content;
+    align-self: center;
+    margin-inline: auto;
+  }
+
+  .zuse-m-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    white-space: nowrap;
+    min-height: var(--hero-cta-height);
+    padding: 1.1vh min(7.12vw, 3.2vh);
+    padding: 1.1dvh min(7.12vw, 3.2dvh);
+    font-size: clamp(0.75rem, min(3.56vw, 1.64vh), 0.9375rem);
+    font-size: clamp(0.75rem, min(3.56vw, 1.64dvh), 0.9375rem);
+  }
+
+  .zuse-m-mockup-wrap {
+    margin-top: 0;
+    gap: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .zuse-m-mockup-box {
+    width: var(--phone-width);
+    height: auto;
+    aspect-ratio: 609 / 1243;
+  }
+
+  /* ------------------------------------------------------------------------
+     3. CLIENTS CAROUSEL
+     ------------------------------------------------------------------------ */
+  .zuse-m-clients {
+    padding-block: 3.76vh;
+    padding-block: 3.76dvh;
+  }
+
+  .zuse-m-clients-label {
+    margin-bottom: 2.82vh;
+    margin-bottom: 2.82dvh;
+    padding-inline: min(6.11vw, 2.82vh);
+    padding-inline: min(6.11vw, 2.82dvh);
+  }
+
+  .zuse-m-clients-track {
+    gap: min(10.18vw, 4.69vh);
+    gap: min(10.18vw, 4.69dvh);
+  }
+
+  .zuse-m-clients-item {
+    gap: min(2.54vw, 1.17vh);
+    gap: min(2.54vw, 1.17dvh);
+  }
+
+  /* ------------------------------------------------------------------------
+     4. KEYNOTE SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-keynote {
+    height: 100vh;
+    height: 100dvh;
+    padding-inline: min(6.11vw, 2.82vh);
+    padding-inline: min(6.11vw, 2.82dvh);
+  }
+
+  .zuse-m-keynote-stage {
+    height: 33.8vh;
+    height: 33.8dvh;
+  }
+
+  .zuse-m-keynote-word {
+    font-size: clamp(2.5rem, min(15.27vw, 7.04vh), 4.25rem);
+    font-size: clamp(2.5rem, min(15.27vw, 7.04dvh), 4.25rem);
+  }
+
+  .zuse-m-keynote-desc {
+    margin-top: 2.35vh;
+    margin-top: 2.35dvh;
+    font-size: clamp(0.8125rem, min(3.82vw, 1.76vh), 1rem);
+    font-size: clamp(0.8125rem, min(3.82vw, 1.76dvh), 1rem);
+    max-width: min(86vw, 38ch);
+  }
+
+  /* ------------------------------------------------------------------------
+     5. MANIFESTO SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-manifesto {
+    height: 100vh;
+    height: 100dvh;
+    padding-inline: min(6.11vw, 2.82vh);
+    padding-inline: min(6.11vw, 2.82dvh);
+  }
+
+  .zuse-m-manifesto-words {
+    font-size: clamp(1.125rem, min(5.6vw, 2.58vh), 1.65rem);
+    font-size: clamp(1.125rem, min(5.6vw, 2.58dvh), 1.65rem);
+    column-gap: min(3.05vw, 1.41vh);
+    column-gap: min(3.05vw, 1.41dvh);
+    row-gap: 1.17vh;
+    row-gap: 1.17dvh;
+    line-height: 1.25;
+  }
+
+  /* ------------------------------------------------------------------------
+     6. PROJECTS SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-projects {
+    padding-block: 5.63vh;
+    padding-block: 5.63dvh;
+  }
+
+  .zuse-m-projects-h2 {
+    white-space: normal;
+    font-size: clamp(1.25rem, min(6.11vw, 2.82vh), 1.875rem);
+    font-size: clamp(1.25rem, min(6.11vw, 2.82dvh), 1.875rem);
+    line-height: 1.15;
+  }
+
+  .zuse-m-projects-preview {
+    height: clamp(220px, 37.56vh, 340px);
+    height: clamp(220px, 37.56dvh, 340px);
+    margin-bottom: 2.82vh;
+    margin-bottom: 2.82dvh;
+  }
+
+  .zuse-m-projects-card {
+    width: 82vw;
+    min-width: 260px;
+    padding: 2.35vh min(5.09vw, 2.35vh);
+    padding: 2.35dvh min(5.09vw, 2.35dvh);
+  }
+
+  /* ------------------------------------------------------------------------
+     7. PROCESS SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-process {
+    height: 100vh;
+    height: 100dvh;
+    padding-inline: min(6.11vw, 2.82vh);
+    padding-inline: min(6.11vw, 2.82dvh);
+    padding-top: calc(var(--header-h, 8.92vh) + 2.35vh) !important;
+    padding-top: calc(var(--header-h, 8.92dvh) + 2.35dvh) !important;
+    padding-bottom: 3.76vh !important;
+    padding-bottom: 3.76dvh !important;
+  }
+
+  .zuse-m-process-h2 {
+    font-size: clamp(1.5rem, min(7.63vw, 3.52vh), 2.25rem);
+    font-size: clamp(1.5rem, min(7.63vw, 3.52dvh), 2.25rem);
+    line-height: 1.15;
+  }
+
+  .zuse-m-process-numeral {
+    font-size: clamp(3.75rem, min(19.08vw, 8.8vh), 5.75rem);
+    font-size: clamp(3.75rem, min(19.08vw, 8.8dvh), 5.75rem);
+  }
+
+  /* ------------------------------------------------------------------------
+     8. SERVICES SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-services {
+    min-height: auto;
+    padding-block: 5.63vh;
+    padding-block: 5.63dvh;
+  }
+
+  .zuse-m-services-header {
+    margin-bottom: 4.22vh;
+    margin-bottom: 4.22dvh;
+  }
+
+  .zuse-m-services-h2 {
+    font-size: clamp(1.5rem, min(7.63vw, 3.52vh), 2.25rem);
+    font-size: clamp(1.5rem, min(7.63vw, 3.52dvh), 2.25rem);
+    line-height: 1.15;
+  }
+
+  .zuse-m-services-item {
+    padding-block: 2.82vh;
+    padding-block: 2.82dvh;
+  }
+
+  .zuse-m-services-h3 {
+    font-size: clamp(1.125rem, min(5.09vw, 2.35vh), 1.375rem);
+    font-size: clamp(1.125rem, min(5.09vw, 2.35dvh), 1.375rem);
+  }
+
+  /* ------------------------------------------------------------------------
+     9. FAQ SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-faq {
+    min-height: auto;
+    padding-block: 5.63vh;
+    padding-block: 5.63dvh;
+  }
+
+  .zuse-m-faq-header {
+    margin-bottom: 4.22vh;
+    margin-bottom: 4.22dvh;
+  }
+
+  .zuse-m-faq-h2 {
+    font-size: clamp(1.5rem, min(7.63vw, 3.52vh), 2.25rem);
+    font-size: clamp(1.5rem, min(7.63vw, 3.52dvh), 2.25rem);
+    line-height: 1.15;
+  }
+
+  .zuse-m-faq-trigger {
+    padding-block: 1.88vh;
+    padding-block: 1.88dvh;
+    font-size: clamp(0.9375rem, min(4.33vw, 2vh), 1.15rem);
+    font-size: clamp(0.9375rem, min(4.33vw, 2dvh), 1.15rem);
+  }
+
+  .zuse-m-faq-content {
+    padding-bottom: 2.35vh;
+    padding-bottom: 2.35dvh;
+    font-size: clamp(0.8125rem, min(3.56vw, 1.64vh), 0.9375rem);
+    font-size: clamp(0.8125rem, min(3.56vw, 1.64dvh), 0.9375rem);
+  }
+
+  /* ------------------------------------------------------------------------
+     10. CONTACT SECTION
+     ------------------------------------------------------------------------ */
+  .zuse-m-contact {
+    min-height: auto;
+    padding-block: 5.63vh;
+    padding-block: 5.63dvh;
+  }
+
+  .zuse-m-contact-grid {
+    gap: 3.76vh;
+    gap: 3.76dvh;
+  }
+
+  .zuse-m-contact-h2 {
+    font-size: clamp(1.5rem, min(7.63vw, 3.52vh), 2.25rem);
+    font-size: clamp(1.5rem, min(7.63vw, 3.52dvh), 2.25rem);
+    line-height: 1.15;
+  }
+
+  .zuse-m-contact-form > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 2.82vh;
+    margin-top: 2.82dvh;
+  }
+
+  .zuse-m-contact-input {
+    font-size: max(16px, 1.88vh);
+    font-size: max(16px, 1.88dvh);
+    padding: 1.41vh min(3.56vw, 1.64vh);
+    padding: 1.41dvh min(3.56vw, 1.64dvh);
+  }
+
+  .zuse-m-contact-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: clamp(42px, 5.63vh, 52px);
+    min-height: clamp(42px, 5.63dvh, 52px);
+    padding: 1.41vh min(7.12vw, 3.29vh);
+    padding: 1.41dvh min(7.12vw, 3.29dvh);
+  }
+
+  /* ------------------------------------------------------------------------
+     11. FOOTER
+     ------------------------------------------------------------------------ */
+  .zuse-m-footer {
+    padding-block: 5.63vh;
+    padding-block: 5.63dvh;
+  }
+
+  .zuse-m-footer-grid {
+    gap: 4.22vh;
+    gap: 4.22dvh;
+    padding-bottom: 5.63vh;
+    padding-bottom: 5.63dvh;
+  }
+
+  .zuse-m-footer-desc {
+    margin-top: 2.35vh;
+    margin-top: 2.35dvh;
+    font-size: clamp(0.8125rem, min(3.56vw, 1.64vh), 0.9375rem);
+    font-size: clamp(0.8125rem, min(3.56vw, 1.64dvh), 0.9375rem);
+  }
+
+  .zuse-m-footer-cols {
+    gap: 3.29vh min(6.11vw, 2.82vh);
+    gap: 3.29dvh min(6.11vw, 2.82dvh);
+  }
+
+  .zuse-m-footer-bottom {
+    padding-top: 3.29vh;
+    padding-top: 3.29dvh;
+    gap: 1.41vh;
+    gap: 1.41dvh;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP & TABLET (>= 768px) — HERO "TELEFONE INFINITO" (CORTE EM 100dvh)
+   Mesmo motor matemático único via CSS Custom Properties do mobile:
+   - Bloco superior: 52–58dvh (fim dos CTAs em 56dvh)
+   - Topo do telefone: 60dvh (meta 58–62dvh)
+   - Altura do telefone: ~76.5–80dvh (corte exato de 50–52% na linha de 100dvh)
+   ========================================================================== */
+@media (min-width: 768px) {
+  #hero.zuse-m-hero {
+    /* Tokens — Fallback vh */
+    --hero-pad-top: calc(var(--header-h, 88px) + 4vh);
+    --hero-title-size: clamp(2.75rem, min(5.2vw, 6.8vh), 6.25rem);
+    --hero-sub-size: clamp(0.9375rem, min(1.5vw, 1.85vh), 1.5rem);
+    --hero-gap: 2.6vh;
+    --hero-cta-height: clamp(42px, 4.8vh, 56px);
+    --hero-phone-gap: 4vh;
+    --phone-start-offset: 60vh;
+    --phone-width: min(50vw, 39.2vh);
+    --phone-height: calc(var(--phone-width) * 1243 / 609);
+    --hero-pad-bottom: 8vh;
+    --watermark-size: min(16.5vw, 24vh);
+    --watermark-box-h: 36vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-top: var(--hero-pad-top) !important;
+    padding-bottom: var(--hero-pad-bottom) !important;
+  }
+
+  @supports (height: 1dvh) {
+    #hero.zuse-m-hero {
+      --hero-pad-top: calc(var(--header-h, 88px) + 4dvh);
+      --hero-title-size: clamp(2.75rem, min(5.2vw, 6.8dvh), 6.25rem);
+      --hero-sub-size: clamp(0.9375rem, min(1.5vw, 1.85dvh), 1.5rem);
+      --hero-gap: 2.6dvh;
+      --hero-cta-height: clamp(42px, 4.8dvh, 56px);
+      --hero-phone-gap: 4dvh;
+      --phone-start-offset: 60dvh;
+      --phone-width: min(50vw, 39.2dvh);
+      --phone-height: calc(var(--phone-width) * 1243 / 609);
+      --hero-pad-bottom: 8dvh;
+      --watermark-size: min(16.5vw, 24dvh);
+      --watermark-box-h: 36dvh;
+    }
+  }
+
+  .zuse-m-hero-bg {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .zuse-m-watermark-wrap {
+    height: var(--watermark-box-h);
+  }
+
+  .zuse-m-watermark-text {
+    font-size: var(--watermark-size);
+    transform: translateY(10%);
+  }
+
+  .zuse-m-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .zuse-m-hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(var(--phone-start-offset) - var(--hero-pad-top) - var(--hero-phone-gap));
+    margin-bottom: var(--hero-phone-gap);
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .zuse-m-hero-h1 {
+    font-size: var(--hero-title-size);
+    line-height: 1.06;
+    text-wrap: balance;
+  }
+
+  .zuse-m-hero-sub {
+    margin-top: var(--hero-gap);
+    font-size: var(--hero-sub-size);
+    line-height: 1.55;
+    max-width: min(68vw, 58ch);
+    margin-inline: auto;
+  }
+
+  .zuse-m-hero-ctas {
+    margin-top: calc(var(--hero-gap) * 1.25);
+    gap: clamp(12px, 1.5vw, 20px);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    width: fit-content;
+    align-self: center;
+    margin-inline: auto;
+  }
+
+  .zuse-m-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    white-space: nowrap;
+    min-height: var(--hero-cta-height);
+    padding: 0 clamp(24px, 2.2vw, 36px);
+    font-size: clamp(0.875rem, min(1.05vw, 1.55vh), 1.0625rem);
+    font-size: clamp(0.875rem, min(1.05vw, 1.55dvh), 1.0625rem);
+  }
+
+  .zuse-m-mockup-wrap {
+    margin-top: 0;
+    gap: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .zuse-m-mockup-box {
+    width: var(--phone-width);
+    height: auto;
+    aspect-ratio: 609 / 1243;
+  }
+}

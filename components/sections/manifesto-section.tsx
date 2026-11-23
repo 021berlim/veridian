@@ -93,12 +93,12 @@ export function ManifestoSection() {
     return (
       <section
         id="manifesto"
-        className="flex min-h-[100svh] flex-col justify-center items-center border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
+        className="zuse-m-manifesto flex min-h-[100svh] flex-col justify-center items-center border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
         style={{ paddingTop: "var(--header-h, 92px)" }}
         aria-label="Manifesto Zuse Labs"
       >
         <Container className="max-w-5xl text-center">
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem]">
+          <div className="zuse-m-manifesto-words flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem]">
             {MANIFESTO_WORDS.map((w, i) => (
               <span
                 key={i}
@@ -118,7 +118,7 @@ export function ManifestoSection() {
       <section
         ref={pinRef}
         id="manifesto"
-        className="relative flex h-screen w-full flex-col justify-center items-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
+        className="zuse-m-manifesto relative flex h-screen w-full flex-col justify-center items-center overflow-hidden border-b border-[#2b2d31] bg-[#0b0b0d] px-6 text-white"
         style={{
           // Centralização ótica exata: desconta a altura do header para que a distância
           // do topo do texto até o header seja RIGOROSAMENTE IGUAL à distância da base do texto até o fim da tela
@@ -130,7 +130,7 @@ export function ManifestoSection() {
           {/* Tipografia robusta inspirada no Lando Norris: bold, tracking tenso, escala ampla e iluminação progressiva sem colisão entre palavras */}
           <div
             ref={wordsContainerRef}
-            className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem] select-none"
+            className="zuse-m-manifesto-words flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-x-5 sm:gap-y-3.5 md:gap-x-6 md:gap-y-4 font-sans text-2xl font-bold uppercase tracking-tight leading-[1.2] sm:text-3xl md:text-4xl lg:text-[2.85rem] xl:text-[3.15rem] select-none"
           >
             {MANIFESTO_WORDS.map((w, i) => (
               <span

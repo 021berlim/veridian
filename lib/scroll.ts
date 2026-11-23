@@ -40,8 +40,14 @@ function smoothScrollFallback(target: number) {
 }
 
 export function scrollToSection(targetId: string) {
-  const element = document.getElementById(targetId.replace("#", ""))
-  if (!element) return
+  const hash = targetId.startsWith("#") ? targetId : `#${targetId}`
+  const element = document.getElementById(hash.slice(1))
+  if (!element) {
+    if (typeof window !== "undefined" && window.location.pathname !== "/") {
+      window.location.href = `/${hash}`
+    }
+    return
+  }
 
   ensureLenisRunning()
 
@@ -59,6 +65,11 @@ export function scrollToSection(targetId: string) {
 }
 
 export function scrollToTop() {
+  if (typeof window !== "undefined" && window.location.pathname !== "/") {
+    window.location.href = "/"
+    return
+  }
+
   ensureLenisRunning()
 
   if (lenisInstance) {

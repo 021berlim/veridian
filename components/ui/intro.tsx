@@ -15,10 +15,10 @@ export function Intro() {
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const hasHash = window.location.hash.length > 1
-    const isDevRoute = window.location.pathname.startsWith("/dev/")
+    const isNonHomeRoute = window.location.pathname !== "/"
 
-    // Se o usuário prefere movimento reduzido, acessou rota dev ou via âncora direta (#contato etc.), pula intro
-    if (prefersReduced || hasHash || isDevRoute) {
+    // Se o usuário prefere movimento reduzido, acessou rota interna (/contato, /dev, etc.) ou âncora direta, pula intro
+    if (prefersReduced || hasHash || isNonHomeRoute) {
       document.documentElement.dataset.introState = "done"
       document.documentElement.setAttribute("data-preloader-done", "true")
       window.dispatchEvent(new Event("intro-complete"))

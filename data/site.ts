@@ -124,15 +124,28 @@ export const techStack = [
   { name: "Go", category: "Backend" },
 ] as const
 
+export const trustedClients = [
+  { id: "valkora", name: "VALKORA", subtitle: "INDUSTRIES" },
+  { id: "kronos", name: "KRONOS", subtitle: "CAPITAL" },
+  { id: "aetheris", name: "AETHERIS", subtitle: "BIOSCIENCE" },
+  { id: "monolith", name: "MONOLITH", subtitle: "INFRASTRUCTURE" },
+  { id: "verdantia", name: "VERDANTIA", subtitle: "GLOBAL AGRO" },
+  { id: "nexaero", name: "NEXAERO", subtitle: "LOGISTICS" },
+  { id: "solaris", name: "SOLARIS", subtitle: "ENERGY GRID" },
+  { id: "obsidian", name: "OBSIDIAN", subtitle: "HOLDINGS" },
+] as const
+
+export type TrustedClientId = (typeof trustedClients)[number]["id"]
+
 export const clientLogos = [
-  { slug: "grupo-atlas", name: "Next.js", src: "/images/clients/grupo-atlas.svg" },
-  { slug: "nexus-labs", name: "React", src: "/images/clients/nexus-labs.svg" },
-  { slug: "elan-studio", name: "TypeScript", src: "/images/clients/elan-studio.svg" },
-  { slug: "vertex-capital", name: "Python", src: "/images/clients/vertex-capital.svg" },
-  { slug: "lumina-group", name: "Node.js", src: "/images/clients/lumina-group.svg" },
-  { slug: "meridian-co", name: "PostgreSQL", src: "/images/clients/meridian-co.svg" },
-  { slug: "forma-digital", name: "Docker", src: "/images/clients/forma-digital.svg" },
-  { slug: "orbita-tech", name: "AWS", src: "/images/clients/orbita-tech.svg" },
+  { slug: "valkora", name: "Valkora Industries", src: "/images/clients/grupo-atlas.svg" },
+  { slug: "kronos", name: "Kronos Capital", src: "/images/clients/nexus-labs.svg" },
+  { slug: "aetheris", name: "Aetheris Bioscience", src: "/images/clients/elan-studio.svg" },
+  { slug: "monolith", name: "Monolith Infrastructure", src: "/images/clients/vertex-capital.svg" },
+  { slug: "verdantia", name: "Verdantia Global Agro", src: "/images/clients/lumina-group.svg" },
+  { slug: "nexaero", name: "Nexaero Logistics", src: "/images/clients/meridian-co.svg" },
+  { slug: "solaris", name: "Solaris Energy Grid", src: "/images/clients/forma-digital.svg" },
+  { slug: "obsidian", name: "Obsidian Holdings", src: "/images/clients/orbita-tech.svg" },
 ] as const
 
 export const processFeatures = [

@@ -198,13 +198,13 @@ export function ProcessSection() {
     return (
       <section
         id="processo"
-        className="flex min-h-[100svh] flex-col justify-center border-b border-[#2b2d31] bg-[#0b0b0d] py-16 text-white"
+        className="zuse-m-process flex min-h-[100svh] flex-col justify-center border-b border-[#2b2d31] bg-[#0b0b0d] py-16 text-white"
         style={{ paddingTop: "calc(var(--header-h, 92px) + 2rem)" }}
         aria-label="Método de Engenharia"
       >
         <Container>
           <div className="mb-12 max-w-3xl">
-            <h2 className="font-sans text-3xl font-light tracking-[-0.03em] sm:text-5xl md:text-6xl text-white">
+            <h2 className="zuse-m-process-h2 font-sans text-3xl font-light tracking-[-0.03em] sm:text-5xl md:text-6xl text-white">
               {landingContent.process.title}
             </h2>
             <p className="mt-4 text-base text-[#8a8f98] md:text-lg">
@@ -258,7 +258,7 @@ export function ProcessSection() {
       <section
         ref={pinRef}
         id="processo"
-        className="relative flex h-screen w-full flex-col justify-between overflow-x-clip border-b border-[#2b2d31] bg-[#0b0b0d] px-6 py-8 md:px-12 text-white"
+        className="zuse-m-process relative flex h-screen w-full flex-col justify-between overflow-x-clip border-b border-[#2b2d31] bg-[#0b0b0d] px-6 py-8 md:px-12 text-white"
         style={{
           paddingTop: "calc(var(--header-h, 92px) + 1.5rem)",
           paddingBottom: "2.5rem",
@@ -268,7 +268,7 @@ export function ProcessSection() {
         <Container className="w-full flex-1 flex flex-col justify-between">
           {/* Cabeçalho do Método: Título e Subtítulo */}
           <div className="max-w-3xl">
-            <h2 className="font-sans text-3xl font-light tracking-[-0.03em] sm:text-4xl md:text-5xl text-white">
+            <h2 className="zuse-m-process-h2 font-sans text-3xl font-light tracking-[-0.03em] sm:text-4xl md:text-5xl text-white">
               {landingContent.process.title}
             </h2>
             <p className="mt-3 text-sm text-[#8a8f98] md:text-base max-w-2xl">
@@ -304,7 +304,7 @@ export function ProcessSection() {
                       ref={(el) => {
                         if (el) numeralsRef.current[i] = el
                       }}
-                      className="step-numeral block font-sans font-light select-none text-[clamp(5.5rem,10.5vw,9.5rem)] leading-none will-change-transform transition-colors duration-300"
+                      className="zuse-m-process-numeral step-numeral block font-sans font-light select-none text-[clamp(5.5rem,10.5vw,9.5rem)] leading-none will-change-transform transition-colors duration-300"
                       style={{
                         WebkitTextStroke: i === 0 ? "1px #c72c3b" : "1px rgba(255, 255, 255, 0.28)",
                         color: i === 0 ? "#c72c3b" : "transparent",

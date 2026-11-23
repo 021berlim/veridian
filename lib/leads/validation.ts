@@ -1,5 +1,7 @@
-import { PROJECT_TYPE_OPTIONS } from "@/lib/vera/constants"
+import { projectTypes } from "@/data/site"
 import type { WhatsAppLeadPayload } from "./types"
+
+const PROJECT_TYPE_OPTIONS = [...projectTypes]
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -49,6 +51,20 @@ export function normalizeWhatsAppLead(
     PROJECT_TYPE_OPTIONS.find((type) => type.toLowerCase() === project!.toLowerCase()) ??
     (/outro/i.test(project!) ? "Outro" : project!)
 
+  const whatsapp = pickString(body, ["whatsapp", "phone", "telefone", "celular"])
+  const currentScenario = pickString(body, ["currentScenario"])
+  const companySize = pickString(body, ["companySize"])
+  const timeline = pickString(body, ["timeline"])
+  const engagementModel = pickString(body, ["engagementModel"])
+  const budgetRange = pickString(body, ["budgetRange"])
+  const projectSummary = pickString(body, ["projectSummary", "message"])
+  const referenceUrl = pickString(body, ["referenceUrl"])
+  const preferredChannel = pickString(body, ["preferredChannel"])
+  const protocolId = pickString(body, ["protocolId"])
+  const servicePillars = Array.isArray(body.servicePillars)
+    ? body.servicePillars.filter((item): item is string => typeof item === "string" && item.trim().length > 0)
+    : undefined
+
   return {
     valid: true,
     data: {
@@ -57,6 +73,17 @@ export function normalizeWhatsAppLead(
       company: company!.trim(),
       project: projectMatch,
       origem,
+      ...(whatsapp ? { whatsapp } : {}),
+      ...(servicePillars && servicePillars.length > 0 ? { servicePillars } : {}),
+      ...(currentScenario ? { currentScenario } : {}),
+      ...(companySize ? { companySize } : {}),
+      ...(timeline ? { timeline } : {}),
+      ...(engagementModel ? { engagementModel } : {}),
+      ...(budgetRange ? { budgetRange } : {}),
+      ...(projectSummary ? { projectSummary } : {}),
+      ...(referenceUrl ? { referenceUrl } : {}),
+      ...(preferredChannel ? { preferredChannel } : {}),
+      ...(protocolId ? { protocolId } : {}),
       ...(remoteJid ? { remoteJid } : {}),
       ...(pushName ? { pushName } : {}),
     },

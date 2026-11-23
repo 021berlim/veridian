@@ -79,7 +79,7 @@ export function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projetos"
-      className="relative border-b border-[#2b2d31] bg-[#0b0b0d] text-white py-12 md:py-0 md:h-[calc(100dvh-var(--header-h,5.75rem))] md:max-h-[calc(100dvh-var(--header-h,5.75rem))] flex flex-col justify-center overflow-hidden"
+      className="zuse-m-projects relative border-b border-[#2b2d31] bg-[#0b0b0d] text-white py-12 md:py-0 md:h-[calc(100dvh-var(--header-h,5.75rem))] md:max-h-[calc(100dvh-var(--header-h,5.75rem))] flex flex-col justify-center overflow-hidden"
       aria-label="Projetos em Produção"
     >
       {/* Custom Cursor no Desktop */}
@@ -101,7 +101,7 @@ export function ProjectsSection() {
                   : { y: "100%", opacity: 0 }
               }
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.03em] text-white whitespace-nowrap"
+              className="zuse-m-projects-h2 font-sans text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-[-0.03em] text-white whitespace-nowrap"
             >
               Projetos que já estão em produção.
             </motion.h2>
@@ -218,7 +218,7 @@ export function ProjectsSection() {
         {/* CARROSSEL MOBILE (<768px): Grade de mídia com cantos arredondados */}
         <div className="block md:hidden">
           {/* Prévia de Mídia Mobile Única com Altura Ajustada */}
-          <div className="relative w-full h-[320px] sm:h-[360px] flex items-center justify-center mb-6 overflow-hidden">
+          <div className="zuse-m-projects-preview relative w-full h-[320px] sm:h-[360px] flex items-center justify-center mb-6 overflow-hidden">
             {!isDesktop && currentMobileProject && (
               <ProjectPreviewGrid
                 key={currentMobileProject.slug}
@@ -240,7 +240,7 @@ export function ProjectsSection() {
               <Link
                 key={project.slug}
                 href={`/projetos/${project.slug}`}
-                className="w-[85vw] min-w-[280px] shrink-0 snap-start flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#111215] p-5 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]"
+                className="zuse-m-projects-card w-[85vw] min-w-[280px] shrink-0 snap-start flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#111215] p-5 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]"
               >
                 {/* Info */}
                 <div className="flex items-baseline justify-between">

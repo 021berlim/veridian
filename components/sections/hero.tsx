@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { PhoneMockup } from "@/components/sections/phone-mockup"
@@ -80,14 +81,14 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] flex-col items-center justify-between overflow-hidden px-6 pb-12"
+      className="zuse-m-hero relative flex min-h-[100svh] flex-col items-center justify-between overflow-hidden px-6 pb-12"
       style={{
         paddingTop: "calc(var(--header-h, 96px) + clamp(32px, 6vh, 72px))",
       }}
       aria-label="Hero"
     >
       {/* Camada fixa de 100vh — fundo colapsável + marca d'água ZUSE LABS */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-screen overflow-hidden">
+      <div className="zuse-m-hero-bg pointer-events-none absolute inset-x-0 top-0 z-0 h-screen overflow-hidden">
         <div
           className="w-full overflow-hidden will-change-transform"
           style={{
@@ -100,7 +101,7 @@ export function Hero() {
         </div>
 
         <div
-          className="absolute inset-x-0 bottom-0 flex h-[38vh] items-end justify-center overflow-hidden"
+          className="zuse-m-watermark-wrap absolute inset-x-0 bottom-0 flex h-[38vh] items-end justify-center overflow-hidden"
           style={{
             transform: `translateY(${scrollProgress * 150}px)`,
             opacity: Math.max(0, 1 - scrollProgress * 0.8),
@@ -110,7 +111,7 @@ export function Hero() {
             data-intro-reveal
             className="flex items-end justify-center opacity-0 translate-y-6 will-change-transform"
           >
-            <span className="block translate-y-[10%] whitespace-nowrap font-sans font-light text-[22vw] leading-none tracking-tighter select-none sm:text-[20vw] md:text-[18vw] lg:text-[16vw]">
+            <span className="zuse-m-watermark-text block translate-y-[10%] whitespace-nowrap font-sans font-light text-[22vw] leading-none tracking-tighter select-none sm:text-[20vw] md:text-[18vw] lg:text-[16vw]">
               <span className="text-white/[0.06]">ZUSE </span>
               <span className="text-[#c72c3b] opacity-40">LABS</span>
             </span>
@@ -118,13 +119,13 @@ export function Hero() {
         </div>
       </div>
 
-      <Container className="relative z-10 w-full">
-        <div ref={heroContentRef} className="mx-auto mb-10 max-w-4xl text-center md:mb-12 lg:max-w-5xl">
+      <Container className="zuse-m-hero-inner relative z-10 w-full">
+        <div ref={heroContentRef} className="zuse-m-hero-content mx-auto mb-10 max-w-4xl text-center md:mb-12 lg:max-w-5xl">
           <div
             data-intro-reveal
             className="translate-y-6 opacity-0 will-change-transform"
           >
-            <h1 className="font-sans text-4xl font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="zuse-m-hero-h1 font-sans text-4xl font-light leading-[1.1] tracking-[-0.03em] text-white text-balance sm:text-5xl md:text-6xl lg:text-7xl">
               Você sonha, a gente <span className="text-[#c72c3b]">compila.</span>
             </h1>
           </div>
@@ -133,39 +134,38 @@ export function Hero() {
             data-intro-reveal
             className="translate-y-6 opacity-0 will-change-transform"
           >
-            <p className="mx-auto mt-6 max-w-2xl font-sans text-base leading-relaxed text-[#8a8f98] md:mt-8 md:text-lg">
+            <p className="zuse-m-hero-sub mx-auto mt-6 max-w-2xl font-sans text-base leading-relaxed text-[#8a8f98] md:mt-8 md:text-lg">
               {landingContent.hero.subtitle}
             </p>
           </div>
 
           <div
             data-intro-reveal
-            className="mt-8 flex flex-col items-center justify-center gap-4 translate-y-6 opacity-0 will-change-transform sm:flex-row"
+            className="zuse-m-hero-ctas mt-8 flex flex-col items-center justify-center gap-4 translate-y-6 opacity-0 will-change-transform sm:flex-row"
           >
             <button
               type="button"
               onClick={() => scrollToSection("#servicos")}
-              className="group flex items-center gap-2 rounded-full border border-white bg-white px-7 py-3 text-sm font-medium text-black transition-all hover:bg-white/90"
+              className="zuse-m-hero-cta group flex items-center gap-2 rounded-full border border-white bg-white px-7 py-3 text-sm font-medium text-black transition-all hover:bg-white/90"
             >
               {landingContent.hero.secondaryCta}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection("#contato")}
-              className="rounded-full border border-white/20 bg-transparent px-7 py-3 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/5"
+            <Link
+              href="/contato"
+              className="zuse-m-hero-cta rounded-full border border-white/20 bg-transparent px-7 py-3 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/5"
             >
               {landingContent.hero.primaryCta}
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* Celular — posicionado diretamente e animado em conjunto com o hero */}
-        <div className="flex flex-col items-center justify-center gap-8">
+        <div className="zuse-m-mockup-wrap flex flex-col items-center justify-center gap-8">
           <div className="relative">
             <div
               data-intro-reveal
-              className="relative w-[234px] will-change-transform translate-y-6 opacity-0 md:w-[281px] lg:w-[351px]"
+              className="zuse-m-mockup-box relative w-[234px] will-change-transform translate-y-6 opacity-0 md:w-[281px] lg:w-[351px]"
             >
               <PhoneMockup className="w-full" />
             </div>

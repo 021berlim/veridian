@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Link from "next/link"
 import { ArrowRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { navItems } from "@/data/site"
@@ -78,7 +79,7 @@ export function Navbar() {
       >
         <div
           className={cn(
-            "mx-auto max-w-7xl rounded-2xl border px-6 py-3.5 transition-all duration-300 sm:px-10 sm:py-4",
+            "zuse-m-nav-bar mx-auto max-w-7xl rounded-2xl border px-6 py-3.5 transition-all duration-300 sm:px-10 sm:py-4",
             isScrolled
               ? "border-white/[0.08] bg-[#141416] shadow-2xl"
               : "border-transparent bg-transparent shadow-none",
@@ -88,7 +89,7 @@ export function Navbar() {
             {/* Slot de destino da Logo no Header (Contrato A2/A3) */}
             <div
               id="zuse-header-logo-slot"
-              className="flex h-9 w-auto min-w-[140px] shrink-0 items-center py-0.5 sm:min-w-[170px]"
+              className="flex h-10 w-auto min-w-[140px] shrink-0 items-center py-0.5 sm:min-w-[170px]"
             >
               {hasLogoInSlot && (
                 <button
@@ -111,9 +112,8 @@ export function Navbar() {
 
             {/* Ações à Direita: CTA Pílula e Botão Mobile */}
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => handleNavClick("#contato")}
+              <Link
+                href="/contato"
                 className="group relative hidden items-center gap-0 overflow-hidden rounded-full border border-white/15 bg-white/[0.04] py-1 pr-1 pl-5 transition-all duration-300 hover:border-[#c72c3b] md:flex"
               >
                 <span className="absolute inset-0 origin-right scale-x-0 rounded-full bg-[#c72c3b] transition-transform duration-300 group-hover:scale-x-100" />
@@ -123,12 +123,12 @@ export function Navbar() {
                 <span className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-colors duration-300 group-hover:bg-black/20">
                   <ArrowRight className="h-3.5 w-3.5 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
                 </span>
-              </button>
+              </Link>
 
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-white hover:bg-white/5 md:hidden"
+                className="zuse-m-menu-btn flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-white hover:bg-white/5 md:hidden"
                 aria-label="Abrir menu"
               >
                 <Menu className="h-5 w-5" />

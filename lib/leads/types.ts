@@ -1,10 +1,21 @@
-export type LeadSource = "whatsapp" | "vera-chat" | "contact-form"
+export type LeadSource = "whatsapp" | "contact-form"
 
 export type WhatsAppLeadPayload = {
   name: string
   email: string
   company: string
   project: string
+  whatsapp?: string
+  servicePillars?: string[]
+  currentScenario?: string
+  companySize?: string
+  timeline?: string
+  engagementModel?: string
+  budgetRange?: string
+  projectSummary?: string
+  referenceUrl?: string
+  preferredChannel?: string
+  protocolId?: string
   origem?: string
   remoteJid?: string
   pushName?: string
