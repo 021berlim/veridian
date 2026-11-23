@@ -1,7 +1,10 @@
+"use client"
+
 import Link from "next/link"
 import { Container } from "@/components/layout/container"
 import { Logo } from "@/components/layout/logo"
 import { siteConfig } from "@/data/site"
+import { scrollToSection } from "@/lib/scroll"
 
 const footerSections = [
   {
@@ -29,7 +32,7 @@ const footerSections = [
     links: [
       { label: "LinkedIn", href: "https://www.linkedin.com/company/zuse-labs" },
       { label: "GitHub", href: "https://github.com/zuselabs" },
-      { label: "Contato", href: "#contato" },
+      { label: "Contato", href: "/contato" },
     ],
   },
 ] as const
@@ -57,16 +60,39 @@ export function Footer() {
                   {section.title}
                 </span>
                 <ul className="mt-4 space-y-3">
-                  {section.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="text-sm font-light text-[#8a8f98] transition-colors hover:text-white"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                  {section.links.map((link) => {
+                    const isHash = link.href.startsWith("#")
+                    const isExternal = link.href.startsWith("http")
+                    return (
+                      <li key={link.label}>
+                        {isHash ? (
+                          <button
+                            type="button"
+                            onClick={() => scrollToSection(link.href)}
+                            className="text-sm font-light text-[#8a8f98] transition-colors hover:text-white"
+                          >
+                            {link.label}
+                          </button>
+                        ) : isExternal ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-light text-[#8a8f98] transition-colors hover:text-white"
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="text-sm font-light text-[#8a8f98] transition-colors hover:text-white"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             ))}

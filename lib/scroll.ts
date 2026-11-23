@@ -1,6 +1,7 @@
 import type Lenis from "lenis"
 
 export const HEADER_OFFSET = 96
+export const PENDING_SCROLL_KEY = "zuse-scroll-target"
 
 const CAMERA_EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
 const SCROLL_DURATION = 1.05
@@ -17,6 +18,16 @@ export function getLenis() {
 
 function ensureLenisRunning() {
   lenisInstance?.start()
+}
+
+function clearUrlHash() {
+  if (typeof window !== "undefined" && window.location.hash) {
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}`,
+    )
+  }
 }
 
 function smoothScrollFallback(target: number) {
@@ -40,15 +51,22 @@ function smoothScrollFallback(target: number) {
 }
 
 export function scrollToSection(targetId: string) {
-  const hash = targetId.startsWith("#") ? targetId : `#${targetId}`
-  const element = document.getElementById(hash.slice(1))
+  const cleanId = targetId.replace(/^#/, "")
+  const element = document.getElementById(cleanId)
+
   if (!element) {
     if (typeof window !== "undefined" && window.location.pathname !== "/") {
-      window.location.href = `/${hash}`
+      try {
+        sessionStorage.setItem(PENDING_SCROLL_KEY, cleanId)
+      } catch {
+        // ignora se storage indisponível
+      }
+      window.location.href = "/"
     }
     return
   }
 
+  clearUrlHash()
   ensureLenisRunning()
 
   if (lenisInstance) {
@@ -64,12 +82,35 @@ export function scrollToSection(targetId: string) {
   smoothScrollFallback(top)
 }
 
+export function consumePendingScrollTarget(): void {
+  if (typeof window === "undefined") return
+
+  let targetId: string | null = null
+  try {
+    targetId = sessionStorage.getItem(PENDING_SCROLL_KEY)
+    if (targetId) sessionStorage.removeItem(PENDING_SCROLL_KEY)
+  } catch {
+    // ignora
+  }
+
+  if (!targetId && window.location.hash.length > 1) {
+    targetId = window.location.hash.slice(1)
+    clearUrlHash()
+  }
+
+  if (targetId) {
+    const id = targetId
+    window.setTimeout(() => scrollToSection(id), 80)
+  }
+}
+
 export function scrollToTop() {
   if (typeof window !== "undefined" && window.location.pathname !== "/") {
     window.location.href = "/"
     return
   }
 
+  clearUrlHash()
   ensureLenisRunning()
 
   if (lenisInstance) {

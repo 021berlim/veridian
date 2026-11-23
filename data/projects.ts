@@ -71,6 +71,129 @@ export function getProjectMedia(project: Project): ScreenSource[] {
 
 export const projects: readonly Project[] = [
   {
+    slug: "fernanda-talavera",
+    name: "Fernanda Talavera",
+    category: "software",
+    tagline:
+      "Plataforma digital e vitrine imobiliária de alto padrão com foco em conversão consultiva.",
+    context:
+      "Posicionamento digital sob medida para a corretora de imóveis de alto padrão Fernanda Talavera, unindo estética arquitetural editorial, carregamento instantâneo e captura qualificada de compradores.",
+    challenge:
+      "Criar uma presença digital que fugisse dos portais imobiliários genéricos e poluídos, destacando a curadoria de empreendimentos com a mesma sofisticação do atendimento presencial.",
+    solution:
+      "Desenvolvimento de landing page e vitrine responsiva em Next.js com direção de arte minimalista, galeria otimizada em formatos de nova geração e integração direta para agendamento consultivo.",
+    result:
+      "Experiência fluida em desktop e mobile com alta retenção visual, carregamento sub-segundo e elevação imediata na percepção de autoridade da marca.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-01.webp",
+      },
+      phone: {
+        type: "image",
+        src: "/projects/fernanda-talavera/mobile-hero.webp",
+      },
+    },
+    media: [
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-01.webp",
+        title: "01 · Hero Editorial — Talavera",
+      },
+      {
+        type: "video",
+        src: "/projects/fernanda-talavera/walkthrough.webm",
+        poster: "/projects/fernanda-talavera/section-01.webp",
+        title: "Navegação Completa da Landing Page (Vídeo)",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-02.webp",
+        title: "02 · Arquitetura Inteligente",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-03.webp",
+        title: "03 · Empreendimentos Direcional",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-04.webp",
+        title: "04 · Luz Natural & Conforto",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-05.webp",
+        title: "05 · Curadoria e Diferenciais",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-06.webp",
+        title: "06 · Empreendimentos em Destaque",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-07.webp",
+        title: "07 · Consultoria Personalizada",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-08.webp",
+        title: "08 · Simulação e Atendimento",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/section-09.webp",
+        title: "09 · Rodapé e Contato Direto",
+      },
+      {
+        type: "image",
+        src: "/projects/fernanda-talavera/mobile-hero.webp",
+        title: "Versão Mobile — Primeira Dobra",
+      },
+    ],
+    editorial: {
+      summary: [
+        "Projetada e desenvolvida pela Zuse Labs para a corretora Fernanda Talavera, a plataforma traduz a elegância da arquitetura contemporânea para o ambiente digital. Cada seção foi pensada para valorizar os empreendimentos sem ruído visual, conduzindo visitantes qualificados diretamente ao atendimento consultivo.",
+        "Com arquitetura moderna em Next.js e otimização rigorosa de assets, a experiência entrega fluidez cinematográfica tanto em telas desktop quanto em smartphones — elevando a taxa de engajamento e a percepção de exclusividade da marca.",
+      ],
+      stats: [
+        { value: "< 0.6s", label: "First Contentful Paint", description: "Carregamento imediato com assets otimizados na edge." },
+        { value: "100%", label: "Responsivo Mobile", description: "Enquadramento editorial calibrado para iOS e Android." },
+        { value: "Alto Padrão", label: "Direção de Arte", description: "Tipografia arquitetural e foco absoluto nos imóveis." },
+      ],
+      sections: [
+        {
+          kicker: "01 // POSICIONAMENTO E ESTÉTICA",
+          title: "Curadoria Digital à Altura do Mercado Imobiliário de Luxo",
+          paragraphs: [
+            "O mercado imobiliário de alto padrão exige uma experiência digital que transmita confiança e critério desde o primeiro segundo. Em vez de listas sobrecarregadas de filtros, desenhamos uma vitrine limpa, com tipografia expressiva e amplo respiro visual.",
+          ],
+          figure: {
+            type: "image",
+            src: "/projects/fernanda-talavera/section-03.webp",
+            title: "Vitrine de Empreendimentos em Desktop",
+          },
+        },
+        {
+          kicker: "02 // CONVERSÃO EM MOBILE",
+          title: "Do Primeiro Olhar ao Contato Direto",
+          paragraphs: [
+            "Como grande parte do tráfego qualificado chega via Instagram e indicações no celular, toda a jornada mobile foi desenhada para facilitar a navegação pelos imóveis e o acionamento imediato do atendimento consultivo.",
+          ],
+          figure: {
+            type: "image",
+            src: "/projects/fernanda-talavera/mobile-hero.webp",
+            title: "Visualização Mobile Calibrada",
+          },
+        },
+      ],
+    },
+  },
+  {
     slug: "erp-multiusuario",
     name: "ERP multiusuário",
     category: "software",

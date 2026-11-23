@@ -3,10 +3,50 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Layers } from "lucide-react"
+import { Code2, Database, Layers, Sparkles } from "lucide-react"
+import {
+  SiAndroid,
+  SiDocker,
+  SiElectron,
+  SiFastapi,
+  SiFramer,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiReact,
+  SiRedis,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si"
 import type { Project, ScreenSource } from "@/data/projects"
-import { getProjectMedia, CATEGORY_LABELS } from "@/data/projects"
+import { getProjectMedia } from "@/data/projects"
 import { MediaZoomModal } from "./media-zoom-modal"
+
+function StackIcon({ tech }: { tech: string }) {
+  const key = tech.toLowerCase()
+  const cls = "h-3.5 w-3.5 shrink-0 text-[#a1a7b3]"
+  if (key.includes("next")) return <SiNextdotjs className={cls} />
+  if (key.includes("typescript")) return <SiTypescript className={cls} />
+  if (key.includes("tailwind")) return <SiTailwindcss className={cls} />
+  if (key.includes("framer")) return <SiFramer className={cls} />
+  if (key.includes("vercel")) return <SiVercel className={cls} />
+  if (key.includes("electron")) return <SiElectron className={cls} />
+  if (key.includes("node")) return <SiNodedotjs className={cls} />
+  if (key.includes("postgres")) return <SiPostgresql className={cls} />
+  if (key.includes("react")) return <SiReact className={cls} />
+  if (key.includes("prisma")) return <SiPrisma className={cls} />
+  if (key.includes("android")) return <SiAndroid className={cls} />
+  if (key.includes("redis")) return <SiRedis className={cls} />
+  if (key.includes("docker")) return <SiDocker className={cls} />
+  if (key.includes("python")) return <SiPython className={cls} />
+  if (key.includes("fastapi")) return <SiFastapi className={cls} />
+  if (key.includes("openai") || key.includes("openrouter")) return <Sparkles className={cls} />
+  if (key.includes("qdrant")) return <Database className={cls} />
+  return <Code2 className={cls} />
+}
 
 interface CaseArticleProps {
   project: Project
@@ -46,20 +86,17 @@ export function CaseArticle({ project }: CaseArticleProps) {
           {project.tagline}
         </p>
 
-        {/* Badges de Stack Tecnológica + Categoria + Ano */}
+        {/* Badges de Stack Tecnológica com ícones */}
         <div className="flex flex-wrap items-center gap-2 pt-2">
           {project.stack.map((tech) => (
             <span
               key={tech}
-              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-[#16171b] border border-[#2b2d31] text-[#e5e7eb] shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full border border-[#2b2d31] bg-[#16171b] px-3.5 py-1.5 text-xs font-mono text-[#e5e7eb] shadow-sm"
             >
-              {tech}
+              <StackIcon tech={tech} />
+              <span>{tech}</span>
             </span>
           ))}
-
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-[#c72c3b]/10 border border-[#c72c3b]/40 text-[#c72c3b] ml-auto">
-            {CATEGORY_LABELS[project.category] || project.category} // {project.year || "2025"}
-          </span>
         </div>
       </header>
 

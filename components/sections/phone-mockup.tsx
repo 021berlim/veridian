@@ -2,12 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { APPS } from "@/components/phone/data"
-import { ClientDashboardView } from "@/components/phone/client-dashboard"
-import { StudentPortalView } from "@/components/phone/student-portal"
-import { FinanceView } from "@/components/phone/finance"
-import { WorkshopView } from "@/components/phone/workshop"
-import { AssistantView } from "@/components/phone/assistant"
+import { PHONE_SCREENS } from "@/components/phone/data"
 
 // Inset preciso que faz o canvas da tela cobrir perfeitamente o desenho da moldura
 const SCREEN_INSET = {
@@ -26,20 +21,19 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
   const [activeScreenIndex, setActiveScreenIndex] = useState(0)
 
   useEffect(() => {
-    // Ciclo de 6s por tela (≥ 5.5s conforme especificado)
     const interval = setInterval(() => {
-      setActiveScreenIndex((prev) => (prev + 1) % APPS.length)
-    }, 6000)
+      setActiveScreenIndex((prev) => (prev + 1) % PHONE_SCREENS.length)
+    }, 5500)
     return () => clearInterval(interval)
   }, [])
 
-  const currentApp = APPS[activeScreenIndex]
+  const currentScreen = PHONE_SCREENS[activeScreenIndex]
 
   return (
     <div
       className={`relative ${className}`}
       role="img"
-      aria-hidden="true"
+      aria-label="Demonstração de aplicativos e landing pages criados pela Zuse Labs"
     >
       <div className="relative w-full">
         {/* Moldura original do iPhone */}
@@ -51,7 +45,7 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
           draggable={false}
         />
 
-        {/* Tela interna com alinhamento perfeito aos cantos do bezel (sem borda cinza externa) */}
+        {/* Tela interna com imagens AVIF/WebP ultraleves */}
         <div
           id="phone-screen-container"
           className="absolute z-20 overflow-hidden"
@@ -65,41 +59,48 @@ export function PhoneMockup({ className = "" }: PhoneMockupProps) {
             containerType: "inline-size",
           }}
         >
-          {/* Dynamic Island realista da Apple (câmera frontal com ótica AR sapphire + sensor FaceID) */}
+          {/* Dynamic Island */}
           <div
-            className="pointer-events-none absolute top-[2.2%] left-1/2 z-30 flex h-[2.7%] min-h-[11px] max-h-[15px] w-[22%] -translate-x-1/2 items-center justify-between px-[2.2cqw] rounded-full shadow-inner select-none"
+            className="pointer-events-none absolute top-[2.2%] left-1/2 z-30 flex h-[2.7%] min-h-[11px] max-h-[15px] w-[22%] -translate-x-1/2 items-center justify-between rounded-full px-[2.2cqw] shadow-inner select-none"
             style={{
               backgroundColor: "#000000",
               border: "0.5px solid rgba(255, 255, 255, 0.08)",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.9), inset 0 0.5px 1px rgba(255, 255, 255, 0.06)",
+              boxShadow:
+                "0 1px 3px rgba(0, 0, 0, 0.9), inset 0 0.5px 1px rgba(255, 255, 255, 0.06)",
             }}
           >
-            {/* Sensor TrueDepth / FaceID */}
             <div className="h-[1.4cqw] w-[1.4cqw] rounded-full bg-[#08080c] ring-1 ring-white/[0.04]" />
-
-            {/* Lente da Câmera Frontal (Abertura óptica com reflexo azul-safira) */}
             <div className="relative flex h-[1.9cqw] w-[1.9cqw] items-center justify-center rounded-full bg-[#0c0d14] ring-1 ring-white/[0.06]">
               <div className="h-[0.9cqw] w-[0.9cqw] rounded-full bg-[#1c2242]" />
               <div className="absolute top-[0.4cqw] right-[0.4cqw] h-[0.3cqw] w-[0.3cqw] rounded-full bg-[#465a9e]/70" />
             </div>
           </div>
 
-          {/* Conteúdo da Tela com AnimatePresence e transição de translateY 12px */}
+          {/* Telas otimizadas em AVIF + WebP com transição horizontal esquerda → direita */}
           <div className="relative h-full w-full overflow-hidden">
-            <AnimatePresence mode="wait">
+            <AnimatePresence initial={false}>
               <motion.div
-                key={currentApp.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="h-full w-full"
+                key={currentScreen.id}
+                initial={{ opacity: 0, x: -32 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 32 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 h-full w-full will-change-transform"
               >
-                {currentApp.id === "client-dashboard" && <ClientDashboardView />}
-                {currentApp.id === "student-portal" && <StudentPortalView />}
-                {currentApp.id === "finance" && <FinanceView />}
-                {currentApp.id === "workshop" && <WorkshopView />}
-                {currentApp.id === "assistant" && <AssistantView />}
+                <picture className="block h-full w-full">
+                  <source srcSet={currentScreen.avif} type="image/avif" />
+                  <source srcSet={currentScreen.webp} type="image/webp" />
+                  <img
+                    src={currentScreen.webp}
+                    alt={currentScreen.name}
+                    width={540}
+                    height={1140}
+                    loading={activeScreenIndex === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    draggable={false}
+                    className="h-full w-full object-cover object-top select-none"
+                  />
+                </picture>
               </motion.div>
             </AnimatePresence>
           </div>

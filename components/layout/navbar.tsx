@@ -5,7 +5,7 @@ import Link from "next/link"
 import { ArrowRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { navItems } from "@/data/site"
-import { scrollToSection, scrollToTop } from "@/lib/scroll"
+import { scrollToSection, scrollToTop, consumePendingScrollTarget } from "@/lib/scroll"
 import { Logo } from "@/components/layout/logo"
 import { NavLink } from "@/components/layout/nav-link"
 import { MobileMenu } from "@/components/layout/mobile-menu"
@@ -65,8 +65,16 @@ export function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    consumePendingScrollTarget()
+  }, [])
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false)
+    if (href === "#contato") {
+      window.location.href = "/contato"
+      return
+    }
     requestAnimationFrame(() => scrollToSection(href))
   }
 

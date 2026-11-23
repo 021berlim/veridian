@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { ArrowLeft } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa6"
 import { openWhatsApp } from "@/lib/whatsapp"
 
@@ -43,7 +44,7 @@ export function SubmissionSuccess({
   const isDetails = phase === "details"
 
   return (
-    <div className="mx-auto flex min-h-[360px] max-w-2xl flex-col items-center justify-center text-center">
+    <div className="mx-auto -mt-6 flex min-h-[360px] max-w-2xl flex-col items-center justify-center text-center sm:-mt-10">
       {/* Verificado contínuo: começa em foco central e desliza (FLIP) para cima do título */}
       <motion.div
         layout
@@ -128,7 +129,7 @@ export function SubmissionSuccess({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.48, delay: 0.22, ease: EASE_EDITORIAL }}
-            className="mt-4 text-sm leading-relaxed text-[#8a8f98] sm:text-base"
+            className="mx-auto mt-4 max-w-xl text-balance text-sm leading-relaxed text-[#8a8f98] sm:text-base"
           >
             Nosso time de especialistas já recebeu os detalhes{" "}
             {companyLabel ? (
@@ -147,7 +148,7 @@ export function SubmissionSuccess({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.48, delay: 0.3, ease: EASE_EDITORIAL }}
-            className="mt-4 text-xs leading-relaxed text-[#6b7280] sm:text-sm"
+            className="mx-auto mt-4 max-w-md text-balance text-xs leading-relaxed text-[#6b7280] sm:text-sm"
           >
             Nossa equipe entrará em contato logo. Caso prefira agilizar o contato, você pode usar o
             botão abaixo para falar direto no WhatsApp.
@@ -157,21 +158,22 @@ export function SubmissionSuccess({
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.48, delay: 0.38, ease: EASE_EDITORIAL }}
-            className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"
+            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
             <button
               type="button"
               onClick={() => openWhatsApp(whatsappHref)}
-              className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#c72c3b] px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-[#a61f2c]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c72c3b] px-7 py-3 text-sm font-medium leading-none text-white transition-colors hover:bg-[#a61f2c]"
             >
-              <FaWhatsapp className="h-4 w-4" />
-              Falar no WhatsApp agora
+              <FaWhatsapp className="h-4 w-4 shrink-0" />
+              <span>Falar no WhatsApp agora</span>
             </button>
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-full border border-[#2b2d31] px-7 py-3 text-sm font-medium text-[#d4d7dd] transition-colors hover:border-white/30 hover:text-white"
+              className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#2b2d31] px-6 py-3 text-sm font-medium leading-none text-[#d4d7dd] transition-colors hover:border-white/30 hover:text-white"
             >
-              Voltar ao início
+              <ArrowLeft className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:-translate-x-0.5" />
+              <span>Voltar ao início</span>
             </Link>
           </motion.div>
         </div>

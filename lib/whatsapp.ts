@@ -24,15 +24,18 @@ export function buildBriefingWhatsAppMessage(ctx: WhatsAppLeadContext): string {
   const name = ctx.fullName?.trim()
   const company = ctx.company?.trim()
   const role = ctx.role?.trim()
-  const identity = [company, role].filter(Boolean).join(" — ")
 
-  if (!name && !identity) {
+  if (!name && !company && !role) {
     return DEFAULT_WHATSAPP_MESSAGE
   }
 
-  const introName = name ? `Sou ${name}` : "Acabei de preencher meu contato"
-  const identitySuffix = identity ? ` (${identity})` : ""
-  return `Olá, time da Zuse Labs! ${introName}${identitySuffix}. Acabei de enviar o briefing pelo site e gostaria de agilizar o alinhamento da nossa reunião de diagnóstico.`
+  const introParts: string[] = []
+  if (name) introParts.push(`Sou ${name}`)
+  if (company) introParts.push(`da ${company}`)
+  const intro = introParts.length > 0 ? introParts.join(" ") : "Acabei de preencher meu contato"
+  const roleSuffix = role ? ` (${role})` : ""
+
+  return `Olá, time da Zuse Labs! ${intro}${roleSuffix}. Acabei de enviar o briefing pelo site e gostaria de agilizar o alinhamento da nossa reunião de diagnóstico.`
 }
 
 export function getContextualWhatsApp(): { href: string; isPersonalized: boolean } {

@@ -1,10 +1,7 @@
 "use client"
 
 import { useState, useMemo, useRef, useEffect } from "react"
-import Link from "next/link"
-import dynamic from "next/dynamic"
 import { motion, AnimatePresence, useInView } from "framer-motion"
-import { ArrowUpRight } from "lucide-react"
 import { Container } from "@/components/layout/container"
 import { usePrefersReducedMotion } from "@/lib/motion"
 import {
@@ -16,6 +13,7 @@ import {
 import { FilterTabs } from "./filter-tabs"
 import { ProjectIndex } from "./project-index"
 import { CustomCursor } from "./custom-cursor"
+import { MobilePosterDeck } from "./mobile-poster-deck"
 
 import { ProjectPreviewGrid } from "@/components/projects/case/stage/ProjectPreviewGrid"
 
@@ -59,27 +57,11 @@ export function ProjectsSection() {
     }
   }, [filteredProjects])
 
-  // Mobile scroll-snap tracking
-  const [mobileActiveIndex, setMobileActiveIndex] = useState(0)
-  const mobileScrollRef = useRef<HTMLDivElement>(null)
-
-  const handleMobileScroll = () => {
-    const el = mobileScrollRef.current
-    if (!el || filteredProjects.length === 0) return
-    const scrollLeft = el.scrollLeft
-    const cardWidth = el.offsetWidth * 0.85
-    const index = Math.round(scrollLeft / cardWidth)
-    const boundedIndex = Math.max(0, Math.min(index, filteredProjects.length - 1))
-    setMobileActiveIndex(boundedIndex)
-  }
-
-  const currentMobileProject = filteredProjects[mobileActiveIndex] || filteredProjects[0]
-
   return (
     <section
       ref={sectionRef}
       id="projetos"
-      className="zuse-m-projects relative border-b border-[#2b2d31] bg-[#0b0b0d] text-white py-12 md:py-0 md:h-[calc(100dvh-var(--header-h,5.75rem))] md:max-h-[calc(100dvh-var(--header-h,5.75rem))] flex flex-col justify-center overflow-hidden"
+      className="zuse-m-projects relative border-b border-[#2b2d31] bg-[#0b0b0d] text-white py-12 md:py-0 md:h-[calc(100dvh-var(--header-h,5.75rem))] md:max-h-[calc(100dvh-var(--header-h,5.75rem))] flex flex-col justify-center overflow-x-clip md:overflow-hidden"
       aria-label="Projetos em Produção"
     >
       {/* Custom Cursor no Desktop */}
@@ -89,7 +71,7 @@ export function ProjectsSection() {
         reducedMotion={reducedMotion}
       />
 
-      <Container className="h-full flex flex-col justify-between pt-4 md:pt-6 pb-4 md:pb-6 min-h-0">
+      <Container className="h-auto md:h-full flex flex-col justify-between pt-4 md:pt-6 pb-4 md:pb-6 min-h-0">
         {/* Cabeçalho da Seção + FilterTabs */}
         <div className="shrink-0 mb-2 md:mb-3 max-w-4xl">
           <div className="overflow-hidden py-0.5">
@@ -215,83 +197,11 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* CARROSSEL MOBILE (<768px): Grade de mídia com cantos arredondados */}
+        {/* STICKY STACKING POSTER DECK MOBILE (<768px) */}
         <div className="block md:hidden">
-          {/* Prévia de Mídia Mobile Única com Altura Ajustada */}
-          <div className="zuse-m-projects-preview relative w-full h-[320px] sm:h-[360px] flex items-center justify-center mb-6 overflow-hidden">
-            {!isDesktop && currentMobileProject && (
-              <ProjectPreviewGrid
-                key={currentMobileProject.slug}
-                screens={currentMobileProject.screens}
-                media={currentMobileProject.media}
-                alt={`Interface do sistema ${currentMobileProject.name}`}
-              />
-            )}
-          </div>
-
-          {/* Lista Horizontal de Cards para Navegação */}
-          <div
-            ref={mobileScrollRef}
-            onScroll={handleMobileScroll}
-            className="flex w-full overflow-x-auto snap-x snap-mandatory gap-5 pb-4 scrollbar-none"
-            style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
-          >
-            {filteredProjects.map((project, i) => (
-              <Link
-                key={project.slug}
-                href={`/projetos/${project.slug}`}
-                className="zuse-m-projects-card w-[85vw] min-w-[280px] shrink-0 snap-start flex flex-col rounded-2xl border border-[#2b2d31]/80 bg-[#111215] p-5 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c72c3b]"
-              >
-                {/* Info */}
-                <div className="flex items-baseline justify-between">
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-sm text-[#c72c3b]">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-sans text-xl font-normal text-white">
-                      {project.name}
-                    </h3>
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-[#8a8f98]" />
-                </div>
-
-                <p className="mt-3 text-xs leading-relaxed text-[#8a8f98] line-clamp-2">
-                  {project.tagline}
-                </p>
-
-                <div className="mt-4 pt-3 border-t border-[#2b2d31]/40 font-mono text-[10px] text-[#6b7280]">
-                  <span className="text-[#c72c3b] mr-1.5">STACK //</span>
-                  {project.stack.slice(0, 3).join(" / ")}
-                  {project.stack.length > 3 ? "..." : ""}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Indicador de progresso e contador */}
-          <div className="w-full pt-4">
-            <div className="flex items-center justify-between gap-6">
-              <div className="relative h-[1px] w-full bg-white/10 overflow-hidden">
-                <div
-                  className="absolute inset-y-0 left-0 w-full origin-left bg-[#c72c3b] transition-transform duration-300 ease-out"
-                  style={{
-                    transform: `scaleX(${
-                      filteredProjects.length > 0
-                        ? (mobileActiveIndex + 1) / filteredProjects.length
-                        : 0
-                    })`,
-                  }}
-                />
-              </div>
-              <span
-                className="shrink-0 font-mono text-sm tracking-wider text-[#8a8f98] select-none"
-                aria-live="off"
-              >
-                {String(mobileActiveIndex + 1).padStart(2, "0")} /{" "}
-                {String(filteredProjects.length).padStart(2, "0")}
-              </span>
-            </div>
-          </div>
+          {!isDesktop && (
+            <MobilePosterDeck key={activeCategory} projects={filteredProjects} />
+          )}
         </div>
       </Container>
     </section>

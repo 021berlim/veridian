@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { ZuseMonogram, ZuseLogotype } from "@/components/ui/zuse-logo"
 import { gsap, INTRO } from "@/lib/motion"
-import { getLenis } from "@/lib/scroll"
+import { getLenis, PENDING_SCROLL_KEY } from "@/lib/scroll"
 
 export function Intro() {
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -16,9 +16,15 @@ export function Intro() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const hasHash = window.location.hash.length > 1
     const isNonHomeRoute = window.location.pathname !== "/"
+    let hasPendingScroll = false
+    try {
+      hasPendingScroll = Boolean(sessionStorage.getItem(PENDING_SCROLL_KEY))
+    } catch {
+      hasPendingScroll = false
+    }
 
-    // Se o usuário prefere movimento reduzido, acessou rota interna (/contato, /dev, etc.) ou âncora direta, pula intro
-    if (prefersReduced || hasHash || isNonHomeRoute) {
+    // Se o usuário prefere movimento reduzido, acessou rota interna ou veio de um link de seção, pula intro
+    if (prefersReduced || hasHash || isNonHomeRoute || hasPendingScroll) {
       document.documentElement.dataset.introState = "done"
       document.documentElement.setAttribute("data-preloader-done", "true")
       window.dispatchEvent(new Event("intro-complete"))

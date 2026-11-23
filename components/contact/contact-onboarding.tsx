@@ -805,10 +805,10 @@ export function ContactOnboarding() {
                       <button
                         type="button"
                         onClick={handleBack}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#2b2d31] px-5 py-2.5 text-sm font-medium text-[#c9cdd4] transition-colors hover:border-white/30 hover:text-white"
+                        className="group inline-flex items-center justify-center gap-2 rounded-full border border-[#2b2d31] px-5 py-2.5 text-sm font-medium leading-none text-[#c9cdd4] transition-colors hover:border-white/30 hover:text-white"
                       >
-                        <ArrowLeft className="h-4 w-4" />
-                        Voltar
+                        <ArrowLeft className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:-translate-x-0.5" />
+                        <span>Voltar</span>
                       </button>
                     ) : (
                       <div />
@@ -818,26 +818,26 @@ export function ContactOnboarding() {
                       <button
                         type="button"
                         onClick={handleNext}
-                        className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-2.5 text-sm font-medium text-black transition-all hover:bg-white/90"
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-2.5 text-sm font-medium leading-none text-black transition-all hover:bg-white/90"
                       >
-                        Continuar
-                        <ArrowRight className="h-4 w-4" />
+                        <span>Continuar</span>
+                        <ArrowRight className="h-4 w-4 shrink-0" />
                       </button>
                     ) : (
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#c72c3b] px-7 py-2.5 text-sm font-medium text-white transition-all hover:bg-[#a61f2c] disabled:opacity-60"
+                        className="inline-flex items-center justify-center gap-2 rounded-full bg-[#c72c3b] px-7 py-2.5 text-sm font-medium leading-none text-white transition-all hover:bg-[#a61f2c] disabled:opacity-60"
                       >
                         {isSubmitting ? (
                           <>
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                            Enviando...
+                            <Loader2 className="h-4 w-4 shrink-0 animate-spin" />
+                            <span>Enviando...</span>
                           </>
                         ) : (
                           <>
-                            Enviar briefing
-                            <ArrowRight className="h-4 w-4" />
+                            <span>Enviar briefing</span>
+                            <ArrowRight className="h-4 w-4 shrink-0" />
                           </>
                         )}
                       </button>
