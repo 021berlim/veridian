@@ -30,17 +30,28 @@ function clearUrlHash() {
   }
 }
 
-function smoothScrollFallback(target: number) {
+function getHeaderHeight(): number {
+  if (typeof window === "undefined") return HEADER_OFFSET
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--header-h")
+  const parsed = Number.parseFloat(raw)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : HEADER_OFFSET
+}
+
+function smoothScrollFallback(
+  target: number,
+  durationSec = SCROLL_DURATION,
+  easing: (t: number) => number = CAMERA_EASING,
+) {
   const start = window.scrollY
   const distance = target - start
-  const duration = SCROLL_DURATION * 1000
+  const duration = durationSec * 1000
   let startTime: number | null = null
 
   const step = (timestamp: number) => {
     if (!startTime) startTime = timestamp
     const elapsed = timestamp - startTime
     const progress = Math.min(elapsed / duration, 1)
-    const eased = CAMERA_EASING(progress)
+    const eased = easing(progress)
 
     window.scrollTo(0, start + distance * eased)
 
@@ -48,6 +59,53 @@ function smoothScrollFallback(target: number) {
   }
 
   requestAnimationFrame(step)
+}
+
+export function scrollToElementCenter(
+  element: HTMLElement | null,
+  options?: {
+    duration?: number
+    immediate?: boolean
+    easing?: (t: number) => number
+  },
+) {
+  if (!element || typeof window === "undefined") return
+
+  ensureLenisRunning()
+  lenisInstance?.resize()
+
+  const headerH = getHeaderHeight()
+  const rect = element.getBoundingClientRect()
+  const elementCenterY = rect.top + window.scrollY + rect.height / 2
+  const visibleCenterOffset = headerH + (window.innerHeight - headerH) / 2
+  const maxScrollY = Math.max(
+    0,
+    document.documentElement.scrollHeight - window.innerHeight,
+  )
+  const targetY = Math.max(
+    0,
+    Math.min(maxScrollY, elementCenterY - visibleCenterOffset),
+  )
+
+  const immediate = options?.immediate ?? false
+  const duration = immediate ? 0 : (options?.duration ?? 0.85)
+  const easing = options?.easing ?? CAMERA_EASING
+
+  if (lenisInstance) {
+    lenisInstance.scrollTo(targetY, {
+      immediate,
+      duration,
+      easing,
+    })
+    return
+  }
+
+  if (immediate) {
+    window.scrollTo(0, targetY)
+    return
+  }
+
+  smoothScrollFallback(targetY, duration, easing)
 }
 
 export function scrollToSection(targetId: string) {

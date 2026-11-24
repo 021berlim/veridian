@@ -4,16 +4,18 @@ import { useState, useMemo, useRef, useEffect } from "react"
 import { motion, useInView } from "framer-motion"
 import { Container } from "@/components/layout/container"
 import { ScrollTrigger, usePrefersReducedMotion } from "@/lib/motion"
+import { getLenis } from "@/lib/scroll"
 import {
   projects as allProjects,
   type ProjectCategory,
 } from "@/data/projects"
 import { FilterTabs } from "./filter-tabs"
 import { CustomCursor } from "./custom-cursor"
-import { MobilePosterDeck } from "./mobile-poster-deck"
+import { MobileProjectsCarousel } from "./mobile-projects-carousel"
 import {
   DesktopBentoGrid,
   DESKTOP_BENTO_BATCH_SIZE,
+  type DesktopProjectsViewMode,
 } from "./desktop-bento-grid"
 
 export function ProjectsSection() {
@@ -31,7 +33,7 @@ export function ProjectsSection() {
   }, [])
 
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | "all">("all")
-  const [visibleCount, setVisibleCount] = useState(DESKTOP_BENTO_BATCH_SIZE)
+  const [desktopViewMode, setDesktopViewMode] = useState<DesktopProjectsViewMode>("bento")
   const [isCursorHovered, setIsCursorHovered] = useState(false)
 
   // Apenas categorias que possuem pelo menos 1 projeto
@@ -47,38 +49,42 @@ export function ProjectsSection() {
     return allProjects.filter((p) => p.category === activeCategory)
   }, [activeCategory])
 
-  // Ao trocar filtro, reseta o lote visível para o primeiro bloco
+  // Ao trocar filtro, reseta o hover do cursor e retorna ao modo Bento se houver <= 6 projetos
   const handleSelectCategory = (category: ProjectCategory | "all") => {
+    setIsCursorHovered(false)
     setActiveCategory(category)
-    setVisibleCount(DESKTOP_BENTO_BATCH_SIZE)
+    const nextCount =
+      category === "all"
+        ? allProjects.length
+        : allProjects.filter((p) => p.category === category).length
+    if (nextCount <= DESKTOP_BENTO_BATCH_SIZE) {
+      setDesktopViewMode("bento")
+    }
   }
 
-  // Projetos visíveis no mosaico desktop (lotes equilibrados)
-  const visibleDesktopProjects = useMemo(
-    () => filteredProjects.slice(0, visibleCount),
-    [filteredProjects, visibleCount],
-  )
-
-  const remainingDesktopCount = Math.max(
-    0,
-    filteredProjects.length - visibleDesktopProjects.length,
-  )
-
-  // Recalcula ScrollTriggers abaixo (ex.: ProcessSection) sempre que a altura de #projetos mudar
-  // (ex.: montagem do MobilePosterDeck após hidratação, troca de filtro, carregar mais ou resize)
+  // Recalcula Lenis + ScrollTriggers abaixo (ex.: ProcessSection) após a altura de #projetos assentar,
+  // evitando reflow síncrono no Frame 1 da animação de reorganização dos cards
   useEffect(() => {
     const section = sectionRef.current
     if (!section || typeof ResizeObserver === "undefined") return
 
     let lastHeight = Math.round(section.getBoundingClientRect().height)
+    let timerId: ReturnType<typeof setTimeout> | null = null
     let rafId: number | null = null
 
     const scheduleRefresh = () => {
+      if (timerId !== null) clearTimeout(timerId)
       if (rafId !== null) cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(() => {
-        rafId = null
-        ScrollTrigger.refresh()
-      })
+
+      const delayMs = reducedMotion ? 120 : 1050
+      timerId = setTimeout(() => {
+        timerId = null
+        rafId = requestAnimationFrame(() => {
+          rafId = null
+          getLenis()?.resize()
+          ScrollTrigger.refresh()
+        })
+      }, delayMs)
     }
 
     const observer = new ResizeObserver(() => {
@@ -93,9 +99,10 @@ export function ProjectsSection() {
 
     return () => {
       observer.disconnect()
+      if (timerId !== null) clearTimeout(timerId)
       if (rafId !== null) cancelAnimationFrame(rafId)
     }
-  }, [])
+  }, [reducedMotion])
 
   return (
     <section
@@ -161,28 +168,22 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* MOSAICO ASSIMÉTRICO ESCALÁVEL — BENTO GRID DESKTOP (≥768px) */}
+        {/* MOSAICO BENTO ↔ CARROSSEL CINEMATOGRÁFICO DESKTOP (≥768px) */}
         <div className="hidden md:block">
           {isDesktop && (
             <DesktopBentoGrid
-              projects={visibleDesktopProjects}
-              totalCount={filteredProjects.length}
-              hasMore={remainingDesktopCount > 0}
-              remainingCount={remainingDesktopCount}
-              onLoadMore={() =>
-                setVisibleCount((prev) => prev + DESKTOP_BENTO_BATCH_SIZE)
-              }
+              projects={filteredProjects}
+              viewMode={desktopViewMode}
+              onChangeViewMode={setDesktopViewMode}
               onHoverStateChange={setIsCursorHovered}
               reducedMotion={reducedMotion}
             />
           )}
         </div>
 
-        {/* STICKY STACKING POSTER DECK MOBILE (<768px) — INALTERADO */}
+        {/* CARROSSEL HORIZONTAL CINEMATOGRÁFICO MOBILE (<768px) */}
         <div className="block md:hidden">
-          {!isDesktop && (
-            <MobilePosterDeck key={activeCategory} projects={filteredProjects} />
-          )}
+          {!isDesktop && <MobileProjectsCarousel projects={filteredProjects} />}
         </div>
       </Container>
     </section>
