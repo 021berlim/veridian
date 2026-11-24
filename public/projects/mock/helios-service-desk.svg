@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <rect width="1200" height="760" fill="#f4f6f9"/>
+  <!-- Sidebar -->
+  <rect x="0" y="0" width="224" height="760" fill="#ffffff" stroke="#dce3ec"/>
+  <rect x="28" y="30" width="32" height="32" rx="8" fill="#dc2626"/>
+  <rect x="72" y="38" width="110" height="14" rx="7" fill="#0f172a" fill-opacity="0.85"/>
+  
+    <rect x="24" y="102" width="176" height="36" rx="8" fill="#dc2626" fill-opacity="0.14"/>
+    <circle cx="42" cy="120" r="5" fill="#dc2626"/>
+    <rect x="58" y="115" width="90" height="10" rx="5" fill="#0f172a" fill-opacity="0.9"/>
+  
+    <rect x="24" y="150" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="168" r="5" fill="#64748b"/>
+    <rect x="58" y="163" width="110" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+    <rect x="24" y="198" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="216" r="5" fill="#64748b"/>
+    <rect x="58" y="211" width="130" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+    <rect x="24" y="246" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="264" r="5" fill="#64748b"/>
+    <rect x="58" y="259" width="90" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+    <rect x="24" y="294" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="312" r="5" fill="#64748b"/>
+    <rect x="58" y="307" width="110" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+    <rect x="24" y="342" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="360" r="5" fill="#64748b"/>
+    <rect x="58" y="355" width="130" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+    <rect x="24" y="390" width="176" height="36" rx="8" fill="transparent" fill-opacity="0"/>
+    <circle cx="42" cy="408" r="5" fill="#64748b"/>
+    <rect x="58" y="403" width="90" height="10" rx="5" fill="#64748b" fill-opacity="0.55"/>
+  
+  <!-- Topbar -->
+  <rect x="224" y="0" width="976" height="76" fill="#ffffff" stroke="#dce3ec"/>
+  <text x="260" y="44" fill="#0f172a" font-family="monospace" font-size="16" font-weight="700" letter-spacing="1">Helios Desk · Sustentação ITIL v4</text>
+  <circle cx="1140" cy="38" r="14" fill="#dc2626" fill-opacity="0.22"/>
+  <circle cx="1140" cy="38" r="6" fill="#dc2626"/>
+  <!-- KPI Cards -->
+  
+    <rect x="260" y="104" width="212" height="124" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+    <rect x="282" y="128" width="76" height="8" rx="4" fill="#64748b" fill-opacity="0.5"/>
+    <text x="282" y="176" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">98.6% SLA</text>
+    <rect x="282" y="196" width="168" height="6" rx="3" fill="#eef2f6"/>
+    <rect x="282" y="196" width="95" height="6" rx="3" fill="#dc2626"/>
+  
+    <rect x="490" y="104" width="212" height="124" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+    <rect x="512" y="128" width="76" height="8" rx="4" fill="#64748b" fill-opacity="0.5"/>
+    <text x="512" y="176" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">11m 1ª RESP.</text>
+    <rect x="512" y="196" width="168" height="6" rx="3" fill="#eef2f6"/>
+    <rect x="512" y="196" width="113" height="6" rx="3" fill="#2563eb"/>
+  
+    <rect x="720" y="104" width="212" height="124" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+    <rect x="742" y="128" width="76" height="8" rx="4" fill="#64748b" fill-opacity="0.5"/>
+    <text x="742" y="176" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">4.2K ATIVOS</text>
+    <rect x="742" y="196" width="168" height="6" rx="3" fill="#eef2f6"/>
+    <rect x="742" y="196" width="131" height="6" rx="3" fill="#dc2626"/>
+  
+    <rect x="950" y="104" width="212" height="124" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+    <rect x="972" y="128" width="76" height="8" rx="4" fill="#64748b" fill-opacity="0.5"/>
+    <text x="972" y="176" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="700">NPS 89</text>
+    <rect x="972" y="196" width="168" height="6" rx="3" fill="#eef2f6"/>
+    <rect x="972" y="196" width="149" height="6" rx="3" fill="#2563eb"/>
+  
+  
+      <rect x="260" y="255" width="440" height="445" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+      
+        <rect x="296" y="530" width="32" height="90" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+        <rect x="350" y="483" width="32" height="137" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+        <rect x="404" y="436" width="32" height="184" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+        <rect x="458" y="389" width="32" height="231" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+        <rect x="512" y="342" width="32" height="278" rx="6" fill="#dc2626" fill-opacity="0.95"/>
+      
+        <rect x="566" y="505" width="32" height="115" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+        <rect x="620" y="458" width="32" height="162" rx="6" fill="#2563eb" fill-opacity="0.7"/>
+      
+      <rect x="720" y="255" width="440" height="212" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+      <circle cx="815" cy="361" r="64" fill="none" stroke="#eef2f6" stroke-width="18"/>
+      <circle cx="815" cy="361" r="64" fill="none" stroke="#dc2626" stroke-width="18" stroke-dasharray="260 402" stroke-linecap="round"/>
+      <rect x="912" y="324" width="180" height="12" rx="6" fill="#0f172a" fill-opacity="0.8"/>
+      <rect x="912" y="352" width="140" height="10" rx="5" fill="#64748b" fill-opacity="0.5"/>
+      <rect x="912" y="378" width="110" height="10" rx="5" fill="#2563eb"/>
+      <rect x="720" y="488" width="440" height="212" rx="14" fill="#ffffff" stroke="#dce3ec"/>
+      
+        <rect x="748" y="518" width="384" height="38" rx="8" fill="#eef2f6"/>
+        <rect x="766" y="532" width="160" height="10" rx="5" fill="#0f172a" fill-opacity="0.75"/>
+        <rect x="1040" y="532" width="72" height="10" rx="5" fill="#dc2626"/>
+      
+        <rect x="748" y="572" width="384" height="38" rx="8" fill="#eef2f6"/>
+        <rect x="766" y="586" width="160" height="10" rx="5" fill="#0f172a" fill-opacity="0.75"/>
+        <rect x="1040" y="586" width="72" height="10" rx="5" fill="#dc2626"/>
+      
+        <rect x="748" y="626" width="384" height="38" rx="8" fill="#eef2f6"/>
+        <rect x="766" y="640" width="160" height="10" rx="5" fill="#0f172a" fill-opacity="0.75"/>
+        <rect x="1040" y="640" width="72" height="10" rx="5" fill="#dc2626"/>
+      
+    
+</svg>

@@ -8,6 +8,8 @@ export type { ScreenSource }
 
 export type ProjectCategory = "software" | "suporte" | "seguranca" | "ia"
 
+export type ProjectGridSpan = "wide" | "tall" | "large" | "standard"
+
 export interface EditorialStat {
   value: string
   label: string
@@ -42,6 +44,7 @@ export interface Project {
   media?: ScreenSource[]
   editorial?: EditorialData
   defaultDevice?: DeviceKind
+  gridSpan?: ProjectGridSpan
   year?: string
 }
 
@@ -86,6 +89,7 @@ export const projects: readonly Project[] = [
       "Experiência fluida em desktop e mobile com alta retenção visual, carregamento sub-segundo e elevação imediata na percepção de autoridade da marca.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
     defaultDevice: "laptop",
+    gridSpan: "large",
     year: "2026",
     screens: {
       laptop: {
@@ -208,6 +212,7 @@ export const projects: readonly Project[] = [
       "Tempo médio de autorização de notas reduzido para menos de 500ms e centralização integral das filiais em uma base única auditável.",
     stack: ["TypeScript", "Electron", "Node.js", "PostgreSQL", "Tailwind CSS"],
     defaultDevice: "laptop",
+    gridSpan: "wide",
     year: "2025",
     screens: {
       laptop: {
@@ -306,6 +311,7 @@ export const projects: readonly Project[] = [
       "Eliminação total do uso de papel e redução de mais de 70% no tempo decorrido entre submissão e homologação de defesas.",
     stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL"],
     defaultDevice: "laptop",
+    gridSpan: "wide",
     year: "2024",
     screens: {
       laptop: {
@@ -386,6 +392,7 @@ export const projects: readonly Project[] = [
       "Redução expressiva no tempo percebido de espera e controle transparente da capacidade diária de cada unidade de atendimento.",
     stack: ["React Native", "Android", "Node.js", "Redis", "Docker"],
     defaultDevice: "phone",
+    gridSpan: "wide",
     year: "2024",
     screens: {
       phone: {
@@ -456,6 +463,7 @@ export const projects: readonly Project[] = [
       "Automação de relatórios de mercado que antes demandavam dias de compilação manual, agora gerados em minutos com rastreabilidade total.",
     stack: ["Python", "FastAPI", "OpenAI / OpenRouter", "Qdrant", "Next.js"],
     defaultDevice: "laptop",
+    gridSpan: "wide",
     year: "2025",
     screens: {
       laptop: {
@@ -518,6 +526,366 @@ export const projects: readonly Project[] = [
           },
         },
       ],
+    },
+  },
+  {
+    slug: "nexus-telemetry",
+    name: "Nexus Telemetry",
+    category: "software",
+    tagline:
+      "Plataforma de telemetria industrial IoT em tempo real para parques fabris e cadeias refrigeradas.",
+    context:
+      "Desenvolvida para operadores industriais que precisam monitorar centenas de sensores críticos com latência sub-segundo e alertas preditivos.",
+    challenge:
+      "Substituir planilhas e sistemas SCADA legados sem visibilidade em nuvem por um painel unificado capaz de ingerir milhares de eventos por segundo.",
+    solution:
+      "Arquitetura orientada a eventos com MQTT, TimescaleDB e painel reativo em Next.js com gráficos de alta frequência e disparo automático de alertas.",
+    result:
+      "Redução de 42% em paradas não planejadas de linha e rastreabilidade completa de conformidade térmica.",
+    stack: ["Next.js", "TypeScript", "TimescaleDB", "MQTT", "Go"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/nexus-telemetry.svg",
+      },
+    },
+  },
+  {
+    slug: "medcore-prontuario",
+    name: "MedCore Prontuário",
+    category: "software",
+    tagline:
+      "Prontuário eletrônico hospitalar com prescrição digital assinada, triagem e faturamento TISS.",
+    context:
+      "Sistema clínico completo projetado para hospitais de médio porte e clínicas cirúrgicas que exigem rastreabilidade integral do paciente.",
+    challenge:
+      "Eliminar retrabalho entre enfermagem, corpo clínico e faturamento convênio mantendo interface limpa sob alta pressão operacional.",
+    solution:
+      "Aplicação web modular com assinatura ICP-Brasil, protocolo de Manchester integrado e validação automática de guias TISS antes do envio.",
+    result:
+      "Queda de 68% nas glosas hospitalares e redução de 4 minutos no tempo médio de triagem.",
+    stack: ["Next.js", "PostgreSQL", "NestJS", "FHIR", "Docker"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/medcore-prontuario.svg",
+      },
+    },
+  },
+  {
+    slug: "veritas-aml",
+    name: "Veritas AML Engine",
+    category: "ia",
+    tagline:
+      "Motor de inteligência artificial para detecção de lavagem de dinheiro e análise de grafos transacionais.",
+    context:
+      "Construído para instituições financeiras e fintechs que processam bilhões em volume mensal sob regulação rigorosa do Banco Central.",
+    challenge:
+      "Reduzir o excesso de falsos positivos dos motores baseados apenas em regras estáticas sem perder sensibilidade a esquemas complexos.",
+    solution:
+      "Pipeline de Graph Neural Networks combinado a scoring explicável em tempo real e console investigativo para analistas de compliance.",
+    result:
+      "Queda de 71% em falsos positivos e geração automática de dossiês auditáveis para reporte regulatório.",
+    stack: ["Python", "PyTorch", "Neo4j", "Kafka", "React"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/veritas-aml.svg",
+      },
+    },
+  },
+  {
+    slug: "sentinel-soc",
+    name: "Sentinel SOC 360",
+    category: "seguranca",
+    tagline:
+      "Central de operações de cibersegurança (SIEM/SOAR) com correlação automática e resposta a incidentes.",
+    context:
+      "Plataforma de defesa cibernética para equipes de segurança monitorarem endpoints, clouds híbridas e perímetros de rede em um único painel.",
+    challenge:
+      "Consolidar logs fragmentados de múltiplos provedores e conter ameaças laterais em minutos, não em horas.",
+    solution:
+      "Ingestão distribuída com correlação de regras MITRE ATT&CK e playbooks automatizados de isolamento de host e revogação de sessões.",
+    result:
+      "Tempo médio de contenção (MTTR) reduzido para menos de 3 minutos em incidentes críticos.",
+    stack: ["Rust", "ClickHouse", "OpenTelemetry", "Next.js", "Kubernetes"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/sentinel-soc.svg",
+      },
+    },
+  },
+  {
+    slug: "agroflow-erp",
+    name: "AgroFlow Gestão Agrícola",
+    category: "software",
+    tagline:
+      "Gestão de safras, maquinário, custos por talhão e rastreabilidade de grãos para cooperativas.",
+    context:
+      "Plataforma operacional voltada ao agronegócio de larga escala, conectando apontamentos de campo ao controle financeiro da safra.",
+    challenge:
+      "Operar com sincronização confiável em fazendas sem conectividade estável e consolidar margem real por hectare.",
+    solution:
+      "ERP web + coletor offline-first com georreferenciamento de talhões, controle de insumos e apuração automática de custo por saca.",
+    result:
+      "Visibilidade diária de produtividade em mais de 48 mil hectares monitorados.",
+    stack: ["TypeScript", "Next.js", "PostGIS", "PostgreSQL", "PWA"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/agroflow-erp.svg",
+      },
+    },
+  },
+  {
+    slug: "aura-copilot-juridico",
+    name: "Aura Copiloto Jurídico",
+    category: "ia",
+    tagline:
+      "Assistente jurídico com RAG sobre jurisprudência do STJ/STF, revisão contratual e controle de prazos.",
+    context:
+      "Criado para escritórios corporativos e departamentos jurídicos que revisam centenas de contratos e pareceres por mês.",
+    challenge:
+      "Acelerar a revisão de cláusulas de risco garantindo citações verificáveis e sigilo absoluto dos documentos dos clientes.",
+    solution:
+      "Arquitetura RAG isolada por tenant com indexação híbrida de precedentes, comparação automática de minutas e trilha de auditoria.",
+    result:
+      "Redução de 74% no tempo médio de análise contratual com 99,1% de aderência documental.",
+    stack: ["Python", "FastAPI", "Qdrant", "Next.js", "TypeScript"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/aura-copilot-juridico.svg",
+      },
+    },
+  },
+  {
+    slug: "vortex-fleet",
+    name: "Vortex Gestão de Frotas",
+    category: "software",
+    tagline:
+      "Torre de controle logística com roteirização dinâmica, telemetria embarcada e manutenção preditiva.",
+    context:
+      "Sistema desenvolvido para transportadoras rodoviárias que operam rotas interestaduais com cargas de alto valor agregado.",
+    challenge:
+      "Reduzir ociosidade de veículos, consumo de combustível e atrasos de entrega causados por falhas mecânicas inesperadas.",
+    solution:
+      "Painel geoespacial em tempo real integrado a rastreadores OBD-II, motor de roteirização e alertas automáticos de revisão preventiva.",
+    result:
+      "Economia de 14% em diesel e índice OTIF elevado para 97,4% nas entregas.",
+    stack: ["Next.js", "Node.js", "Mapbox", "Redis", "PostgreSQL"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/vortex-fleet.svg",
+      },
+    },
+  },
+  {
+    slug: "aegis-vault-iam",
+    name: "Aegis Vault & IAM",
+    category: "seguranca",
+    tagline:
+      "Cofre corporativo de credenciais, gestão de identidades Zero Trust e auditoria de acessos privilegiados.",
+    context:
+      "Solução de governança de acessos para empresas com equipes distribuídas e ambientes multi-cloud sujeitos à ISO 27001 e LGPD.",
+    challenge:
+      "Eliminar senhas compartilhadas, chaves estáticas em repositórios e aprovações manuais sem fricção para a engenharia.",
+    solution:
+      "Cofre criptografado com rotação automática de segredos, acesso Just-in-Time (JIT) e logs imutáveis de cada sessão privilegiada.",
+    result:
+      "100% das identidades protegidas com MFA e aprovação direta em auditoria externa de segurança.",
+    stack: ["Go", "HSM / KMS", "OIDC", "Next.js", "PostgreSQL"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/aegis-vault-iam.svg",
+      },
+    },
+  },
+  {
+    slug: "pulse-noc-monitor",
+    name: "Pulse NOC Sustentação",
+    category: "suporte",
+    tagline:
+      "Monitoramento proativo 24/7 de infraestrutura híbrida, SLAs automatizados e gestão de incidentes.",
+    context:
+      "Console operacional utilizado para sustentar ambientes críticos de clientes em nuvem e on-premise com alta disponibilidade.",
+    challenge:
+      "Antecipar degradações de banco de dados, filas e certificados antes que impactem os usuários finais.",
+    solution:
+      "Coleta unificada via Prometheus/OpenTelemetry, correlação de alertas sem ruído e escalonamento automático com runbooks integrados.",
+    result:
+      "Disponibilidade sustentada de 99,99% e redução de 80% em alertas falsos na operação.",
+    stack: ["Prometheus", "Grafana", "Go", "Next.js", "Docker"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/pulse-noc-monitor.svg",
+      },
+    },
+  },
+  {
+    slug: "lumen-fintech-core",
+    name: "Lumen Core Bancário",
+    category: "software",
+    tagline:
+      "Ledger contábil de alta concorrência, conciliação Pix em tempo real e portal de tesouraria.",
+    context:
+      "Infraestrutura financeira sob medida para instituições de pagamento e marketplaces com split complexo de recebíveis.",
+    challenge:
+      "Garantir consistência contábil estrita sob picos de milhares de transações por segundo sem travamentos de banco.",
+    solution:
+      "Ledger double-entry idempotente em Go e PostgreSQL particionado, com conciliação automática D+0 e painel executivo de liquidez.",
+    result:
+      "Mais de R$ 180 milhões conciliados diariamente com 100% de integridade contábil.",
+    stack: ["Go", "PostgreSQL", "Kafka", "Next.js", "TypeScript"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/lumen-fintech-core.svg",
+      },
+    },
+  },
+  {
+    slug: "synth-vision-qa",
+    name: "SynthVision Inspeção",
+    category: "ia",
+    tagline:
+      "Visão computacional embarcada para detecção de microdefeitos em linhas de montagem a 120 fps.",
+    context:
+      "Sistema de controle de qualidade industrial operando na borda (edge AI) para indústrias metalmecânicas e automotivas.",
+    challenge:
+      "Inspecionar peças em alta velocidade com precisão submilimétrica onde a inspeção humana sofria fadiga visual.",
+    solution:
+      "Modelos de segmentação otimizados em TensorRT rodando em gateways industriais com dashboard de rastreabilidade por lote.",
+    result:
+      "Precisão de 99,84% na detecção de microfissuras e queda de 63% no índice de retrabalho.",
+    stack: ["Python", "TensorRT", "CUDA", "FastAPI", "React"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/synth-vision-qa.svg",
+      },
+    },
+  },
+  {
+    slug: "atlas-gov-compras",
+    name: "Atlas Compras Públicas",
+    category: "software",
+    tagline:
+      "Portal de licitações, pregões eletrônicos e compliance documental adaptado à Lei 14.133.",
+    context:
+      "Plataforma de governança para órgãos públicos e consórcios municipais digitalizarem todo o ciclo de compras e contratos.",
+    challenge:
+      "Integrar pesquisa de preços, pareceres, atas e publicação no PNCP sem planilhas paralelas ou risco de apontamento em tribunais de contas.",
+    solution:
+      "Workflow digital completo com geração automática de ETP/TR, assinatura eletrônica e sincronização nativa com a API do PNCP.",
+    result:
+      "Economia média de 19% nas aquisições e 100% dos processos auditáveis em clique único.",
+    stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Gov.br SSO"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/atlas-gov-compras.svg",
+      },
+    },
+  },
+  {
+    slug: "bastion-pentest-hub",
+    name: "Bastion AppSec Hub",
+    category: "seguranca",
+    tagline:
+      "Gestão contínua de vulnerabilidades, SAST/DAST em pipelines CI/CD e relatórios executivos OWASP.",
+    context:
+      "Plataforma de segurança ofensiva e defensiva para times de engenharia corrigirem brechas antes do deploy em produção.",
+    challenge:
+      "Unificar achados de pentests manuais, scanners de dependências e análise de código em um fluxo acionável para desenvolvedores.",
+    solution:
+      "Orquestrador integrado ao GitHub Actions com priorização por explorabilidade real, SLAs de correção e reteste automatizado.",
+    result:
+      "Zero vulnerabilidades críticas em produção ao longo de 124 repositórios monitorados.",
+    stack: ["TypeScript", "Next.js", "Semgrep", "Docker", "PostgreSQL"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/bastion-pentest-hub.svg",
+      },
+    },
+  },
+  {
+    slug: "echo-voice-agent",
+    name: "Echo Central de Voz IA",
+    category: "ia",
+    tagline:
+      "Agente conversacional de voz com baixa latência para triagem de sinistros e atendimento 24h.",
+    context:
+      "Desenvolvido para seguradoras e centrais de assistência que lidam com picos imprevisíveis de ligações emergenciais.",
+    challenge:
+      "Substituir URAs rígidas de teclas por conversas naturais em português brasileiro com resposta abaixo de 400ms.",
+    solution:
+      "Orquestração full-duplex via WebRTC com ASR/TTS neural, detecção de interrupção e integração direta ao CRM de sinistros.",
+    result:
+      "84% das ocorrências resolvidas no primeiro contato com nota média de satisfação 4,9/5.",
+    stack: ["Python", "WebRTC", "LiveKit", "OpenAI Realtime", "Next.js"],
+    defaultDevice: "laptop",
+    year: "2026",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/echo-voice-agent.svg",
+      },
+    },
+  },
+  {
+    slug: "helios-service-desk",
+    name: "Helios Enterprise Desk",
+    category: "suporte",
+    tagline:
+      "Central de sustentação de TI corporativa com catálogo ITIL v4, automação de chamados e gestão de ativos.",
+    context:
+      "Plataforma construída para operações de TI que atendem centenas de colaboradores em múltiplas filiais.",
+    challenge:
+      "Organizar chamados dispersos em e-mail e WhatsApp, controlar inventário de equipamentos e dar transparência aos SLAs.",
+    solution:
+      "Portal de autoatendimento com triagem inteligente, CMDB integrado, automação de onboarding e painéis executivos de desempenho.",
+    result:
+      "Cumprimento de 98,6% dos SLAs e tempo médio de primeira resposta reduzido para 11 minutos.",
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Redis", "Tailwind CSS"],
+    defaultDevice: "laptop",
+    year: "2025",
+    screens: {
+      laptop: {
+        type: "image",
+        src: "/projects/mock/helios-service-desk.svg",
+      },
     },
   },
 ]
